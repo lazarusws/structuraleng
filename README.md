@@ -27,17 +27,6 @@ Precision: <input type="text" id="digits" value="3" size="2">
 
 </p>
 
-<!-- Table format with border and spacing-->
-
-<style> 
-table, th, td {
-  border: 1px solid black;
-}
-th, td {
-  padding: 5px;
-}
-</style>
-
 <table style="width:50%" >
 
 <tr>
