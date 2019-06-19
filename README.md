@@ -4,7 +4,7 @@
 <head>
 <title>RC Beam Design </title>
 <script src="general.js"></script>
-<script src="beamdesign.js"></script>
+<script src="https://cdnraw.git.com/lazarusws/structuraleng/master/beamdesign.js"></script>
 </head>
 
 <body>
