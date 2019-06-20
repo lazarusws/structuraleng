@@ -114,13 +114,13 @@ function designcalculation()
 	//function_analysis_sagging
 	//column and middle_strip                                    //Moment division is 50 %, values for column and middle strip is equal.
 
-	ksagc = Msaggcol/( B * fck * Math.pow(d,2));                  //Change D in to effective depth 
+	ksagc = (Msaggcol/( B * fck * Math.pow(d,2)));                  //Change D in to effective depth 
 
 	ksagm = Msaggmid/( B * fck * Math.pow(d,2));
 
-	zsagc = (d/2) * (1 + Math.sqrt(1-3.53 * ksagc));                  //Change D in to effective depth
+	zsagc = Math.min(((d/2) * (1 + Math.sqrt(1-3.53 * ksagc))), 0.95 * d);                  //Change D in to effective depth
 
-	zsagm = (d/2) * (1 + Math.sqrt(1-3.53 * ksagm));
+	zsagm = Math.min(((d/2) * (1 + Math.sqrt(1-3.53 * ksagm))), 0.95 * d);
 
 	Assc_mm = Msaggcol * 1000000/(zsagc * fyd);           //Area in square mm 
 
@@ -136,9 +136,9 @@ function designcalculation()
 
 	khogm = Mhoggmid/( B * fck * Math.pow(d,2));
 
-	zhogc = (d/2) * (1 + Math.sqrt(1-3.53 * khogc));                  //Change D in to effective depth
+	zhogc = Math.min(((d/2) * (1 + Math.sqrt(1-3.53 * khogc))),0.95 * d) ;                  //Change D in to effective depth
 
-	zhogm = (d/2) * (1 + Math.sqrt(1-3.53 * khogm));
+	zhogm = Math.min(((d/2) * (1 + Math.sqrt(1-3.53 * khogm))),0.95 * d);
 
 	Ashc_mm = Mhoggcol * 1000000/(zhogc * fyd);           //Area in square mm 
 
