@@ -1,0 +1,323 @@
+<html>
+<head>
+<title>Flat Slab Design </title>
+<script src="general.js"></script>
+<script src="flatslab.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+
+    <div style="background-color: whitesmoke">
+    <center><h1>Flat Slab Design</h1></center>
+
+<a href="Flat slab design description.pdf">Description</a><br />
+
+
+<p>
+Precision: <input type="text" id="digits" value="6" size="2">
+</p>
+</div>
+
+<p>
+   <table>
+<tr>
+  <td>
+      <table border="2" cellpadding="5">
+
+
+          <tr>
+             <th colspan="3">Slab span</th>
+             <th colspan="3" rowspan="2">Section</th>
+          
+          <tr> 
+             <th>Span direction</th>
+             <th colspan="2">Span length</th>            
+             
+          </tr>
+          
+          <tr>
+          <td>X direction (l<sub>x</sub>)</td>
+          <td><input type="text" id="l1" value="6.0" size="6"></td>
+          <td>m</td>
+          
+          <td>Slab thickness</td>
+          <td><input type="text" id="slabth" value="0.3" size="6"></td>
+          <td>m</td>
+          </tr>
+         
+          
+          <tr>
+          <td>Y direction (l<sub>y</sub>)</td>
+          <td><input type="text" id="l2" value="8.0" size="6"></td>
+          <td>m</td>
+             
+          <td rowspan="2">Column size(square)</td>
+          <td><input type="text" id="cs1" value="0.4" size="6"></td>
+          <td>m</td>
+          </tr>
+          
+          <tr>
+          <td>Adjacent span</td>
+          <td><input type="text" id="adjspan" value="6.0" size="6"></td>
+          <td>m</td>  
+          <td><input type="text" id="cs2" value="0.4" size="6"></td>
+          <td>m</td>
+          </tr>
+          <tr>
+          <td>Column strip width</td>
+          <td><p id="clstrip"></p></td>
+          <td>m</td>        
+          <td rowspan="3" colspan="3"><font color="blue">Adjacent span should be greater than 0.85l<sub>y</sub> 
+          </font></td> 
+          </tr>
+          
+          <tr>
+          <td>Middle strip X</td>
+          <td><p id="mdlstripx"></p></td>
+          <td>m</td>    
+                      
+          </tr>
+          
+          <tr>
+          <td>Middle strip Y</td>
+          <td><p id="mdlstripy"></p></td>
+          <td>m</td>                  
+          </tr>
+          </table>
+  </td>
+  <td><img src="strips.png" alt="Slap span strips" width="500" height="300"></td>
+  <td><img src="flatslabpic.PNG" alt="Flat slab" width="450" height="275" align="right"></td>
+</tr>
+   </table>
+
+
+</p>
+
+<font color="blue">Dead load should be greater than or equal to live lode.</font>
+
+
+
+    <table style="width:100%">
+        <tr>
+          <td>
+<table border="2" cellpadding="5" style="width:95%">
+
+               <tr>
+                <th colspan="3">Load and moments</th>
+                <th colspan="3">Material </th>
+                </tr>
+
+                <tr>
+                           
+               <td>Dead load
+               
+               <select id="sftypedl">
+
+                <option value="1.0"                >SF 1.0</option>     <!--Safety factor for the load-->
+                <option value="1.25"               >SF1.25</option>
+                <option value="1.35"      selected >SF1.35</option>
+                <option value="1.5"                >SF1.5</option>
+                
+               </select>                      
+               </td>
+               
+               <td><input type="text" id="dl" value="8.0" size="10"></td>
+               <td>kN/m<sup>2</sup></td>
+
+                              
+               <td>Concrete grade</td>
+               <td><select id="ctype">
+
+                <option value="20000"                   >C20/25</option>     <!--Strength of concrete in KN/m^2 devided by 1.5 material safety factor according to Euro Code-->
+                <option value="25000"           selected>C25/30</option>
+                <option value="30000"                   >C30/37</option>
+                <option value="35000"                   >C35/45</option>
+                <option value="40000"                   >C40/50</option>
+                <option value="45000"                   >C45/55</option>
+                <option value="50000"                   >C50/60</option>
+
+                </select></td>
+                </tr> 
+                
+               <tr>                         
+               <td>Live load
+               <select id="sftypell">
+
+                <option value="1.0"                 >SF 1.0</option>     <!--Safety factor for the load-->
+                <option value="1.20"                >SF1.20</option>
+                <option value="1.35"                >SF1.35</option>
+                <option value="1.5"         selected>SF1.5</option>
+                
+               </select>               
+               </td>
+               
+               <td><input type="text" id="ll" value="4.0" size="10"></td>
+               <td>KN/m<sup>2</sup></td>
+               
+               <td>Steel grade</td>
+              <td><select id="stype">
+                      <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+                      <option value="260869.5652"            >S300</option>
+                      <option value="434782.609"    selected >S500 </option>
+                   </select></td>
+                      
+               </tr>
+               <tr>
+                         
+               <td>Design load (q)</td>
+               <td><p id="dsl"></p></td>
+               <td>KN/m</td>
+              
+              <td>Bar size</td>
+              <td><select id="dtype">
+              
+                      <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                      <option value="78.5"            >D10 </option>              
+                      <option value="113"             >D12 </option>              
+                      <option value="201"             >D16 </option>
+                      <option value="314"    selected >D20</option>
+                      <option value="491"             >D25 </option>
+                      <option value="804"             >D32 </option>
+                      <option value="1260"            >D40 </option>
+                   </select></td>
+               </tr>
+</table>
+</td>
+
+
+<td>
+<table border="2" cellpadding="5"> 
+         
+    <tr>
+    <th colspan="9" >Analysis</th>
+    </tr>
+    <tr><td rowspan="2">Design values</td>
+      <th colspan="4" width= "125">Sagging moment</th>
+      <th colspan="4" width= "125">Hogging moment</th>
+      </tr>
+    
+       <tr> 
+         <td colspan="2">Column strip</td>
+         <td colspan="2">Middle strip</td>
+
+         <td colspan="2">Column Strip</td>
+         <td colspan="2">Middle strip</td>
+       </tr>
+       <td>K value</td>
+       <td colspan="2"> <p id="ksagclm"></p></td>
+       <td colspan="2"> <p id="ksagmid"></p></td>
+       <td colspan="2"> <p id="khogclm"></p></td>
+       <td colspan="2"> <p id="khogmid"></p></td>
+      </tr>
+       <tr> 
+       <td>Lever arm Z</td>
+       <td width= "85"> <p id="zsagclm"></p></td>
+       <td>m</td>
+       <td width= "85"> <p id="zsagmid"></p></td>
+       <td>m</td>
+       <td width= "85"> <p id="zhogclm"></p></td>
+       <td>m</td>
+       <td width= "85"> <p id="zhogmid"></p></td>
+       <td>m</td>
+     </tr>
+    
+       <tr> 
+       <td>Steel area (A<sub>s</sub>)</td>
+       <td> <p id="assagclm"></p></td>
+       <td>mm<sup>2</sup>/m</td>
+       <td> <p id="assagmid"></p></td>
+       <td>mm<sup>2</sup>/m</td>
+       <td> <p id="ashogclm"></p></td>
+       <td>mm<sup>2</sup>/m</td>
+       <td> <p id="ashogmid"></p></td>
+       <td>mm<sup>2</sup>/m</td>
+     </tr>
+<tr> 
+       <td>Bar spacing</td>
+       <td> <p id="spacebotclm"></p></td>
+       <td>mm</td>
+       <td> <p id="spacebotmid"></p></td>
+       <td>mm</td>
+       <td> <p id="spacetopclm"></p></td>
+       <td>mm</td>
+       <td> <p id="spacetopmid"></p></td>
+       <td>mm</td>
+       
+     </tr>     
+      </table>
+    </td>
+
+  
+</tr>
+<tr>
+    <td>
+               <p>
+                 <table border="2" cellpadding="3" style="width:95%">
+                              
+                   <tr>
+                     <th colspan="6"> Moments</th>
+                   </tr>
+                   <tr>
+                      <td rowspan="2">Sagging moment</td>
+                      <td rowspan="2" width= "65"><p id="sagmom"></p></td>
+                      <td rowspan="2">kN-m</td>
+                      <td>column strip </td>
+                      <td width= "65"><p id="sagmomcol"></p></td>
+                      <td>kNm/m</td>
+                   </tr>                               
+                  <tr>
+                   <td>Middle strip </td>
+                   <td><p id="sagmommid"></p></td>
+                   <td>kNm/m</td>
+                  </tr>                              
+               <tr>
+                  <td rowspan="2">Hogging moment</td>
+                  <td rowspan="2"><p id="hogmom"></p></td>
+                  <td rowspan="2">kN-m</td>
+                  <td>column strip </td>
+                      <td><p id="hogmomcol"></p></td>
+                      <td>kNm/m</td>
+               </tr>
+               <tr>
+                  <td>Middle strip </td>
+                  <td><p id="hogmommid" size ="10"></p></td>
+                  <td>kNm/m</td>
+               </tr>
+
+                         
+           </table>
+          
+          </td>               
+        </tr>
+    </table>
+    <div style="background-color: whitesmoke">
+
+    <p>
+       <table border="0">
+<tr>
+<td>    
+    
+         
+    <input type="checkbox" id="myCheck"  onclick="checkboxfunction()"> I am aware of the slab design is based on the concise Eurocode 2, Concise Table 15.3.  
+    
+    <p>According to Eurocode, the ratio of the adjacent span and design span is greater than 0.85 and </p>
+       the live load must be less than or equal to the dead load in order to use the coffient method</p>
+        <p>    design from the Concise Table 15.3.</p>
+</td>
+<td col width="200">
+    
+      
+    <p align="center" id="text" style="display:none"><button onclick="designcalculation()">Design for flexure</button></p> 
+  
+  </td>
+
+  </tr>
+
+  </table>
+
+</p>
+</div>  
+</body>
+</html>
