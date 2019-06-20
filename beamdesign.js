@@ -15,6 +15,7 @@ var selector1
 var selector2
 var n
 var as1                             //Area of single bar 
+var d                                // effective depth 
 
 function designcalculation()
  {
@@ -23,25 +24,36 @@ function designcalculation()
 	L  = parseFloat( document.getElementById( "l" ).value );
 	D  = parseFloat( document.getElementById( "d" ).value );
 	B  = parseFloat( document.getElementById( "b" ).value );
+
+
+	selector = document.getElementById("ctype");
+	fcd = selector[selector.selectedIndex].value;
+
+	selector1 = document.getElementById("stype");
+	fyd = selector1[selector1.selectedIndex].value;
+
+	selector2 = document.getElementById("dtype");            //bar diameter  
+	as1 = selector2[selector2.selectedIndex].value;
+
+
+	d = D - 0.025 - (Math.sqrt((4 * as1)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
+
 	
 DesignLoad =  1.35 * DL + 1.5 * LL;
 DesignMoment = (DesignLoad * Math.pow(L,2))/8;
 
 
-selector = document.getElementById("ctype");
-fcd = selector[selector.selectedIndex].value;
 
-K = DesignMoment/( B * fcd * Math.pow(D,2));              //Change D in to effective depth 
-Z = (D/2) * (1 + Math.sqrt(1-3.53 * K));                  //Change D in to effective depth
 
-selector1 = document.getElementById("stype");
-fyd = selector1[selector1.selectedIndex].value;
+K = DesignMoment/( B * fcd * Math.pow(d,2));              //Change D in to effective depth 
+Z = (d/2) * (1 + Math.sqrt(1-3.53 * K));                  //Change D in to effective depth
+
+
 
      
      As1 = DesignMoment * 1000000/(Z * fyd)              //Area in square mm 
      
-selector2 = document.getElementById("dtype");            //bar diameter  
-as1 = selector2[selector2.selectedIndex].value;
+
 n= As1/ as1
 
 console.log(DesignLoad);

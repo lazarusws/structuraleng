@@ -77,7 +77,7 @@ function designcalculation()
 	D = parseFloat( document.getElementById( "slabth" ).value );
     B = 1                                                           //width of the slab stip for analysis                                                                
 
-	d = D - 0.025 - (Math.sqrt((4 * bar_asmm)/ 3.14))/1000;         //effective depth = Slab thickness - slab concrete cover - bar dia
+	d = D - 0.025 - (Math.sqrt((4 * bar_asmm)/ 3.14))/2000;         //effective depth = Slab thickness - slab concrete cover - bar dia
 
 	//-------------------------------------------------------------------------
 	//function_strip, effective span calculation 
