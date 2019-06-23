@@ -3,10 +3,13 @@
 <title>RC Beam Design </title>
 <script src="general.js"></script>
 <script src="beamdesign.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 
 <body>
-<h1>Singly Reinforced Beam Design For Flexure</h1>
+  <div style="background-color: whitesmoke">
+    <center><h1>Singly Reinforced Beam Design For Flexure</h1></center>
 
 <a href="RC Beam design description.pdf">Description</a><br />
 
@@ -14,10 +17,8 @@
 <p>
 Precision: <input type="text" id="digits" value="3" size="2">
 </p>
-
-<p> Replace the Live load and Dead load values.</p>
-<p>Insert the beam dimension.</p>
-
+<input type="button" onclick="reset_page()" value="Reset page">
+</div>
 <p>
     
 <img src="Simply supported beam.PNG" alt="Simply supported beam" width="500" height="150">
@@ -132,7 +133,7 @@ th, td {
          
             <tr> 
             <td>K value</td>
-            <td> <p id="k"></p></td>
+            <td colspan="2"> <p id="k"></p></td>
            </tr>
             <tr> 
             <td>Lever arm Z</td>
@@ -148,7 +149,7 @@ th, td {
      
 <tr> 
             <td>No of Reinf. Bar </td>
-            <td> <p id="n"></p></td>
+            <td colspan="2"> <p id="n"></p></td>
             
           </tr>     
      
