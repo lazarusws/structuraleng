@@ -1,0 +1,29 @@
+
+body
+{
+   font-family: "Times New Roman", Times, serif;
+  
+}
+
+
+h1
+{
+   font-family: "Arial", Helvetica, sans-serif;
+   color: black;
+}
+
+
+h2
+{
+   font-family: "Arial", Helvetica, sans-serif;
+   color: red;
+}
+
+
+th
+{
+   font-family: "Times New Roman", Times, serif;
+   color: black;
+   font-style: normal;
+   font-weight: bold;
+}
