@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>Steel Column Design </title>
+<script src="general.js"></script>
+<script src="steelcolumn.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div style="background-color: whitesmoke">
+    <center><h1>Steel Column Design</h1></center>
+    <a href="Steel column description.pdf">Description</a><br />
+    <p>
+Precision: <input type="text" id="digits" value="6" size="2">
+<br />
+<input type="button" onclick="reset_page()" value="Reset page">
+</p>
+</div>
+<p>
+  <table style="width:100%">
+      <col width="500">
+<tr>
+  <td>
+        <table border="2" cellpadding="5"> 
+            <col width="200">
+          <tr>
+            <th colspan="3">Load and material property</th>
+            <th colspan="3">Dimension</th>
+          </tr>
+
+      <tr>
+          <td>Steel grade</td>
+          <td colspan="2"><select id="steelType">
+            <option value="225000"            >S255</option>     <!--Steel yield Strength  -->
+            <option value="300000"            >S300</option>
+            <option value="500000"   selected >S500</option>
+          </select></td>
+          <td>Lx</td>
+          <td><input type="text" id="lx" value="2.5" size="4"></td>
+          <td>m</td>
+        </tr>
+  <tr>
+    <td>Material safety factor</td>
+    <td colspan="2">
+      <select id="materialSfType">
+                       <option value="1.0"                 >SF 1.0</option>     <!--Safety factor for the load-->
+                      <option value="1.15"        selected>SF1.15</option>
+                      <option value="1.35"                >SF1.35</option>
+                      <option value="1.5"                 >SF1.5</option>
+                    </select></td>
+                    <td>Ly</td>
+                    <td><input type="text" id="ly" value="2.5" size="4"></td>
+                    <td>m</td>
+                  </tr>
+                  <tr>
+                    <td>Elastic modulus</td>
+                    <td><input type="text" id="elasMod" value="210" size="10"></td>            <!--Elastic modulus is in giga pascal but the load input is in kN, to make this compatible it is divided by 1000 -->
+                    <td>GPa</td>
+                    <td rowspan="2" colspan="3"></td>
+                  </tr>
+                  <tr>
+                    <td>Design load (N<sub>ED</sub>)</td>
+                    <td><input type="text" id="dLoad" value="400.00" size="6"></td>
+                    <td>kN</td>
+                  </tr>
+                </table>
+              </td>
+           
+              <td>
+                <table border="2" cellpadding="5" style="width:75%">
+                    
+                  <tr>
+                    <th colspan="10">Dimension</th>
+                    </tr>
+                    <tr>
+                    <td>Steel Section (cm<sup>2</sup>)</td>
+                    <td style="width:8%">Depth (mm)</td>
+                    <td>Flange width B (mm)</td>                    
+                    <td>Flange thic. (t<sub>f</sub>) (mm)</td>
+                    <td>Web height (mm)</td>
+                    <td>Web thic. (t<sub>w</sub>) (mm)</td>
+                    <td>Radius (r)(mm) </td>
+                    <td style="width:10%">Radius of gyration X-X (mm)</td>
+                    <td style="width:10%">Radius of gyration Y-Y (mm)</td>
+                    
+                    <td rowspan="2"><img src="steelsection.png" alt="Steel section" width="150" height="150"></td>
+                  </tr>
+                  <tr>                      
+                    <td><p id="steelsec"></p></td>
+                    <td><p id="depth"></p></td>
+                    <td><p id="flangeWidth"></p></td>                    
+                    <td><p id="thicFlange"></p></td>
+                    <td><p id="heightWeb"></p></td>
+                    <td><p id="thicWeb"></p></td>
+                    <td><p id="rad"></p></td>
+                    <td col width="150"><p id="radGyr_x"></p></td> 
+                    <td><p id="radGyr_y"></p></td>
+                  </tr>
+                    </table>
+                    </td>
+                    </tr>
+                    </table>
+                    </p>                 
+                    <p><button onclick="designSection()">Design</button></p>
+                    <p>
+                      <table border="2" cellpadding="5">
+                          <col width="150">
+                          <col width="150">
+                          <col width="150">
+                        <tr>
+                            <th colspan="4">Analysis</th>
+                          </tr>
+                          <tr>
+                            <td rowspan="2">Section class</td>
+                            <td>Flange</td>
+                            <td colspan="2"><p id="clsFlange"></p></td>
+                            <tr>
+                              <td>Web</td>
+                              <td colspan="2"><p id="clsWeb"></p></td>
+                            </tr>
+                            
+                          </tr>
+                          <tr>
+                            <td rowspan="3">Slenderness ratio</td>
+                            <td>Lamda x</td>
+                            <td colspan="2"><p id="slendCoffiX"></p></td>
+                          </tr>
+                          <tr>
+                            <td>Lamda y</td>
+                            <td colspan="2" ><p id="slendCoffiY"></p></td>
+                          </tr>
+                          <tr>
+                            <td>Phi</td>
+                            <td colspan="2"><p id="phi"></p></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Reduction factor X<sub>min</sub></td>
+                            <td colspan="2"><p id="redFactor"></p></td>
+                          </tr>
+                          <tr>
+                          <td rowspan="2">Compression resistance (N<sub>c,Rd</sub>)</td>
+                          <td>Plastic resistance</td>
+                          <td><p id="plasresist"></p></td>
+                            <td>kN</td>
+                          
+                          </tr>
+                          <tr>
+                              <td>Buckling resistance </td>
+                              <td><p id="buckresist"></p></td>
+                                <td>kN</td>
+                              </tr>
+                        </table>                  
+                    </p>
+ </body>
+</html>
