@@ -1,3 +1,43 @@
+function blank_output() {
+   document.getElementById( "effectiveDepth" ).innerHTML          = "";
+   document.getElementById( "designLoad").innerHTML               = "";
+   document.getElementById( "designMoment" ).innerHTML            = "";
+   document.getElementById( "reinfCoffi" ).innerHTML              = "";
+   document.getElementById( "underReinforced" ).innerHTML         = "";
+   document.getElementById( "as1" ).innerHTML                     = "";
+   document.getElementById( "as2" ).innerHTML                     = "";
+   document.getElementById( "tensionBar" ).innerHTML              = "";
+   document.getElementById( "compressionBar" ).innerHTML          = "";
+
+   return true;
+}
+
+function reset_page() {
+   document.getElementById( "deadLoad"    ).value = 4.0;
+   document.getElementById( "liveLoad"    ).value = 2.0;
+   document.getElementById( "length"      ).value = 6.0;
+   document.getElementById( "depth"       ).value  =0.6;
+   document.getElementById( "breadth"     ).value = 0.4;
+   document.getElementById( "sfTypeDeadload").value = 1.35;
+   document.getElementById( "sfTypeLiveload").value = 1.5;
+       
+   var selectorBearingSafety = document.getElementById("steelType");   
+   selectorBearingSafety.selectedIndex = 2;
+
+   var selectorDeadload = document.getElementById("barDiaType");
+   selectorDeadload.selectedIndex = 4;
+
+   var selectorLiveload = document.getElementById("concreteType");
+   selectorLiveload.selectedIndex = 1;
+
+   var selectorConcreteType = document.getElementById("momentdist");
+   selectorConcreteType.selectedIndex = 0;
+ 
+   blank_output();
+
+   return true;
+}
+
 function input(){
 
     //Value input
@@ -6,7 +46,6 @@ function input(){
     var l  = parseFloat( document.getElementById( "length" ).value );
     var D  = parseFloat( document.getElementById( "depth" ).value );
     var b  = parseFloat( document.getElementById( "breadth" ).value );
-
     var safetyDeadLoad = parseFloat( document.getElementById( "sfTypeDeadload" ).value );
     var safetyLiveLoad = parseFloat( document.getElementById( "sfTypeLiveload" ).value );
     //selector input
@@ -32,9 +71,7 @@ function input(){
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
 
 	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad};
-
 }
-
 function designloadAndMoment() {
 
     var {DL,LL, safetyLiveLoad, safetyDeadLoad, l} = input()
@@ -49,7 +86,6 @@ function designloadAndMoment() {
     console.log(DesignMoment);
     document.getElementById("designMoment").innerHTML = precision( DesignMoment );
 
-
     return {DesignLoad, DesignMoment};
 }
 function under_reinforcement_check() {
@@ -60,18 +96,15 @@ function under_reinforcement_check() {
 
     var k_prime = 0.6 * mom_dis - 0.18 * mom_dis * mom_dis - 0.21;
 
-    var k = DesignMoment/ (b * (fck/1.5) * d1 * d1);   
+    var k = DesignMoment/ (b * (fck/1.5) * d1 * d1);      
 
-    
+    if (k >= 1 / 3.53 ) {       
 
-    if (k >= 1 / 3.53 ) {
+        alert("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
-        
-
-            alert("Brittle failure, increase the section capacity by either increasing the depth or the concrete grade!");
+        reset_page() ;
+       
     }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }
-
-    
     
     console.log(k);
     document.getElementById("reinfCoffi").innerHTML = precision(k);
@@ -80,9 +113,7 @@ function under_reinforcement_check() {
     document.getElementById("underReinforced").innerHTML = precision(k_prime);
 
     return{k, k_prime};
-
 }
-
 function flexure_design() {
 
     var {d1, d2,k,b,fck, k_prime, fyd, bar_as_mm, mom_dis} = input();
@@ -90,6 +121,12 @@ function flexure_design() {
     var {DesignMoment} = designloadAndMoment();
 
     var {k, k_prime} = under_reinforcement_check();
+
+    if (k >= 1 / 3.53 ) {       
+
+        reset_page() ;
+       
+    }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }
     
     if (k <= k_prime) {
 
@@ -103,7 +140,7 @@ function flexure_design() {
 
         var n2 = 0;
 
-        var status = "Singly reinforced beam"
+        var status = "Singly reinforced"
 
     } else{
 
@@ -123,12 +160,9 @@ function flexure_design() {
 
         var n2 = As2 / bar_as_mm;
 
-        var status = "Doubly reinforced beam"
+        var status = "Doubly reinforced"
 
-    }
-
-    
-   
+    } 
     console.log(As1);
     document.getElementById("as1").innerHTML = precision(As1);
 
@@ -141,17 +175,7 @@ function flexure_design() {
     console.log(n2);
     document.getElementById("compressionBar").innerHTML = Math.ceil(n2);
 
-   
-
-    
+    console.log(status);
+    document.getElementById("designStatus").innerHTML = status;
 } 
 
-
-/*
-function concrete_grade_check(){
-    if (k = NaN) return { k1: "Increase concrete section"}
-
-    return{ k1 = k}
-
-    }
-    var {k1} = concrete_grade_check()*/
