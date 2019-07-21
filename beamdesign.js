@@ -8,6 +8,7 @@ function blank_output() {
    document.getElementById( "as2" ).innerHTML                     = "";
    document.getElementById( "tensionBar" ).innerHTML              = "";
    document.getElementById( "compressionBar" ).innerHTML          = "";
+   document.getElementById( "effectiveDepthCompression" ).innerHTML          = "";
 
    return true;
 }
@@ -65,7 +66,7 @@ function input(){
 
     var d1 = D - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-    var d2 = d1 - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000; 
+    var d2 = d1 - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
@@ -122,11 +123,11 @@ function flexure_design() {
 
     var {k, k_prime} = under_reinforcement_check();
 
-    if (k >= 1 / 3.53 ) {       
+   /* if (k >= 1 / 3.53 ) {       
 
         reset_page() ;
        
-    }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }
+    }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }*/
     
     if (k <= k_prime) {
 
@@ -146,10 +147,6 @@ function flexure_design() {
 
         var z = Math.min((d1/2) * (1 + Math.sqrt(1 - 3.53 * k)), 0.95 * d1);   
 
-        var As1 = DesignMoment * 1000000/(z * fyd);              //Area in square mm      
-
-        var n1= Math.max(As1 / bar_as_mm, 2);  
-
         var M_prime = k_prime * b * d1 * d1 * fck; 
 
         var Xu = (mom_dis - 0.4) * d1;
@@ -158,10 +155,18 @@ function flexure_design() {
 
         var As2 = (DesignMoment - M_prime ) / (fsc * (d1 - d2));
 
-        var n2 = As2 / bar_as_mm;
+        var As1 = M_prime * 1000000/(z * fyd) + As2 * fsc / fyd;              //Area in square mm      
+
+        var n1= Math.max(As1 / bar_as_mm, 2);
+
+        var n2 = Math.max(As2 / bar_as_mm, 2);
 
         var status = "Doubly reinforced"
 
+        var d2 = d1 - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+
+        console.log(d2);
+        document.getElementById("effectiveDepthCompression").innerHTML = precision(d2);
     } 
     console.log(As1);
     document.getElementById("as1").innerHTML = precision(As1);
