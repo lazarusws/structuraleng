@@ -10,7 +10,9 @@ function blank_output() {
    document.getElementById( "compressionBar" ).innerHTML          = "";
    document.getElementById( "effectiveDepthCompression" ).innerHTML          = "";
    document.getElementById( "designStatus" ).innerHTML            = "";
-
+  
+   
+   
    return true;
 }
 
@@ -22,6 +24,7 @@ function reset_page() {
    document.getElementById( "breadth"     ).value = 0.4;
    document.getElementById( "sfTypeDeadload").value = 1.35;
    document.getElementById( "sfTypeLiveload").value = 1.5;
+   document.getElementById("beamSectionIMG").src="concreteSection.PNG";
        
    var selectorBearingSafety = document.getElementById("steelType");   
    selectorBearingSafety.selectedIndex = 2;
@@ -65,9 +68,9 @@ function input(){
     var	mom_dis = selectorMomentRedistribution[selectorMomentRedistribution.selectedIndex].value;
 
 
-    var d1 = D - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
+    var d1 = D - 0.025 - 0.008 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-    var d2 = d1 - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+    var d2 = 0.025 + 0.008 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
@@ -144,19 +147,21 @@ function flexure_design() {
 
         var status = "Singly reinforced"
 
+        document.getElementById("beamSectionIMG").src="singleReinforcement.png";
+
     } else{
 
-        var z = Math.min((d1/2) * (1 + Math.sqrt(1 - 3.53 * k)), 0.95 * d1);   
+        var z = (d1/2) * (1 + Math.sqrt(1 - 3.53 * k_prime))  
 
-        var M_prime = k_prime * b * d1 * d1 * fck; 
+        var M_prime =  b * d1 * d1 * fck * (k - k_prime ); 
 
-        var Xu = (mom_dis - 0.4) * d1;
+       // var Xu = (mom_dis - 0.4) * d1;
 
-        var fsc = Math.min((700 * (Xu - d2)) / Xu , fyd);
+        //var fsc = Math.min((700 * (Xu - d2)) / Xu , fyd);
 
-        var As2 = (DesignMoment - M_prime ) / (fsc * (d1 - d2));
+        var As2 = (M_prime * 1000000) / (fyd * (d1 - d2));
 
-        var As1 = M_prime * 1000000/(z * fyd) + As2 * fsc / fyd;              //Area in square mm      
+        var As1 = (k_prime * fck * b * d1 * d1 * 1000000)/(z * fyd) + As2;              //Area in square mm      
 
         var n1= Math.max(As1 / bar_as_mm, 2);
 
@@ -164,7 +169,9 @@ function flexure_design() {
 
         var status = "Doubly reinforced"
 
-        var d2 = d1 - 0.025 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+        var d2 = 0.025 + 0.008 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+
+        document.getElementById("beamSectionIMG").src="doubleReinforcement.png";
 
         console.log(d2);
         document.getElementById("effectiveDepthCompression").innerHTML = precision(d2);
@@ -183,5 +190,8 @@ function flexure_design() {
 
     console.log(status);
     document.getElementById("designStatus").innerHTML = status;
+
+   // console.log(image);
+   // document.getElementById("beamSectionIMG").innerHTML = image;
 } 
 
