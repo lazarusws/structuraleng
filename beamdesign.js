@@ -9,6 +9,7 @@ function blank_output() {
    document.getElementById( "tensionBar" ).innerHTML              = "";
    document.getElementById( "compressionBar" ).innerHTML          = "";
    document.getElementById( "effectiveDepthCompression" ).innerHTML          = "";
+   document.getElementById( "designStatus" ).innerHTML            = "";
 
    return true;
 }
