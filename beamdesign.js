@@ -32,6 +32,9 @@ function reset_page() {
    var selectorDeadload = document.getElementById("barDiaType");
    selectorDeadload.selectedIndex = 4;
 
+   var selectorDeadload = document.getElementById("stirrupbarDiaType");
+   selectorDeadload.selectedIndex = 0;
+
    var selectorLiveload = document.getElementById("concreteType");
    selectorLiveload.selectedIndex = 1;
 
@@ -57,25 +60,27 @@ function input(){
     var	selectorSteelGrade = document.getElementById("steelType");
     var	fyd = selectorSteelGrade[selectorSteelGrade.selectedIndex].value;
 
-    var	selectorConcreteGrade = document.getElementById("barDiaType"); 
-    var	bar_as_mm = selectorConcreteGrade[selectorConcreteGrade.selectedIndex].value;
+    var	selectorConcreteGrade = document.getElementById("concreteType"); 
+    var	fck = selectorConcreteGrade[selectorConcreteGrade.selectedIndex].value;
+
+    var	selectorBarDiameter = document.getElementById("barDiaType"); 
+    var	bar_as_mm = selectorBarDiameter[selectorBarDiameter.selectedIndex].value;
+
+    var	selectorStirrup = document.getElementById("stirrupbarDiaType"); 
+    var	stirrup_bar_as_mm = selectorStirrup[selectorStirrup.selectedIndex].value;  
     
-
-    var	selectorBarDiameter = document.getElementById("concreteType"); 
-    var	fck = selectorBarDiameter[selectorBarDiameter.selectedIndex].value;
-
     var	selectorMomentRedistribution = document.getElementById("momentdist"); 
     var	mom_dis = selectorMomentRedistribution[selectorMomentRedistribution.selectedIndex].value;
 
 
-    var d1 = D - 0.025 - 0.008 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
+    var d1 = D - 0.025 - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-    var d2 = 0.025 + 0.008 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+    var d2 = 0.025 + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
 
-	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad};
+	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm};
 }
 function designloadAndMoment() {
 
@@ -151,25 +156,23 @@ function flexure_design() {
 
     } else{
 
-        var z = (d1/2) * (1 + Math.sqrt(1 - 3.53 * k_prime))  
+        var z = (d1/2) * (1 + Math.sqrt(1 - 3.53 * k_prime));
+        
+        var x = (mom_dis - 0.4) * d1;
+
+        var fsc = Math.min(700 * 1000 * (x - d2) / x, fyd);        //Multiplied by 1000 to make the unit of fsc same with fyd
 
         var M_prime =  b * d1 * d1 * fck * (k - k_prime ); 
 
-       // var Xu = (mom_dis - 0.4) * d1;
-
-        //var fsc = Math.min((700 * (Xu - d2)) / Xu , fyd);
-
         var As2 = (M_prime * 1000000) / (fyd * (d1 - d2));
 
-        var As1 = (k_prime * fck * b * d1 * d1 * 1000000)/(z * fyd) + As2;              //Area in square mm      
+        var As1 = (k_prime * fck * b * d1 * d1 * 1000000)/(z * fyd) + As2 * fsc/fyd;              //Area in square mm      
 
         var n1= Math.max(As1 / bar_as_mm, 2);
 
         var n2 = Math.max(As2 / bar_as_mm, 2);
 
         var status = "Doubly reinforced"
-
-        var d2 = 0.025 + 0.008 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
         document.getElementById("beamSectionIMG").src="doubleReinforcement.png";
 
@@ -191,7 +194,5 @@ function flexure_design() {
     console.log(status);
     document.getElementById("designStatus").innerHTML = status;
 
-   // console.log(image);
-   // document.getElementById("beamSectionIMG").innerHTML = image;
 } 
 

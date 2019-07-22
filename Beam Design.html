@@ -20,7 +20,7 @@
   </tr>
 </table>
 
-<table width="90%">
+<table width="100%">
   <tr>
     <td>
       <table border="2" cellpadding="5">
@@ -70,9 +70,11 @@
           <td>Moment redistribution</td>              
           <td colspan="2"><select id="momentdist">                  
             <option value="1.0"          selected>0 % </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->                  
-            <option value="0.8"                  >20% </option>                
+            <option value="0.85"                 >15% </option>
+            <option value="0.8"                  >20% </option>
+                            
             </select></td>    
-            <td>Bar size</td>          
+            <td>Reinforcement and stirrup bar size</td>          
             <td><select id="barDiaType">              
               <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
               <option value="78.5"            >D10 </option>              
@@ -82,13 +84,26 @@
               <option value="491"             >D25 </option>
               <option value="804"             >D32 </option>
               <option value="1260"            >D40 </option>
-           </select></td>
+           </select>
+           <select id="stirrupbarDiaType">              
+              <option value="50.3"    selected>D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+              <option value="78.5"            >D10 </option>              
+              <option value="113"             >D12 </option>              
+              <option value="201"             >D16 </option>
+              <option value="314"             >D20</option>
+              <option value="491"             >D25 </option>
+              <option value="804"             >D32 </option>
+              <option value="1260"            >D40 </option>
+           </select>
+          </td>
       </tr>      
       
     </table>
     </td>
-    <td><img src="Simply supported beam.PNG" alt="Simply supported beam" width="500" height="150"></td>
-    <td><img src="RC bream section.PNG" alt="RC bream section" width="100" height="100"></td>
+    <td rowspan="2"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
+    </tr>
+    <tr>
+      <td>Input load and design rc beam</td>
     </tr>
     </table>
 
@@ -118,11 +133,13 @@
             </tr>                           
             <tr>                  
               <td>Effective depth (d)</td>                  
-              <td colspan="2" bgcolor="#e0e0d1"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
+              <td bgcolor="#e0e0d1"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
+              <td>m</td>
             </tr>     
             <tr>                  
               <td>Effective depth (d<sub>2</sub>)</td>                  
-              <td colspan="2" bgcolor="#e0e0d1"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
+              <td bgcolor="#e0e0d1"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
+              <td>m</td>
             </tr>                
             <tr>                  
               <td>K value</td>                  
