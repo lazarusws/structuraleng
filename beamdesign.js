@@ -8,9 +8,16 @@ function blank_output() {
    document.getElementById( "as2" ).innerHTML                     = "";
    document.getElementById( "tensionBar" ).innerHTML              = "";
    document.getElementById( "compressionBar" ).innerHTML          = "";
-   document.getElementById( "effectiveDepthCompression" ).innerHTML          = "";
+   document.getElementById( "effectiveDepthCompression" ).innerHTML = "";
    document.getElementById( "designStatus" ).innerHTML            = "";
-  
+   document.getElementById( "shearStress" ).innerHTML            = "";
+   document.getElementById( "teta" ).innerHTML                   = "";
+   document.getElementById( "strutCot2_5" ).innerHTML            = "";
+   document.getElementById( "strutCot1_0" ).innerHTML            = "";
+   document.getElementById( "stirrupSpacing" ).innerHTML         = "";
+   document.getElementById( "stirrupArea" ).innerHTML            = "";
+   document.getElementById( "apers" ).innerHTML                  = "";
+   
    
    
    return true;
@@ -40,6 +47,9 @@ function reset_page() {
 
    var selectorConcreteType = document.getElementById("momentdist");
    selectorConcreteType.selectedIndex = 0;
+
+   var selectorConcreteType = document.getElementById("stirrupLeg");
+   selectorConcreteType.selectedIndex = 0;
  
    blank_output();
 
@@ -66,11 +76,14 @@ function input(){
     var	selectorBarDiameter = document.getElementById("barDiaType"); 
     var	bar_as_mm = selectorBarDiameter[selectorBarDiameter.selectedIndex].value;
 
-    var	selectorStirrup = document.getElementById("stirrupbarDiaType"); 
-    var	stirrup_bar_as_mm = selectorStirrup[selectorStirrup.selectedIndex].value;  
+    var	selectorStirrupSize = document.getElementById("stirrupbarDiaType"); 
+    var	stirrup_bar_as_mm = selectorStirrupSize[selectorStirrupSize.selectedIndex].value;  
     
     var	selectorMomentRedistribution = document.getElementById("momentdist"); 
     var	mom_dis = selectorMomentRedistribution[selectorMomentRedistribution.selectedIndex].value;
+
+    var	selectorStirrupLeg= document.getElementById("stirrupLeg"); 
+    var	LegNumber = selectorStirrupLeg[selectorStirrupLeg.selectedIndex].value;
 
 
     var d1 = D - 0.025 - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
@@ -80,7 +93,7 @@ function input(){
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
 
-	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm};
+	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber};
 }
 function designloadAndMoment() {
 
@@ -110,9 +123,11 @@ function under_reinforcement_check() {
 
     if (k >= 1 / 3.53 ) {       
 
+        //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
+
         alert("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
-        reset_page() ;
+        location.reload();
        
     }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }
     
@@ -194,5 +209,100 @@ function flexure_design() {
     console.log(status);
     document.getElementById("designStatus").innerHTML = status;
 
+    return{z};
+
 } 
 
+function shear_design(){
+
+    var{DesignLoad} = designloadAndMoment();
+
+    var {l , b, d1, stirrup_bar_as_mm, LegNumber , fyd , fck} = input();
+
+    var {z} = flexure_design()
+
+    var V_ED_kN = DesignLoad * l / 2;  //Shear force acts on the beam d length from the face the support(column)
+
+    var v_ED_MPa = V_ED_kN / (1000 * b * z);
+
+    console.log(v_ED_MPa);
+    document.getElementById("shearStress").innerHTML = precision(v_ED_MPa);
+
+    function strut_capacity(){
+
+        if(fck == 20000 ) return {V_RD_cot2_5 : 2.54, V_RD_cot1_0: 3.68};
+
+        if(fck == 25000 ) return {V_RD_cot2_5 : 3.10, V_RD_cot1_0: 4.50};
+
+        if(fck == 28000 ) return {V_RD_cot2_5 : 3.43, V_RD_cot1_0: 4.97};
+
+        if(fck == 30000 ) return {V_RD_cot2_5 : 3.64, V_RD_cot1_0: 5.28};
+
+        if(fck == 32000 ) return {V_RD_cot2_5 : 3.84, V_RD_cot1_0: 5.58};
+
+        if(fck == 35000 ) return {V_RD_cot2_5 : 4.15, V_RD_cot1_0: 6.02};
+
+        if(fck == 40000 ) return {V_RD_cot2_5 : 4.63, V_RD_cot1_0: 6.72};
+
+        if(fck == 45000 ) return {V_RD_cot2_5 : 5.08, V_RD_cot1_0: 7.38};
+
+        if(fck == 50000 ) return {V_RD_cot2_5 : 5.51, V_RD_cot1_0: 8.00};
+
+       return{V_RD_cot2_5: NaN, V_RD_cot1_0:NaN};
+
+    }
+
+    var{V_RD_cot1_0,V_RD_cot2_5} = strut_capacity();
+
+
+    if( v_ED_MPa < V_RD_cot2_5){
+
+        var Asw_per_s = (v_ED_MPa * b) * 1000 / (fyd * 2.5 / 1000);
+
+        var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
+
+        var Asw_mm = stirrup_bar_as_mm * LegNumber;
+
+        var teta =  21.8;
+        
+
+    }   else if(v_ED_MPa < V_RD_cot1_0){
+
+        var teta = 0.5 * (Math.asin( v_ED_MPa/ (0.20 * (fck/1000) * (1 - (fck/1000)/250 )))*180/ Math.PI);  // 250 is multiplied to male the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
+
+        var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fyd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
+
+        var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
+
+        var Asw_mm = stirrup_bar_as_mm * LegNumber;
+
+    }else {
+
+        alert("Shear failure!, increase the concrete grade.");
+
+        location.reload();
+
+    }
+    console.log(teta);
+    document.getElementById("teta").innerHTML = precision(teta);
+
+    console.log(V_RD_cot2_5);
+    document.getElementById("strutCot2_5").innerHTML = precision(V_RD_cot2_5);
+
+    console.log(V_RD_cot1_0);
+    document.getElementById("strutCot1_0").innerHTML = precision(V_RD_cot1_0);
+
+    console.log(stirrup_spacing);
+    document.getElementById("stirrupSpacing").innerHTML = Math.floor(stirrup_spacing);
+
+    console.log(Asw_mm);
+    document.getElementById("stirrupArea").innerHTML = Math.floor(Asw_mm);
+//trial out puts to check the formulas
+    
+    console.log(Asw_per_s);
+    document.getElementById("apers").innerHTML = precision(Asw_per_s);
+}
+
+function pagePrint() {
+  window.print();
+}
