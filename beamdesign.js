@@ -66,6 +66,7 @@ function input(){
     var l  = parseFloat( document.getElementById( "length" ).value );
     var D  = parseFloat( document.getElementById( "depth" ).value );
     var b  = parseFloat( document.getElementById( "breadth" ).value );
+    var c  = parseFloat( document.getElementById( "coverThic" ).value );
     var safetyDeadLoad = parseFloat( document.getElementById( "sfTypeDeadload" ).value );
     var safetyLiveLoad = parseFloat( document.getElementById( "sfTypeLiveload" ).value );
     //selector input
@@ -88,9 +89,9 @@ function input(){
     var	LegNumber = selectorStirrupLeg[selectorStirrupLeg.selectedIndex].value;
 
 
-    var d1 = D - 0.025 - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
+    var d1 = D - c - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-    var d2 = 0.025 + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
+    var d2 = c + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
