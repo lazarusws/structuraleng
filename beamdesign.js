@@ -32,6 +32,8 @@ function reset_page() {
    document.getElementById( "sfTypeDeadload").value = 1.35;
    document.getElementById( "sfTypeLiveload").value = 1.5;
    document.getElementById("beamSectionIMG").src="concreteSection.PNG";
+   document.getElementById("concreteShearSection").src="concrete shear section.png";
+
        
    var selectorBearingSafety = document.getElementById("steelType");   
    selectorBearingSafety.selectedIndex = 2;
@@ -265,6 +267,7 @@ function shear_design(){
 
         var teta =  21.8;
         
+        document.getElementById("concreteShearSection").src="ShearSectionMiniStirrup.png";
 
     }   else if(v_ED_MPa < V_RD_cot1_0){
 
@@ -275,6 +278,8 @@ function shear_design(){
         var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
 
         var Asw_mm = stirrup_bar_as_mm * LegNumber;
+
+        document.getElementById("concreteShearSection").src="shearSectionStirrup.png";
 
     }else {
 
