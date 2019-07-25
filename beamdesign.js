@@ -31,6 +31,7 @@ function reset_page() {
    document.getElementById( "breadth"     ).value = 0.4;
    document.getElementById( "sfTypeDeadload").value = 1.35;
    document.getElementById( "sfTypeLiveload").value = 1.5;
+   document.getElementById( "coverThic").value = 0.025;
    document.getElementById("beamSectionIMG").src="concreteSection.PNG";
    document.getElementById("concreteShearSection").src="concrete shear section.png";
 
