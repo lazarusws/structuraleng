@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <div style="background-color: whitesmoke">
+    <div class= "header_footer">
     <center><h1>Reinforced Concrete Beam Design</h1></center>
 
 <a href="RC Beam design description.pdf">Description</a><br />
@@ -118,7 +118,7 @@
     <td rowspan="2" valign="top"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
     </tr>
     </table>
-<table width = 57%>
+<table width = 93%>
   <tr>
     <td><p><button onclick="flexure_design()">Design for flexure</button></p></td>
       
@@ -127,7 +127,7 @@
     
 </table>      
       <p>
-        <table width="100%">
+        <table width="90%">
           <tr>
             <td>
                 <table border="2" cellpadding="5">            
@@ -136,57 +136,60 @@
                     </tr>
                     <tr>
                         <td>Beam design</td>
-                        <td bgcolor="#e0e0d1" width= "85" colspan="2"><p id="designStatus"></p></td>
+                        <td class="output" width= "85" colspan="2"><p id="designStatus"></p></td>
                         
                       </tr>
                     <tr>
                       <td>Design load</td>
-                      <td bgcolor="#e0e0d1" width= "85"><p id="designLoad"></p></td>
+                      <td class="output" width= "85"><p id="designLoad"></p></td>
                       <td>kN/m</td>
                     </tr>
                     <tr>
                       <td>Design moment</td>
-                      <td bgcolor="#e0e0d1"><p id="designMoment"></p></td>
+                      <td class="output"><p id="designMoment"></p></td>
                       <td>kN-m</td>
                     </tr>                           
                     <tr>                  
                       <td>Effective depth (d)</td>                  
-                      <td bgcolor="#e0e0d1"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
+                      <td class="output"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
                       <td>m</td>
                     </tr>     
                     <tr>                  
                       <td>Effective depth (d<sub>2</sub>)</td>                  
-                      <td bgcolor="#e0e0d1"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
+                      <td class="output"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
                       <td>m</td>
                     </tr>                
                     <tr>                  
                       <td>K value</td>                  
-                      <td colspan="2" bgcolor="#e0e0d1"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->                
+                      <td colspan="2" class="output"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->                
                     </tr>                
                     <tr>                    
                       <td>K' value</td>                    
-                      <td colspan="2" bgcolor="#e0e0d1"> <p id="underReinforced"></p></td>               
+                      <td colspan="2" class="output"> <p id="underReinforced"></p></td>               
                     </tr>                 
                     <tr>                  
                       <td>Tension steel area (A<sub>s1</sub>)</td>                     
-                      <td bgcolor="#e0e0d1"> <p id="as1"></p></td>                    
+                      <td class="output"> <p id="as1"></p></td>                    
                       <td>mm<sup>2</sup></td>
                     </tr>                                  
                     <tr>                   
                       <td>Compression steel area (A<sub>s2</sub>)</td>                   
-                      <td bgcolor="#e0e0d1"> <p id="as2"></p></td>                    
+                      <td class="output"> <p id="as2"></p></td>                    
                       <td>mm<sup>2</sup></td>                
                     </tr>            
                     <tr>                 
                       <td>No of reinf. bar in tension </td>                  
-                      <td colspan="2" bgcolor="#e0e0d1"> <p id="tensionBar"></p></td>                
+                      <td colspan="2" class="output"> <p id="tensionBar"></p></td>                
                     </tr>              
                     <tr>                    
                       <td>No of reinf. bar in compression </td>                  
-                      <td colspan="2" bgcolor="#e0e0d1"> <p id="compressionBar"></p></td>           
+                      <td colspan="2" class="output"> <p id="compressionBar"></p></td>           
                     </tr>               
                   </table>
             </td>
+            <td valign="top">
+              <img id="beamSectionIMG" src="concreteSection.PNG"  width="200" height="250">
+          </td>
             <td valign="top">
               <table border="2" cellpadding="5">
                   <tr>
@@ -194,54 +197,47 @@
                   </tr>
                   <tr>
                     <td>Design shear stress V<sub>ED</sub></td>
-                    <td  bgcolor="#e0e0d1" width= "85"><p id = "shearStress"></p></td>
+                    <td  class="output" width= "85"><p id = "shearStress"></p></td>
                     <td>MPa</td>
                   </tr>
                   <tr>
                     <td rowspan="2">Concrete strut capacity v<sub>Rd</sub></td>
-                    <td bgcolor="#e0e0d1" width= "85"><p id= "strutCot2_5"></p></td>
+                    <td class="output" width= "85"><p id= "strutCot2_5"></p></td>
                     <td>MPa</td>
                   </tr>
                     <tr>
-                      <td bgcolor="#e0e0d1" width= "85"><p id= "strutCot1_0"></p></td>
+                      <td class="output" width= "85"><p id= "strutCot1_0"></p></td>
                       <td>MPa</td>
                     </tr>              
                     <tr>
                         <td>Minimum angle of strut &theta;</td>
-                        <td bgcolor="#e0e0d1" width= "85"><p id= "teta"></p></td>
+                        <td class="output" width= "85"><p id= "teta"></p></td>
                         <td>&#176;</td>
                       </tr>
                       <tr>
                           <td>Area per spacing As/s</td>
-                          <td bgcolor="#e0e0d1" width= "85"><p id= "apers"></p></td>
+                          <td class="output" width= "85"><p id= "apers"></p></td>
                           <td>mm</td>
                         </tr>
                   <tr>
                       <td>Shear reinforcement A<sub>sw</sub></td>
-                      <td bgcolor="#e0e0d1" width= "85"><p id = "stirrupArea"></p></td>
+                      <td class="output" width= "85"><p id = "stirrupArea"></p></td>
                       <td>mm<sup>2</sup></td>
                     </tr>
                     <tr>
                         <td>Spacing for shear reinforcement c/c</td>
-                        <td bgcolor="#e0e0d1" width= "85"><p id = "stirrupSpacing"></p></td>
+                        <td class="output" width= "85"><p id = "stirrupSpacing"></p></td>
                         <td>mm</td>
                       </tr>                
                 </table>
-          </td>            
-            <td>
-              <table>
-                <tr>                  
-                  <td valign="top">
-                    <img id="beamSectionIMG" src="concreteSection.PNG"  width="200" height="250">
-                </td>
-                </tr>
-                <tr>
-                  <td>
-                      <img id="concreteShearSection" src="concrete shear section.png"  width="500" height="150">
-                  </td>
-                </tr>
-              </table>
-              </td>
+                <table>
+                  <tr>
+                    <td>
+                        <img id="concreteShearSection" src="concrete shear section.png"  width="500" height="150">
+                    </td>
+                  </tr>
+                </table>
+          </td>
               </tr>
               </table>
               </p>   

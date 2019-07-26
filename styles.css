@@ -1,3 +1,7 @@
+.header_footer
+{
+   background-color: whitesmoke;
+}
 body
 {
    font-family: "Times New Roman", Times, serif;
@@ -24,5 +28,14 @@ th
    color: black;
    font-style: normal;
    font-weight: bold;
+   background-color: whitesmoke;
+}
+.header_footer
+{
+   background-color: whitesmoke;
+}
+.output
+{
+   background-color: #e0e0d1;
 }
 
