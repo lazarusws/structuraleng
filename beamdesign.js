@@ -123,7 +123,7 @@ function under_reinforcement_check() {
 
     var k_prime = 0.6 * mom_dis - 0.18 * mom_dis * mom_dis - 0.21;
 
-    var k = DesignMoment/ (b * (fck/1.5) * d1 * d1);      
+    var k = DesignMoment/ (b * fck * d1 * d1);      
 
     if (k >= 1 / 3.53 ) {       
 
@@ -133,7 +133,7 @@ function under_reinforcement_check() {
 
         location.reload();
        
-    }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }
+    }else { k = DesignMoment/ (b * fck * d1 * d1) }
     
     console.log(k);
     document.getElementById("reinfCoffi").innerHTML = precision(k);
@@ -150,12 +150,6 @@ function flexure_design() {
     var {DesignMoment} = designloadAndMoment();
 
     var {k, k_prime} = under_reinforcement_check();
-
-   /* if (k >= 1 / 3.53 ) {       
-
-        reset_page() ;
-       
-    }else { k = DesignMoment/ (b * (fck/1.5) * d1 * d1) }*/
     
     if (k <= k_prime) {
 
@@ -223,11 +217,9 @@ function shear_design(){
 
     var {l , b, d1, stirrup_bar_as_mm, LegNumber , fyd , fck} = input();
 
-    var {z} = flexure_design()
-
     var V_ED_kN = DesignLoad * l / 2;  //Shear force acts on the beam d length from the face the support(column)
 
-    var v_ED_MPa = V_ED_kN / (1000 * b * z);
+    var v_ED_MPa = V_ED_kN / (1000 * b * 0.9 * d1 );
 
     console.log(v_ED_MPa);
     document.getElementById("shearStress").innerHTML = precision(v_ED_MPa);
@@ -258,7 +250,6 @@ function shear_design(){
 
     var{V_RD_cot1_0,V_RD_cot2_5} = strut_capacity();
 
-
     if( v_ED_MPa < V_RD_cot2_5){
 
         var Asw_per_s = (v_ED_MPa * b) * 1000 / (fyd * 2.5 / 1000);
@@ -273,7 +264,7 @@ function shear_design(){
 
     }   else if(v_ED_MPa < V_RD_cot1_0){
 
-        var teta = 0.5 * (Math.asin( v_ED_MPa/ (0.20 * (fck/1000) * (1 - (fck/1000)/250 )))*180/ Math.PI);  // 250 is multiplied to male the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
+        var teta = (0.5 *180/ Math.PI) * (Math.asin( v_ED_MPa/ (0.20 * (fck/1000) * (1 - (fck/250000)))));  // 250 is multiplied by 1000 to make the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
 
         var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fyd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
 
