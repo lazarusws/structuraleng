@@ -165,7 +165,12 @@ function flexure_design() {
 
         var status = "Singly reinforced"
 
+        var d2 = "Not available"
+
         document.getElementById("beamSectionIMG").src="singleReinforcement.png";
+
+        console.log(d2);
+        document.getElementById("effectiveDepthCompression").innerHTML = d2;
 
     } else{
 
