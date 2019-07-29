@@ -1,9 +1,9 @@
-<html>
+<html class="beamDesign">
 <head>
 <title>RC Beam Design </title>
 <script src="general.js"></script>
 <script src="beamdesign.js"></script>
-<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" type="text/css" href="stylesBeamDesign.css">
 
 </head>
 
@@ -129,8 +129,8 @@
       <p>
         <table width="90%">
           <tr>
-            <td>
-                <table border="2" cellpadding="5">            
+            <td valign="top">
+                <table border="2" cellpadding="5" class="d">            
                     <tr>
                       <th colspan="3" >Flexure design values</th>
                     </tr>
@@ -146,44 +146,44 @@
                     </tr>
                     <tr>
                       <td>Design moment</td>
-                      <td class="output"><p id="designMoment"></p></td>
+                      <td class="output" width= "100"><p id="designMoment"></p></td>
                       <td>kN-m</td>
                     </tr>                           
                     <tr>                  
                       <td>Effective depth (d)</td>                  
-                      <td class="output"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
+                      <td class="output" width= "100"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
                       <td>m</td>
                     </tr>     
                     <tr>                  
                       <td>Effective depth (d<sub>2</sub>)</td>                  
-                      <td class="output"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
+                      <td class="output" width= "100"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
                       <td>m</td>
                     </tr>                
                     <tr>                  
                       <td>K value</td>                  
-                      <td colspan="2" class="output"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->                
+                      <td colspan="2" class="output" width= "100"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->                
                     </tr>                
                     <tr>                    
                       <td>K' value</td>                    
-                      <td colspan="2" class="output"> <p id="underReinforced"></p></td>               
+                      <td colspan="2" class="output" width= "100"> <p id="underReinforced"></p></td>               
                     </tr>                 
                     <tr>                  
                       <td>Tension steel area (A<sub>s1</sub>)</td>                     
-                      <td class="output"> <p id="as1"></p></td>                    
+                      <td class="output" width= "100"> <p id="as1"></p></td>                    
                       <td>mm<sup>2</sup></td>
                     </tr>                                  
                     <tr>                   
                       <td>Compression steel area (A<sub>s2</sub>)</td>                   
-                      <td class="output"> <p id="as2"></p></td>                    
+                      <td class="output" width= "100"> <p id="as2"></p></td>                    
                       <td>mm<sup>2</sup></td>                
                     </tr>            
                     <tr>                 
                       <td>No of reinf. bar in tension </td>                  
-                      <td colspan="2" class="output"> <p id="tensionBar"></p></td>                
+                      <td colspan="2" class="output" width= "100"> <p id="tensionBar"></p></td>                
                     </tr>              
                     <tr>                    
                       <td>No of reinf. bar in compression </td>                  
-                      <td colspan="2" class="output"> <p id="compressionBar"></p></td>           
+                      <td colspan="2" class="output" width= "100"> <p id="compressionBar"></p></td>           
                     </tr>               
                   </table>
             </td>
