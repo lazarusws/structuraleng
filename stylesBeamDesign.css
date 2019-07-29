@@ -40,7 +40,7 @@ th
 .beamDesign
 {
    position: relative;
-   min-width: 1280px;
-   min-height: 768px;
+   min-width: device-width;   
+   min-height: device-height;
    height: 100%;
 }
