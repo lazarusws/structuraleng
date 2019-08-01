@@ -39,8 +39,11 @@ function reset_page() {
    var selectorBearingSafety = document.getElementById("steelType");   
    selectorBearingSafety.selectedIndex = 2;
 
+   var selectorBearingSafety = document.getElementById("stirrupType");   
+   selectorBearingSafety.selectedIndex = 0;
+
    var selectorDeadload = document.getElementById("barDiaType");
-   selectorDeadload.selectedIndex = 4;
+   selectorDeadload.selectedIndex = 5;
 
    var selectorDeadload = document.getElementById("stirrupbarDiaType");
    selectorDeadload.selectedIndex = 0;
@@ -74,6 +77,9 @@ function input(){
     var	selectorSteelGrade = document.getElementById("steelType");
     var	fyd = selectorSteelGrade[selectorSteelGrade.selectedIndex].value;
 
+    var	selectorStirrupGrade = document.getElementById("stirrupType");
+    var	fywd = selectorStirrupGrade[selectorStirrupGrade.selectedIndex].value;
+
     var	selectorConcreteGrade = document.getElementById("concreteType"); 
     var	fck = selectorConcreteGrade[selectorConcreteGrade.selectedIndex].value;
 
@@ -97,7 +103,7 @@ function input(){
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
 
-	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber};
+	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber, fywd};
 }
 function designloadAndMoment() {
 
@@ -165,7 +171,7 @@ function flexure_design() {
 
         var status = "Singly reinforced"
 
-        var d2 = "Not available"
+        var d2 = "N/A"
 
         document.getElementById("beamSectionIMG").src="singleReinforcement.png";
 
@@ -220,7 +226,7 @@ function shear_design(){
 
     var{DesignLoad} = designloadAndMoment();
 
-    var {l , b, d1, stirrup_bar_as_mm, LegNumber , fyd , fck} = input();
+    var {l , b, d1, stirrup_bar_as_mm, LegNumber , fyd , fck, fywd} = input();
 
     var V_ED_kN = DesignLoad * l / 2;  //Shear force acts on the beam d length from the face the support(column)
 
@@ -257,7 +263,7 @@ function shear_design(){
 
     if( v_ED_MPa < V_RD_cot2_5){
 
-        var Asw_per_s = (v_ED_MPa * b) * 1000 / (fyd * 2.5 / 1000);
+        var Asw_per_s = (v_ED_MPa * b) * 1000 / (fywd * 2.5 / 1000);
 
         var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
 
@@ -271,7 +277,7 @@ function shear_design(){
 
         var teta = (0.5 *180/ Math.PI) * (Math.asin( v_ED_MPa/ (0.20 * (fck/1000) * (1 - (fck/250000)))));  // 250 is multiplied by 1000 to make the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
 
-        var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fyd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
+        var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fywd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
 
         var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
 

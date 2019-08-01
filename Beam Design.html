@@ -10,19 +10,31 @@
 <body>
     <div class= "header_footer">
     <center><h1>Reinforced Concrete Beam Design</h1></center>
-
-<a href="RC Beam design description.pdf">Description</a><br />
+<table width = "100%">
+  <tr>
+    <td>
+<a href="RC Beam design description.pdf">Description</a> 
+</td>
+<td >
+  <table border="2" align = "right">
+<tr>
+    <th class= "tb">EUROCODE 2</th>
+</tr>
+  </table>
+</td>
+</tr>
+</table>
 </div>
 <table width="100%">
   <tr>
     <td><p>Precision: <input type="text" id="digits" value="6" size="2"></p></td>
-    <td align="right"><button onclick="pagePrint()">Print</button> <input  type="button" onclick="reset_page()" value="Reset page" ></td>
+    <td align="right"><button onclick="pagePrint()">Print <i class="fa fa-print"></i></button> <input  type="button" onclick="reset_page()" value="Reset page" ></td>
   </tr>
 </table>
 
 <table width="100%">
   <tr>
-    <td>
+    <td valign ="top">
       <table border="2" cellpadding="5">
   <tr>
     <th colspan="3">Section</th>
@@ -31,10 +43,10 @@
 </tr>
 <tr>
   <td>Width (b)</td>
-  <td><input type="text" id="breadth" value="0.4" size="10"></td>
+  <td><input type="text" id="breadth" value="0.3" size="10"></td>
   <td>m</td>
   <td>Dead load  <input type="text" id="sfTypeDeadload" value="1.35" size="5"></td>
-  <td><input type="text" id="deadLoad" value="4.0" size="10"></td>
+  <td><input type="text" id="deadLoad" value="10.0" size="10"></td>
   <td>kN/m</td>
   <td>Concrete grade</td>
   <td><select id="concreteType">
@@ -52,17 +64,23 @@
   </tr>
   <tr>
       <td>Depth (h)</td>
-      <td><input type="text" id="depth" value="0.6" size="10"></td>
+      <td><input type="text" id="depth" value="0.45" size="10"></td>
       <td>m</td>
       <td>Live load  <input type="text" id="sfTypeLiveload" value="1.5" size="5"></td>
-      <td><input type="text" id="liveLoad" value="2.0" size="10"></td>
+      <td><input type="text" id="liveLoad" value="8.0" size="10"></td>
       <td>kN/m</td>
-      <td>Steel grade</td>
+      <td>Flexural and shear rebar grade</td>
       <td><select id="steelType">
           <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
           <option value="260869.5652"            >S300</option>
           <option value="434782.609"    selected >S500 </option>
-       </select></td>
+       </select>
+       <select id="stirrupType">
+        <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+        <option value="260869.5652"            >S300</option>
+        <option value="434782.609"             >S500 </option>
+     </select>
+      </td>
       </tr>
       <tr>
           <td>Length (l)</td>
@@ -74,13 +92,15 @@
             <option value="1.0"          selected>0 % </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->                  
             <option value="0.85"                 >15% </option>
             <option value="0.8"                  >20% </option>
+            <option value="0.7"                  >30% </option>
                             
             </select></td>    
-            <td>Reinforcement and stirrup bar size</td>          
+            <td>Flexural and shear rebar size</td>          
             <td><select id="barDiaType">              
               <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
               <option value="78.5"            >D10 </option>              
-              <option value="113"             >D12 </option>              
+              <option value="113"             >D12 </option>    
+              <option value="154"             >D14 </option>          
               <option value="201"             >D16 </option>
               <option value="314"    selected >D20</option>
               <option value="491"             >D25 </option>
@@ -90,7 +110,8 @@
            <select id="stirrupbarDiaType">              
               <option value="50.3"    selected>D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
               <option value="78.5"            >D10 </option>              
-              <option value="113"             >D12 </option>              
+              <option value="113"             >D12 </option>   
+              <option value="154"             >D14 </option>           
               <option value="201"             >D16 </option>
               <option value="314"             >D20</option>
               <option value="491"             >D25 </option>
@@ -115,14 +136,14 @@
       
     </table>
     </td>
-    <td rowspan="2" valign="top"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
+    <td  valign="top"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
     </tr>
     </table>
 <table width = 93%>
   <tr>
-    <td><p><button onclick="flexure_design()">Design for flexure</button></p></td>
+    <td valign ="top"><p><button onclick="flexure_design()">Design for flexure</button></p></td>
       
-    <td><p><button onclick="shear_design()">Design for shear</button></p></td></td>
+    <td valign ="top"><p><button onclick="shear_design()">Design for shear</button></p></td></td>
   </tr>
     
 </table>      
@@ -188,7 +209,7 @@
                   </table>
             </td>
             <td valign="top">
-              <img id="beamSectionIMG" src="concreteSection.PNG"  width="200" height="250">
+              <img id="beamSectionIMG" src="concreteSection.PNG"  width="160" height="200">
           </td>
             <td valign="top">
               <table border="2" cellpadding="5">
@@ -242,7 +263,7 @@
               </table>
               </p>   
               <div style="background-color: whitesmoke">        
-        <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a><br /></p>      
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a><br/>      
         </div>
 </body>
 </html>

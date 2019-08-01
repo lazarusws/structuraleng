@@ -32,6 +32,15 @@ th
    background-color: whitesmoke;
 }
 
+.tb
+{
+   font-family: "Times New Roman", Times, serif;
+   color: rgb(22, 28, 110);
+   font-style: italic;
+   font-weight: bold;
+   background-color: whitesmoke;
+}
+
 .output
 {
    background-color: #e0e0d1;
