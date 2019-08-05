@@ -1,0 +1,53 @@
+.header_footer
+{
+   background-color: whitesmoke;
+}
+body
+{
+   font-family: "Times New Roman", Times, serif;
+}
+
+
+h1
+{
+   font-family: "Arial", Helvetica, sans-serif;
+   color: black;
+}
+
+
+h2
+{
+   font-family: "Arial", Helvetica, sans-serif;
+   color: red;
+}
+
+
+th
+{
+   font-family: "Times New Roman", Times, serif;
+   color: black;
+   font-style: normal;
+   font-weight: bold;
+   background-color: whitesmoke;
+}
+
+.output
+{
+   background-color: #e0e0d1;
+}
+.flatSlabDesign
+{
+   position: relative;
+   min-width: 1410px;   
+   min-height: 720px;
+   
+}
+
+.tb
+{
+   font-family: "Times New Roman", Times, serif;
+   color: rgb(22, 28, 110);
+   font-style: italic;
+   font-weight: bold;
+   background-color: whitesmoke;
+}
