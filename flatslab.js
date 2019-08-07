@@ -223,12 +223,12 @@ function under_reinforcement_check() {
 	var {d1} = critical_section();
 
 	var {Msaggcol, Msaggmid, Mhoggcol, Mhoggmid} = loading_and_moment();
-	
-	
+
+	var k_prime = 0.168;	
 
 	var ksagc = (Msaggcol/( B * fck * Math.pow(d1,2)));                  //Change D in to effective depth 
 
-	if (ksagc >= 1 / 3.53 ) {       
+	if (ksagc >= k_prime) {       
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
@@ -242,7 +242,7 @@ function under_reinforcement_check() {
 
 	var ksagm = Msaggmid/( B * fck * Math.pow(d1,2));
 
-	if (ksagm >= 1 / 3.53 ) {       
+	if (ksagm >= k_prime) {       
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
@@ -256,7 +256,7 @@ function under_reinforcement_check() {
 
 	var khogc = Mhoggcol/( B * fck * Math.pow(d1,2));                  //Change D in to effective depth 
 
-	if (khogc >= 1 / 3.53 ) {       
+	if (khogc >= k_prime ) {       
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
@@ -270,7 +270,7 @@ function under_reinforcement_check() {
 	
 	var khogm = Mhoggmid/( B * fck * Math.pow(d1,2));    
 
-    if (khogm >= 1 / 3.53 ) {       
+    if (khogm >= k_prime ) {       
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 

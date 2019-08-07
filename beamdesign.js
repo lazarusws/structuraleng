@@ -36,26 +36,26 @@ function reset_page() {
    document.getElementById("concreteShearSection").src="concrete shear section.png";
 
        
-   var selectorBearingSafety = document.getElementById("steelType");   
-   selectorBearingSafety.selectedIndex = 2;
+   var selectorSteelGrade = document.getElementById("steelType");   
+   selectorSteelGrade.selectedIndex = 2;
 
-   var selectorBearingSafety = document.getElementById("stirrupType");   
-   selectorBearingSafety.selectedIndex = 0;
+   var selectorStirrupGrade = document.getElementById("stirrupType");   
+   selectorStirrupGrade.selectedIndex = 0;
 
-   var selectorDeadload = document.getElementById("barDiaType");
-   selectorDeadload.selectedIndex = 5;
+   var selectorBarDiameter = document.getElementById("barDiaType");
+   selectorBarDiameter.selectedIndex = 5;
 
-   var selectorDeadload = document.getElementById("stirrupbarDiaType");
-   selectorDeadload.selectedIndex = 0;
+   var selectorStirrupSize = document.getElementById("stirrupbarDiaType");
+   selectorStirrupSize.selectedIndex = 0;
 
-   var selectorLiveload = document.getElementById("concreteType");
-   selectorLiveload.selectedIndex = 1;
+   var selectorConcreteGrade = document.getElementById("concreteType");
+   selectorConcreteGrade.selectedIndex = 1;
 
-   var selectorConcreteType = document.getElementById("momentdist");
-   selectorConcreteType.selectedIndex = 0;
+   var selectorMomentRedistribution = document.getElementById("momentdist");
+   selectorMomentRedistribution.selectedIndex = 0;
 
-   var selectorConcreteType = document.getElementById("stirrupLeg");
-   selectorConcreteType.selectedIndex = 0;
+   var selectorStirrupLeg = document.getElementById("stirrupLeg");
+   selectorStirrupLeg.selectedIndex = 0;
  
    blank_output();
 
@@ -121,25 +121,61 @@ function designloadAndMoment() {
 
     return {DesignLoad, DesignMoment};
 }
-function under_reinforcement_check() {
+/*function K_moment_redistribution_limit(){
+
+    var {mom_dis} = input();
+
+    if (mom_dis == 1.0 ) return {k_limit : 0.208};
+
+    if (mom_dis == 0.95) return {k_limit : 0.195}
+
+    if (mom_dis == 0.9 ) return {k_limit : 0.182};
+
+    if (mom_dis == 0.85) return {k_limit : 0.168};
+
+    if (mom_dis == 0.75) return {k_limit : 0.137};
+
+    if (mom_dis == 0.70) return {k_limit : 0.120};
+
+    return {k_limit: NaN};
+
+}*/
+
+    var {k_limit} = K_moment_redistribution_limit();
+
+function brittle_failure_check() {
 
     var {mom_dis, d1, b, fck} = input();
     
     var {DesignMoment} = designloadAndMoment();
 
+    //var {k_limit} = K_moment_redistribution_limit();
+
     var k_prime = 0.6 * mom_dis - 0.18 * mom_dis * mom_dis - 0.21;
 
-    var k = DesignMoment/ (b * fck * d1 * d1);      
+    var k = DesignMoment/ (b * fck * d1 * d1);     
+    
+   
 
-    if (k >= 1 / 3.53 ) {       
+    if (k >= 0.21) {       
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
-        alert("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
+        alert("Inadequate section, Redesign! Increase the section capacity by either increasing the depth or the concrete grade.");
 
         location.reload();
+        
        
-    }else { k = DesignMoment/ (b * fck * d1 * d1) }
+    } else if (k >= 0.16995) {
+
+        if (mom_dis > 0.85) {
+
+        alert("WARNING! It is recommended to design a doubly reinforced concrete beam (limit moment redistribution to 15% minimum for Class A and 20% to 30% for Class B & C) to ensure ductile failure for the design moment.")
+        
+        }else {}
+    }
+    
+    else { k = DesignMoment/ (b * fck * d1 * d1) }
     
     console.log(k);
     document.getElementById("reinfCoffi").innerHTML = precision(k);
@@ -155,7 +191,7 @@ function flexure_design() {
 
     var {DesignMoment} = designloadAndMoment();
 
-    var {k, k_prime} = under_reinforcement_check();
+    var {k, k_prime} = brittle_failure_check();
     
     if (k <= k_prime) {
 
@@ -217,6 +253,9 @@ function flexure_design() {
 
     console.log(status);
     document.getElementById("designStatus").innerHTML = status;
+
+    console.log(z);
+    document.getElementById("z").innerHTML = precision(z);
 
     return{z};
 
