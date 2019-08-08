@@ -326,7 +326,7 @@ function shear_design(){
 
     }else {
 
-        alert("Shear failure!, increase the concrete grade.");
+        alert("Shear failure! Increase the depth of the beam or the concrete grade.");
 
         location.reload();
 
