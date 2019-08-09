@@ -32,8 +32,7 @@
       <td align="right"><button onclick="pagePrint()">Print</button> <input  type="button" onclick="reset_page()" value="Reset page" ></td>
     </tr>
   </table>
-
-<p>
+  Input- Insert the dimensions of the slab span and section , loads and material properties of the concrete and the reinforcement steel.   
    <table width= 100%>
 <tr>
   <td valign = "top">
@@ -171,26 +170,44 @@
                </select></td>
           </tr>
           <tr>
-              <td>Steel grade</td>
+              <td>Flexural and shear rebar grade</td>
               <td colspan="2"><select id="steelType">
                       <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
                       <option value="260869.5652"            >S300</option>
                       <option value="434782.609"    selected >S500 </option>
+                   </select>
+                   <select id="stirrupType">
+                      <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+                      <option value="260869.5652"            >S300</option>
+                      <option value="434782.609"             >S500 </option>
                    </select></td>
           </tr>
          <tr>
-         <td>Bar size</td>
+         <td>Flexural and shear rebar size</td>
          <td colspan="2"><select id="barDiaType">
          
-                 <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-                 <option value="78.5"            >D10 </option>              
-                 <option value="113"             >D12 </option>              
-                 <option value="201"             >D16 </option>
-                 <option value="314"    selected >D20</option>
-                 <option value="491"             >D25 </option>
-                 <option value="804"             >D32 </option>
-                 <option value="1260"            >D40 </option>
-              </select></td>
+            <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+            <option value="78.5"            >D10 </option>              
+            <option value="113"             >D12 </option>    
+            <option value="154"             >D14 </option>          
+            <option value="201"             >D16 </option>
+            <option value="314"    selected >D20</option>
+            <option value="491"             >D25 </option>
+            <option value="804"             >D32 </option>
+            <option value="1260"            >D40 </option>
+              </select>
+              <select id="stirrupbarDiaType">              
+                  <option value="50.3"    selected>D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                  <option value="78.5"            >D10 </option>              
+                  <option value="113"             >D12 </option>   
+                  <option value="154"             >D14 </option>           
+                  <option value="201"             >D16 </option>
+                  <option value="314"             >D20</option>
+                  <option value="491"             >D25 </option>
+                  <option value="804"             >D32 </option>
+                  <option value="1260"            >D40 </option>
+               </select>
+            </td>
           </tr>
           
 </table>
@@ -200,11 +217,6 @@
 </tr>
    </table>
 
-
-</p>
-
-
-<p>
     <table width ="89%">
 <tr>
   <td col width="80">
@@ -220,8 +232,7 @@
 </tr>
 
 </table>
-
-</p>
+Output results - This will design the reinforced concrete flat slab for flexure and shear in the tables below from the design input data in the table above. 
 
 
     <table style="width:100%">
@@ -332,46 +343,66 @@
   <button onclick="shear_design()">Design for shear</button>
 </p>
 <p>
-  <table border="2" cellpadding="5">
-    <tr>      
-      <th colspan="3">Shear design values</th>      
+  <table  width = "92%">
+    <tr>
+      <td valign= "top">
+          <table border="2" cellpadding="5">
+              <tr>      
+                <th colspan="3">Shear design values</th>      
+              </tr>
+              <tr>      
+                <td>Design shear stress at the face of the column (v<sub>ED</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "designShearStressAtColumnFace"></p></td>                    
+                <td>MPa</td>
+              </tr>   
+              <tr>      
+                <td>Concrete shear strength (v<sub>Rd,max</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>                    
+                <td>MPa</td>
+              </tr>
+              <tr>      
+                <td>Design shear stress at the control perimeter u<sub>1</sub> (v<sub>ED</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "designShearStress"></p></td>                    
+                <td>MPa</td>
+              </tr>
+              <tr>      
+                <td>Concrete punching shear strength (v<sub>Rd,c</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "concreteShearResis"></p></td>                    
+                <td>MPa</td>
+              </tr>
+              <tr>      
+                <td>Punching shear reinf. per perimeter (A<sub>sw</sub>)</td>                    
+                <td  class="output" width= "100"><p id = "punchReinfArea"></p></td>                    
+                <td>mm<sup>2</sup></td>
+              </tr>
+              <tr>      
+                  <td>No of punching shear reinf. provided (n)</td>                    
+                  <td  class="output" width= "100" colspan="2"><p id = "noStirrup"></p></td>                    
+                
+                </tr>
+              <tr>      
+                <td>Punching shear resistance with shear reinf. (v<sub>Rd,cs</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "shearReinfResisWithConcrete"></p></td>                    
+                <td>MPa</td>
+              </tr>
+              <tr>      
+                <td>Outer perimeter where shear reinf. not required (u<sub>out,ef</sub>)</td>                    
+                <td  class="output" width= "85"><p id = "perimeterShearReinforcement"></p></td>                    
+                <td>m</td>
+              </tr>
+              <tr>      
+                  <td>Radius from the column face to the outer perimeter (r)</td>                    
+                  <td  class="output" width= "85"><p id = "radius"></p></td>                    
+                  <td>m</td>
+                </tr>
+            </table>
+      </td>
+      <td valign= "top"><img src="punchingShearLayout.PNG" alt="Punching shear layout"></td>
+      <td valign= "top"><img src="punchingShearLayoutSection.PNG" alt="Punching shear section"></td>
     </tr>
-    <tr>      
-      <td>Design shear stress at the face of the column (v<sub>ED</sub>)</td>                    
-      <td  class="output" width= "85"><p id = "designShearStressAtColumnFace"></p></td>                    
-      <td>MPa</td>
-    </tr>   
-    <tr>      
-      <td>Concrete shear strength (v<sub>Rd,max</sub>)</td>                    
-      <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>                    
-      <td>MPa</td>
-    </tr>
-    <tr>      
-      <td>Design shear stress at the control perimeter u<sub>1</sub> V<sub>ED</sub></td>                    
-      <td  class="output" width= "85"><p id = "designShearStress"></p></td>                    
-      <td>MPa</td>
-    </tr>
-    <tr>      
-      <td>Concrete punching shear strength V<sub>Rd,c</sub></td>                    
-      <td  class="output" width= "85"><p id = "concreteShearResis"></p></td>                    
-      <td>MPa</td>
-    </tr>
-    <tr>      
-      <td>Punching shear reinforcement A<sub>sw</sub></td>                    
-      <td  class="output" width= "100"><p id = "punchReinfArea"></p></td>                    
-      <td>mm<sup>2</sup></td>
-    </tr>
-    <tr>      
-      <td>Punching shear resistance with shear reinforcement V<sub>Rd,cs</sub></td>                    
-      <td  class="output" width= "85"><p id = "shearReinfResisWithConcrete"></p></td>                    
-      <td>MPa</td>
-    </tr>
-    <tr>      
-      <td>Outer perimeter where shear reinforcement not required u<sub>out,ef</sub></td>                    
-      <td  class="output" width= "85"><p id = "perimeterShearReinforcement"></p></td>                    
-      <td>m</td>
-    </tr>
+
   </table>
+  
 </p>
     <div style="background-color: whitesmoke">
 

@@ -161,7 +161,7 @@ function brittle_failure_check() {
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
-        alert("Inadequate section, Redesign! Increase the section capacity by either increasing the depth or the concrete grade.");
+        alert("Inadequate section! Redesign section - Increase the section capacity by either increasing the depth or the concrete grade.");
 
         location.reload();
         

@@ -31,8 +31,8 @@
     <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
   </tr>
 </table>
-
-<table width="100%">
+Input- Insert the dimensions of the beam section , loads and material properties of the concrete and the reinforcement steel.   
+<table width="100%">  
   <tr>
     <td valign ="top">
       <table border="2" cellpadding="5">
@@ -148,9 +148,9 @@
       
     <td valign ="top"><p><button onclick="shear_design()">Design for shear</button></p></td></td>
   </tr>
-    
 </table>      
       <p>
+          Output results - This will design the reinforced concrete beam for flexure and shear in the tables below from the design input data in the table above. 
         <table width="90%">
           <tr>
             <td valign="top">
@@ -220,12 +220,12 @@
                     <th colspan="3">Shear design values</th>
                   </tr>
                   <tr>
-                    <td>Design shear stress V<sub>ED</sub></td>
+                    <td>Design shear stress (V<sub>ED</sub>)</td>
                     <td  class="output" width= "85"><p id = "shearStress"></p></td>
                     <td>MPa</td>
                   </tr>
                   <tr>
-                    <td rowspan="2">Concrete strut capacity v<sub>Rd</sub></td>
+                    <td rowspan="2">Concrete strut capacity (v<sub>Rd</sub>)</td>
                     <td class="output" width= "85"><p id= "strutCot2_5"></p></td>
                     <td>MPa</td>
                   </tr>
@@ -234,17 +234,17 @@
                       <td>MPa</td>
                     </tr>              
                     <tr>
-                        <td>Minimum angle of strut &theta;</td>
+                        <td>Minimum angle of strut (&theta;)</td>
                         <td class="output" width= "85"><p id= "teta"></p></td>
                         <td>&#176;</td>
                       </tr>
                       <tr>
-                          <td>Area per spacing As/s</td>
+                          <td>Area per spacing (As/s)</td>
                           <td class="output" width= "85"><p id= "apers"></p></td>
                           <td>mm</td>
                         </tr>
                   <tr>
-                      <td>Shear reinforcement A<sub>sw</sub></td>
+                      <td>Shear reinforcement (A<sub>sw</sub>)</td>
                       <td class="output" width= "85"><p id = "stirrupArea"></p></td>
                       <td>mm<sup>2</sup></td>
                     </tr>
