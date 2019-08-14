@@ -16,8 +16,7 @@ function blank_output() {
    document.getElementById( "strutCot1_0" ).innerHTML            = "";
    document.getElementById( "stirrupSpacing" ).innerHTML         = "";
    document.getElementById( "stirrupArea" ).innerHTML            = "";
-   document.getElementById( "apers" ).innerHTML                  = "";
-   
+   document.getElementById( "apers" ).innerHTML                  = "";  
    
    
    return true;
@@ -31,7 +30,8 @@ function reset_page() {
    document.getElementById( "breadth"     ).value = 0.4;
    document.getElementById( "sfTypeDeadload").value = 1.35;
    document.getElementById( "sfTypeLiveload").value = 1.5;
-   document.getElementById( "coverThic").value = 0.025;
+   document.getElementById( "coverThic"    ).value = 0.025;
+   document.getElementById( "digits"       ).value = 6.0;
    document.getElementById("beamSectionIMG").src="concreteSection.PNG";
    document.getElementById("concreteShearSection").src="concrete shear section.png";
 
@@ -62,13 +62,14 @@ function reset_page() {
    return true;
 }
 
-function input(){
+function input() {
 
     //Value input
     var DL = parseFloat( document.getElementById( "deadLoad"  ).value );
     var LL = parseFloat( document.getElementById( "liveLoad" ).value );
     var l  = parseFloat( document.getElementById( "length" ).value );
-    var D  = parseFloat( document.getElementById( "depth" ).value );
+    var D  = parseFloat( document.getElementById( "depth" ).value );  
+
     var b  = parseFloat( document.getElementById( "breadth" ).value );
     var c  = parseFloat( document.getElementById( "coverThic" ).value );
     var safetyDeadLoad = parseFloat( document.getElementById( "sfTypeDeadload" ).value );
@@ -93,17 +94,12 @@ function input(){
     var	mom_dis = selectorMomentRedistribution[selectorMomentRedistribution.selectedIndex].value;
 
     var	selectorStirrupLeg= document.getElementById("stirrupLeg"); 
-    var	LegNumber = selectorStirrupLeg[selectorStirrupLeg.selectedIndex].value;
-
+    var	LegNumber = selectorStirrupLeg[selectorStirrupLeg.selectedIndex].value;    
 
     var d1 = D - c - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-    var d2 = c + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;
 
-    console.log(d1);
-    document.getElementById("effectiveDepth").innerHTML = precision(d1);
-
-	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, d1, d2, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber, fywd};
+	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber, fywd, c, d1};
 }
 function designloadAndMoment() {
 
@@ -121,50 +117,26 @@ function designloadAndMoment() {
 
     return {DesignLoad, DesignMoment};
 }
-/*function K_moment_redistribution_limit(){
-
-    var {mom_dis} = input();
-
-    if (mom_dis == 1.0 ) return {k_limit : 0.208};
-
-    if (mom_dis == 0.95) return {k_limit : 0.195}
-
-    if (mom_dis == 0.9 ) return {k_limit : 0.182};
-
-    if (mom_dis == 0.85) return {k_limit : 0.168};
-
-    if (mom_dis == 0.75) return {k_limit : 0.137};
-
-    if (mom_dis == 0.70) return {k_limit : 0.120};
-
-    return {k_limit: NaN};
-
-}*/
-
-    var {k_limit} = K_moment_redistribution_limit();
 
 function brittle_failure_check() {
 
-    var {mom_dis, d1, b, fck} = input();
+    var {mom_dis, b, fck, d1} = input();
     
     var {DesignMoment} = designloadAndMoment();
 
-    //var {k_limit} = K_moment_redistribution_limit();
+ 
 
     var k_prime = 0.6 * mom_dis - 0.18 * mom_dis * mom_dis - 0.21;
 
-    var k = DesignMoment/ (b * fck * d1 * d1);     
-    
-   
+    var k = DesignMoment/ (b * fck * d1 * d1);   
 
-    if (k >= 0.21) {       
+    if (k >= 0.21) {
 
         //confirm("Brittle failure!, increase the section capacity by either increasing the depth or the concrete grade.");
 
         alert("Inadequate section! Redesign section - Increase the section capacity by either increasing the depth or the concrete grade.");
 
-        location.reload();
-        
+        location.reload();        
        
     } else if (k >= 0.16995) {
 
@@ -187,11 +159,20 @@ function brittle_failure_check() {
 }
 function flexure_design() {
 
-    var {d1, d2,k,b,fck, k_prime, fyd, bar_as_mm, mom_dis} = input();
+    var {l,b,fck, k_prime, fyd, bar_as_mm, mom_dis, DL, LL, D,safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, c, d1} = input();
 
     var {DesignMoment} = designloadAndMoment();
 
     var {k, k_prime} = brittle_failure_check();
+
+    if ( D >= 0.0){}   else{alert( "Invalid beam depth input !")};
+	if ( c >= 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
+	if ( safetyDeadLoad >= 0.0){}else{alert( "Invalid dead load safety factor input !")};
+	if ( safetyLiveLoad >= 0.0){}else{alert( "Invalid live load safety factor input !")};
+	if ( DL >= 0.0){}  else{alert( "Invalid dead load input !")};
+	if ( LL >= 0.0){}  else{alert( "Invalid live load input!")};
+	if ( l >= 0.0){}  else{alert( "Invalid beam span length input !")};
+	if ( b >= 0.0){}  else{alert( "Invalid beam width input !")};    
     
     if (k <= k_prime) {
 
@@ -199,11 +180,11 @@ function flexure_design() {
 
         var As1 = DesignMoment * 1000000/(z * fyd);              //Area in square mm      
 
-        var n1= Math.max(As1 / bar_as_mm, 2);                    //No of bar in tension zone
+        var n1= Math.ceil(Math.max(As1 / bar_as_mm, 2));                    //No of bar in tension zone
         
-        var As2 = 0;
+        var As2 = "Not required";
 
-        var n2 = 0;
+        var n2 = "Not required";
 
         var status = "Singly reinforced"
 
@@ -211,10 +192,10 @@ function flexure_design() {
 
         document.getElementById("beamSectionIMG").src="singleReinforcement.png";
 
-        console.log(d2);
-        document.getElementById("effectiveDepthCompression").innerHTML = d2;
-
+        
     } else{
+
+        var d2 = precision(c + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000);
 
         var z = (d1/2) * (1 + Math.sqrt(1 - 3.53 * k_prime));
         
@@ -224,40 +205,44 @@ function flexure_design() {
 
         var M_prime =  b * d1 * d1 * fck * (k - k_prime ); 
 
-        var As2 = (M_prime * 1000000) / (fyd * (d1 - d2));
+        var As2 = precision((M_prime * 1000000) / (fyd * (d1 - d2)));
 
         var As1 = (k_prime * fck * b * d1 * d1 * 1000000)/(z * fyd) + As2 * fsc/fyd;              //Area in square mm      
 
         var n1= Math.max(As1 / bar_as_mm, 2);
 
-        var n2 = Math.max(As2 / bar_as_mm, 2);
+        var n2 = Math.ceil(Math.max(As2 / bar_as_mm, 2));
 
         var status = "Doubly reinforced"
 
         document.getElementById("beamSectionIMG").src="doubleReinforcement.png";
 
-        console.log(d2);
-        document.getElementById("effectiveDepthCompression").innerHTML = precision(d2);
     } 
+
+    console.log(d1);
+    document.getElementById("effectiveDepth").innerHTML = precision(d1);
+
+    console.log(d2);        
+    document.getElementById("effectiveDepthCompression").innerHTML = d2;
+
+
+    console.log(status);
+    document.getElementById("designStatus").innerHTML = status;
+
     console.log(As1);
     document.getElementById("as1").innerHTML = precision(As1);
 
     console.log(As2);
-    document.getElementById("as2").innerHTML = precision(As2);
+    document.getElementById("as2").innerHTML = As2;
     
     console.log(n1);
     document.getElementById("tensionBar").innerHTML = Math.ceil(n1);
 
     console.log(n2);
-    document.getElementById("compressionBar").innerHTML = Math.ceil(n2);
+    document.getElementById("compressionBar").innerHTML = n2;
+    
 
-    console.log(status);
-    document.getElementById("designStatus").innerHTML = status;
-
-    console.log(z);
-    document.getElementById("z").innerHTML = precision(z);
-
-    return{z};
+       return{z,d1};
 
 } 
 
@@ -265,13 +250,14 @@ function shear_design(){
 
     var{DesignLoad} = designloadAndMoment();
 
-    var {l , b, d1, stirrup_bar_as_mm, LegNumber , fyd , fck, fywd} = input();
+    var {l , b, d1, stirrup_bar_as_mm, LegNumber , fck, fywd} = input();
 
     var V_ED_kN = DesignLoad * l / 2;  //Shear force acts on the beam d length from the face the support(column)
 
     var v_ED_MPa = V_ED_kN / (1000 * b * 0.9 * d1 );
 
     console.log(v_ED_MPa);
+    
     document.getElementById("shearStress").innerHTML = precision(v_ED_MPa);
 
     function strut_capacity(){
