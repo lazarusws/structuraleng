@@ -1,7 +1,6 @@
 
 //-------------------------------------------------------------------------------
 //function reset 
-
 function blank_output() {
 	document.getElementById( "clstrip" ).innerHTML               = "";
 	document.getElementById( "mdlstrip").innerHTML               = "";	
@@ -23,19 +22,19 @@ function blank_output() {
 	document.getElementById( "spacebotmid" ).innerHTML           = "";
 	document.getElementById( "spacetopclm" ).innerHTML           = "";
 	document.getElementById( "spacetopmid" ).innerHTML           = "";
+	document.getElementById( "assagclmProvided"            ).innerHTML= "";	
+	document.getElementById("assagmidProvided"             ).innerHTML= "";
+	document.getElementById("ashogclmProvided"             ).innerHTML= "";
+	document.getElementById("ashogmidProvided"             ).innerHTML= "" ;
 	document.getElementById( "designShearStressAtColumnFace" ).innerHTML= "";
 	document.getElementById( "concMaxShearResis" ).innerHTML          = "";
 	document.getElementById( "designShearStress" ).innerHTML          = "";	
 	document.getElementById( "concreteShearResis" ).innerHTML         = "";
 	document.getElementById( "punchReinfArea" ).innerHTML             = "";
 	document.getElementById( "shearReinfResisWithConcrete" ).innerHTML= "";	
-	document.getElementById("perimeterShearReinforcement").innerHTML =  "";
-	document.getElementById("radius").innerHTML                      =   "";
-
-	document.getElementById("noStirrup").innerHTML                   =  "" ;
-
-
-
+	document.getElementById("perimeterShearReinforcement"  ).innerHTML= "";
+	document.getElementById("radius"                       ).innerHTML= "";
+	document.getElementById("noStirrup"                    ).innerHTML= "" ;
 	
 	return true;
  }
@@ -72,8 +71,10 @@ function blank_output() {
 	var selectorcolumnPosit = document.getElementById("columnPosition");
 	selectorcolumnPosit.selectedIndex = 2;
   
+	document.getElementById("myCheck"                      ).checked= false;
 	blank_output();
  
+	document.getElementById( "digits"    ).value = 6.0;
 	return true;
  }
 
@@ -92,7 +93,7 @@ function input(){
 	var coly = parseFloat( document.getElementById( "cs2" ).value );                 //column size in y direction
 	var D = parseFloat( document.getElementById( "slabth" ).value );
 	var c  = parseFloat( document.getElementById( "coverThic" ).value );
-    var B = 1                                                                         //width of the slab stip for analysis                                                                
+	var B = 1                                                                         //width of the slab stip for analysis   
 
 	//selector input
 	var selectorConcreteGrade= document.getElementById("concreteType");
@@ -111,9 +112,7 @@ function input(){
     var	stirrup_bar_as_mm = selectorStirrupSize[selectorStirrupSize.selectedIndex].value; 
 
 	var selectorcolumnPosit = document.getElementById("columnPosition");
-	var betta = selectorcolumnPosit[selectorcolumnPosit.selectedIndex].value;
-
-	
+	var betta = selectorcolumnPosit[selectorcolumnPosit.selectedIndex].value;	
 
 	return {sfdl, sfll, DL, LL, lx, ly, l_adj_x, l_adj_y, colx, coly, D, B, fck, fyd, bar_asmm, c, betta, fywd , stirrup_bar_as_mm};
 }
@@ -145,7 +144,6 @@ function strip_design(){
 
 	return {clstrp, middlestrp, effspan};
 }
-
 function critical_section (){
 
 	var{bar_asmm, D, colx, coly, c} = input();
@@ -163,7 +161,6 @@ function critical_section (){
 
 	return 	{d1,d2, d, u1, u0};
 }
-
 function loading_and_moment(){
 
 	var {sfdl, sfll, DL, LL, D, B , fck, fyd, bar_asmm , lx, ly} = input();
@@ -277,18 +274,32 @@ function under_reinforcement_check() {
     
     return{ksagc,ksagm, khogc, khogm};
 }
-
 function flexure_design(){	
 
-	var {D, B ,fyd, bar_asmm} = input();	
+	var {sfdl, sfll, DL, LL, lx, ly, l_adj_x, l_adj_y, colx, coly, D, B, fck, fyd, bar_asmm, c} = input();	
 
 	var {d1} = critical_section();
 
 	var {ksagc,ksagm, khogc, khogm} = under_reinforcement_check();
 
-	var {Msaggcol, Msaggmid, Mhoggcol, Mhoggmid} = loading_and_moment();
+	var {Msaggcol, Msaggmid, Mhoggcol, Mhoggmid} = loading_and_moment();	
 
-	
+	if ( D >= 0.0){}   else{alert( "Invalid slab thickness input !")};
+	if ( c >= 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
+	if ( sfdl >= 0.0){}else{alert( "Invalid dead load safety factor input !")};
+	if ( sfll >= 0.0){}else{alert( "Invalid live load safety factor input !")};
+	if ( DL >= 0.0){}  else{alert( "Invalid dead load input !")};
+	if ( LL >= 0.0){}  else{alert( "Invalid live load input!")};
+	if ( lx >= 0.0){}  else{alert( "Invalid span dimension input (lx) !")};
+	if ( ly >= 0.0){}  else{alert( "Invalid span dimension input (ly) !")};
+	if ( l_adj_x >= 0.0){}  else{alert( "Invalid span dimension input (adjacent span in x axis) !")};
+	if ( l_adj_y >= 0.0){}  else{alert( "Invalid span dimension input (adjacent span in y axis) !")};
+	if ( colx >= 0.0){}     else{alert( "Invalid column dimension input (x axis) !")};
+	if ( coly >= 0.0){}     else{alert( "Invalid column dimension input (y axis) !")};	
+
+	var fctm  = 0.3 * Math.cbrt(fck * fck / 1000000);
+
+	var As_mm_minimum = (0.26 * fctm * B * d1 * 1000000) / (fyd * 1.15 /1000);
 
 	//function_analysis_sagging
 
@@ -296,14 +307,21 @@ function flexure_design(){
 
 	var zsagm = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * ksagm))), 0.95 * d1);
 
-	var Assc_mm = Msaggcol * 1000000/(zsagc * fyd);           //Area in square mm 
+	var Assc_mm = Math.max(Msaggcol * 1000000/(zsagc * fyd), As_mm_minimum);           //Area in square mm 	
 
-	var Assm_mm = Msaggmid * 1000000/(zsagm * fyd);
+	var Assm_mm = Math.max(Msaggmid * 1000000/(zsagm * fyd),As_mm_minimum);
 
-	var sp_mm_sagc = Math.min(((B * 1000 ) / (Assc_mm / bar_asmm)), 2 * D * 1000, 250)  ;       // spacing in mm the least from 2h, 250
+	var spmm_sagc = Math.min((B * 1000 ) / ((Assc_mm / bar_asmm)-1), 2 * D * 1000, 250) ;       // spacing in mm the least from 2h, 250
 
-	var sp_mm_sagm = Math.min((( B * 1000 ) / (Assm_mm / bar_asmm)), 3 * D * 1000, 400) ;        // spacing in mm the least from 3h, 400
+	var sp_mm_sagc = Math.max(spmm_sagc, Math.sqrt(4* bar_asmm/ Math.PI), 20);                    //Checking minimum spacing - limiting to dieameter size or aggregate + dia
 
+	var spmm_sagm = Math.min(( B * 1000 ) / ((Assm_mm / bar_asmm)-1), 3 * D * 1000, 400) ;        // spacing in mm the least from 3h, 400
+
+	var sp_mm_sagm = Math.max(spmm_sagm, Math.sqrt(4* bar_asmm/ Math.PI), 20); 
+
+	var Assc_mm_pr = (((B * 1000) / sp_mm_sagc )+ 1 ) * bar_asmm;                                   //Area of steel provided
+
+	var Assm_mm_pr = (((B * 1000) / sp_mm_sagm )+ 1 ) * bar_asmm;                                   //Area of steel provided
 
     //function_analysis_hogging
 
@@ -312,24 +330,26 @@ function flexure_design(){
 
 	var zhogm = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * khogm))),0.95 * d1);
 
-	var Ashc_mm = Mhoggcol * 1000000/(zhogc * fyd);           //Area in square mm 
+	var Ashc_mm = Math.max(Mhoggcol * 1000000/(zhogc * fyd), As_mm_minimum);           //Area in square mm 
 
-	var Ashm_mm = Mhoggmid * 1000000/(zhogm * fyd);
+	var Ashm_mm = Math.max(Mhoggmid * 1000000/(zhogm * fyd), As_mm_minimum);
 
-	var sp_mm_hogc = Math.min(((B * 1000) / (Ashc_mm / bar_asmm)), 2 * D * 1000, 250);
+	var spmm_hogc = Math.min(((B * 1000) / (Ashc_mm / bar_asmm)), 2 * D * 1000, 250);
 
-	var sp_mm_hogm = Math.min(((B * 1000) / (Ashm_mm / bar_asmm)) , 3 * D * 1000, 400);
+	var sp_mm_hogc = Math.max(spmm_hogc, Math.sqrt(4* bar_asmm/ Math.PI), 20); 
+
+	var spmm_hogm = Math.min(((B * 1000) / (Ashm_mm / bar_asmm)) , 3 * D * 1000, 400);
+
+	var sp_mm_hogm = Math.max(spmm_hogm, Math.sqrt(4* bar_asmm/ Math.PI), 20); 
+
+	var Ashc_mm_pr = (((B * 1000) / sp_mm_hogc )+ 1 ) * bar_asmm;                                    //Area of steel provided
+
+	var Ashm_mm_pr = (((B * 1000) / sp_mm_hogm )+ 1 ) * bar_asmm;                                    //Area of steel provided
 
 	//-------------------------------------------------------------------------	
-	
 
 	//output---------------------------------------------------------------
-	
-	//console.log(dload); 
-	//document.getElementById("dsl").innerHTML = precision(dload);
-	
-
-	
+		
 
 	console.log(ksagc); 
 	document.getElementById("ksagclm").innerHTML = precision(ksagc);
@@ -337,26 +357,12 @@ function flexure_design(){
 	console.log(ksagm); 
 	document.getElementById("ksagmid").innerHTML = precision(ksagm);
 
-	/*console.log(zsagc); 
-	document.getElementById("zsagclm").innerHTML = precision(zsagc);
-
-	console.log(zsagm); 
-	document.getElementById("zsagmid").innerHTML = precision(zsagm);*/
-
-
 
 	console.log(khogc); 
 	document.getElementById("khogclm").innerHTML = precision(khogc);
 
 	console.log(khogm); 
 	document.getElementById("khogmid").innerHTML = precision(khogm);
-
-	/*console.log(zhogc); 
-	document.getElementById("zhogclm").innerHTML = precision(zhogc);
-
-	console.log(zhogm); 
-	document.getElementById("zhogmid").innerHTML = precision(zhogm);*/
-
 	
 	console.log(Assc_mm); 
 	document.getElementById("assagclm").innerHTML = precision(Assc_mm);
@@ -370,7 +376,6 @@ function flexure_design(){
 	console.log(Ashm_mm); 
 	document.getElementById("ashogmid").innerHTML = precision(Ashm_mm);
 
-
 	console.log(sp_mm_sagc); 
 	document.getElementById("spacebotclm").innerHTML = Math.floor(sp_mm_sagc);
 
@@ -383,10 +388,20 @@ function flexure_design(){
 	console.log(sp_mm_hogm); 
 	document.getElementById("spacetopmid").innerHTML = Math.floor(sp_mm_hogm);
 
-	return{Ashc_mm};
+	console.log(Assc_mm_pr); 
+	document.getElementById("assagclmProvided").innerHTML = precision(Assc_mm_pr);
 
+	console.log(Assm_mm_pr); 
+	document.getElementById("assagmidProvided").innerHTML = precision(Assm_mm_pr);
+
+	console.log(Ashc_mm_pr); 
+	document.getElementById("ashogclmProvided").innerHTML = precision(Ashc_mm_pr);
+
+	console.log(Ashm_mm_pr); 
+	document.getElementById("ashogmidProvided").innerHTML = precision(Ashm_mm_pr);
+
+	return{Ashc_mm_pr};
 }
-
 // reaction force at the column 
 
 function reaction_force() {
@@ -415,7 +430,6 @@ function reaction_force() {
 	}
 
 	return {V_ED_kN};
-
 }
 //Punching shear design ------------------------------------------------------
 function shear_design(){
@@ -424,13 +438,11 @@ function shear_design(){
 
 	var {d,d1,d2, u1 , u0} = critical_section();
 
-	var {Ashc_mm} = flexure_design();
+	var {Ashc_mm_pr} = flexure_design();
 
 	var {clstrp} = strip_design();	
 
-	var {V_ED_kN} = reaction_force();	
-
-	var St = 350;
+	var {V_ED_kN} = reaction_force();		
 
 	var v_ED_MPa = betta * V_ED_kN / (u1 * d * 1000); //design shear stress	at controlled perimeter
 	
@@ -466,9 +478,9 @@ function shear_design(){
 
 		//shear capacity without shear reinforcement (v_Rd_c);
 
-		var steel_Ratio1 = ((Ashc_mm / 1000000)/ (clstrp * d1));    // steel ratio in percent
+		var steel_Ratio1 = ((Ashc_mm_pr / 1000000)/ (clstrp * d1));    // steel ratio in percent
 
-		var steel_Ratio2 = ((Ashc_mm / 1000000)/ (clstrp * d2)); 
+		var steel_Ratio2 = ((Ashc_mm_pr / 1000000)/ (clstrp * d2)); 
 
 		var steel_Ratio = Math.sqrt(steel_Ratio1 * steel_Ratio2);
 
@@ -486,7 +498,9 @@ function shear_design(){
 
 			var fywd_ef = Math.min((250 + 0.25 * d * 1000), (fywd/1000)); 
 
-			var Sr = 0.75 * d * 1000;
+			var Sr = Math.floor((0.75 * d * 1000)/10) * 10;
+
+			var St = 1.5 * d;
 
 			var Asw_mm = (v_ED_MPa - 0.75 * v_RD_c) * Sr * u1 * 1000/ (1.5 * fywd_ef);
 
@@ -498,16 +512,25 @@ function shear_design(){
 
 			var Asw_provided_area_mm = n * stirrup_bar_as_mm;
 
-			var V_Rd_withPunchingReinf = 0.75 * v_RD_c + 1.5 * (d / Sr) * Asw_provided_area_mm * fywd_ef * (1 /(u1 * d)) * 1.0 * 0.001;  //1.0 is sin alpha which is 1.0 for vertical reinforcement and multiplied by 0.001 to make units the same
+			var V_Rd_withPunchingReinf = precision(0.75 * v_RD_c + 1.5 * (d / Sr) * Asw_provided_area_mm * fywd_ef * (1 /(u1 * d)) * 1.0 * 0.001);  //1.0 is sin alpha which is 1.0 for vertical reinforcement and multiplied by 0.001 to make units the same
 
-			var outer_perimeter_m = betta * V_ED_kN / (v_RD_c * d * 1000);
+			var outer_perimeter_m = precision(betta * V_ED_kN / (v_RD_c * d * 1000));
 
 			var oter_radius = (outer_perimeter_m - 2 *(colx+coly))/(2*Math.PI);
 
-			var radius = oter_radius - 1.5 * d 
+			var radius = precision(oter_radius - 1.5 * d);
+
 		}else {
 
-			var Asw_req_area_mm = "Not required."
+			var Asw_req_area_mm = "Not required"
+
+			var n = "";
+
+			var V_Rd_withPunchingReinf = "";
+
+			var outer_perimeter_m = "";
+
+			var radius = "";
 
 		}
 
@@ -538,69 +561,19 @@ function shear_design(){
 	document.getElementById("noStirrup").innerHTML = n;
 
 	console.log(V_Rd_withPunchingReinf)
-	document.getElementById("shearReinfResisWithConcrete").innerHTML = precision(V_Rd_withPunchingReinf);
+	document.getElementById("shearReinfResisWithConcrete").innerHTML = V_Rd_withPunchingReinf;
 
 	console.log(outer_perimeter_m)
-	document.getElementById("perimeterShearReinforcement").innerHTML = precision(outer_perimeter_m);
+	document.getElementById("perimeterShearReinforcement").innerHTML = outer_perimeter_m;
 
 	console.log(radius)
-	document.getElementById("radius").innerHTML = precision(radius);
-
-	
-	
-
-	console.log(fywd_ef);
-	
-
-	console.log(Sr);
-	console.log(d);
-	console.log(kk);
-	console.log(Asw_mm);
-	console.log(v_RD_MPa_min);
-
-	console.log(Asw_min_mm)
-	console.log(V_ED_kN);
-
-	console.log(steel_Ratio1);
-
-	console.log(steel_Ratio2);
-	console.log(steel_Ratio);
-
-	
-	
-
-	
-
-	
-
-	
-
-//----------------------------------------------------------------------------------
-
-	
+	document.getElementById("radius").innerHTML = radius;
+		
 }
 
 //Button app for flexure design 
 
-function checkboxfunction ()
-	/*
-{
-	var checkBox = document.getElementById("myCheck");
-
-	var text = document.getElementById("text");
-
-	if (checkBox.checked == true){
-
-	  //text.style.display = "block";
-
-
-	} else {
-
-   text.style.display = "none";
-
-	}*/
-
-{
+function checkboxfunction (){
 	
 	var checker = document.getElementById("myCheck");
  
@@ -619,7 +592,6 @@ function checkboxfunction ()
 			designbtn.disabled = true;
 
 		}
-
 }
 }
 //-------------------------------------------------------------------------		
@@ -627,3 +599,5 @@ function pagePrint() {
 
 	window.print();
   }
+
+  

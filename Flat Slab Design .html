@@ -28,7 +28,7 @@
 </div>
 <table width="100%">
     <tr>
-      <td><p>Precision: <input type="text" id="digits" value="6" size="2"></p></td>
+      <td><p>Precision: <input type="number" id="digits" value="6"  min="1" max="10"></p></td>
       <td align="right"><button onclick="pagePrint()">Print</button> <input  type="button" onclick="reset_page()" value="Reset page" ></td>
     </tr>
   </table>
@@ -95,7 +95,7 @@
           <td>m</td>
       </tr>
       <tr>
-          <td rowspan="2">Column size</td>
+          <td rowspan="2">Column dimensions (x,y)</td>
           <td><input type="text" id="cs1" value="0.4" size="6"></td>
           <td>m</td>
       </tr>
@@ -311,7 +311,7 @@ Output results - This will design the reinforced concrete flat slab for flexure 
        
     
        <tr> 
-       <td>Steel area (A<sub>s</sub>)</td>
+       <td>Required steel area (A<sub>s</sub>)</td>
        <td width= "85" class="output"> <p id="assagclm"></p></td>
        <td>mm<sup>2</sup>/m</td>
        <td width= "85" class="output"> <p id="assagmid"></p></td>
@@ -332,7 +332,18 @@ Output results - This will design the reinforced concrete flat slab for flexure 
        <td class="output"> <p id="spacetopmid"></p></td>
        <td>mm</td>
        
-     </tr>     
+     </tr>    
+     <tr> 
+        <td>Provided steel area (A<sub>s</sub>)</td>
+        <td width= "85" class="output"> <p id="assagclmProvided"></p></td>
+        <td>mm<sup>2</sup>/m</td>
+        <td width= "85" class="output"> <p id="assagmidProvided"></p></td>
+        <td>mm<sup>2</sup>/m</td>
+        <td width= "85" class="output"> <p id="ashogclmProvided"></p></td>
+        <td>mm<sup>2</sup>/m</td>
+        <td width= "85" class="output"> <p id="ashogmidProvided"></p></td>
+        <td>mm<sup>2</sup>/m</td>
+      </tr> 
       </table>
     </td>
 
