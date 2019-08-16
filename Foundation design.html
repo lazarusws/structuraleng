@@ -1,303 +1,326 @@
-﻿<html>
+﻿<html class="padFoundationDesign">
 <head>
-    <title>Shallow foundation design</title>
+    <title>Pad Foundation Design</title>
     <script src="general.js"></script>
     <script src="foundationdesign.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="padFoundationStyle.css">
 </head>
 
 <body>
     <div style="background-color: whitesmoke">
-        <center><h1>Pad footing design</h1></center>
-        <a href="pad footing description.pdf">Description</a><br />
-        <p>Precision: <input type="text" id="digits" value="6" size="2"></p>
-        <input type="button" onclick="reset_page()" value="Reset page">
-    </div>
-    
-    <p>
+        <center><h1>Pad Foundation Design</h1></center>
+        <table width = "100%">
+            <tr>
+              <td>
+          <a href="pad footing description.pdf">Description</a> 
+          </td>
+          <td >
+            <table border="2" align = "right">
+          <tr>
+              <th class= "tb">EUROCODE 2&7</th>
+          </tr>
+            </table>
+          </td>
+          </tr>
+          </table>
+        </div>
+        <table width="100%">
+          <tr>
+            <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
+            <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
+          </tr>
+        </table>            
+        Input- Insert the dimensions of the foundation and the column cross-section, the loads with their respective safety factors, the material properties and the groundwater level-only if it's applicable.   
+
     <table style="width:100%">
         <tr>
             <td valign="top">  
-               <table border="2" cellpadding="5">
-            <tr>
-                <th colspan="3">Load and material </th>
-            </tr>
-            <tr>
-                <td>
-                    Dead load<select id="sfTypeDeadload">
-                        <option value="1.0">SF 1.0</option>     <!--Safety factor for the load-->
-                        <option value="1.25">SF1.25</option>
-                        <option value="1.35" selected>SF1.35</option>
-                        <option value="1.5">SF1.5</option>
-                    </select>
-                </td>
-                <td><input type="text" id="dl" value="600" size="6"></td>
-                <td>kN</td>
-            </tr>
-            <tr>
-                <td>
-                    Live load
-                    <select id="sfTypeLiveload">
-                        <option value="1.0">SF 1.0</option>     <!--Safety factor for the load-->
-                        <option value="1.20">SF1.20</option>
-                        <option value="1.35">SF1.35</option>
-                        <option value="1.5" selected>SF1.5</option>
-
-                    </select>
-                </td>
-                <td><input type="text" id="ll" value="500" size="6"></td>
-                <td>kN</td>
-            </tr>
-            <tr>
-                <td>Concrete grade</td>
-                <td colspan="2">
-                    <select id="ctype">
-                        <option value="20000"                   >C20/25</option>     <!--Strength of concrete in KN/m^2 devided by 1.5 material safety factor according to Euro Code-->
-                        <option value="25000"           selected>C25/30</option>
-                        <option value="30000"                   >C30/37</option>
-                        <option value="35000"                   >C35/45</option>
-                        <option value="40000"                   >C40/50</option>
-                        <option value="45000"                   >C45/55</option>
-                        <option value="50000"                   >C50/60</option>                    
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Steel grade</td>
-                <td colspan="2">
-                    <select id="stype">
-                        <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
-                        <option value="260869.5652"            >S300</option>
-                        <option value="434782.609"    selected >S500 </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Bar size</td>
-                <td><select id="dtype">                    
-                        <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-                        <option value="78.5"            >D10 </option>              
-                        <option value="113"             >D12 </option>              
-                        <option value="201"             >D16 </option>
-                        <option value="314"    selected >D20</option>
-                        <option value="491"             >D25 </option>
-                        <option value="804"             >D32 </option>
-                        <option value="1260"            >D40 </option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-            </td>
-            <td valign="top">
+                    <table border="2" cellpadding="5">
+                            <tr>
+                                <th colspan="3">Section</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Column size (X,Y)</td>
+                                <td><input type="text" id="cs1" value="0.4" size="6"></td>
+                                <td>m</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="cs2" value="0.4" size="6"></td>
+                                <td>m</td>
+                            </tr>                            
+                            <tr>
+                                <td>Depth (h)</td>
+                                <td><input type="text" id="depth" value="0.5" size="6"></td>
+                                <td>m</td>
+                            </tr>
+                            <tr>
+                                <td>Width (B) (x-axis)</td>
+                                <td><input type="text" id="breadth" value="2.0" size="6"></td>
+                                <td>m</td>
+                            </tr>
+                            <tr>                                  
+                                <td>Concrete cover</td>                                    
+                                <td><input type="text" id="coverThic" value="0.050" size="6"></td>                                    
+                                <td>m</td>                                    
+                            </tr>
+                            <tr>
+                                <td>Length l (y-axis)</td>
+                                <td class="output"><p id="length" size="6"></p></td>
+                                <td>m</td>
+                            </tr>
+                        </table>
+                    </td>
+            <td valign="top">                
                 <table border="2" cellpadding="5">
-                    <tr>
-                        <th colspan="3">Dimension</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Column size</td>
-                        <td><input type="text" id="cs1" value="0.4" size="6"></td>
-                        <td>m</td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="cs2" value="0.4" size="6"></td>
-                        <td>m</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Depth D</td>
-                        <td><input type="text" id="depth" value="0.5" size="6"></td>
-                        <td>m</td>
-                    </tr>
-                    <tr>
-                        <td>Width B</td>
-                        <td><input type="text" id="breadth" value="2.5" size="6"></td>
-                        <td>m</td>
-                    </tr>
-                    <tr>
-                        <td>Length l</td>
-                        <td><p id="length"></p></td>
-                        <td>m</td>
-                    </tr>
-                </table>
+                        <tr>
+                            <th colspan="3">Load and material </th>
+                        </tr>
+                        <tr>
+                            <td>Dead load <input type="text" id="sfTypeDeadload" value="1.35" size="4"></td>
+                            <td><input type="text" id="deadLoad" value="550" size="6"></td>
+                            <td>kN</td>
+                        </tr>
+                        <tr>
+                            <td>Live load <input type="text" id="sfTypeLiveload" value="1.5" size="4"></td>
+                            <td> <input type="text" id="liveLoad" value="400" size="6"></td>
+                            <td>kN</td>
+                        </tr>
+                        <tr>
+                            <td>Concrete grade</td>
+                            <td colspan="2">
+                                <select id="ctype">
+                                    <option value="20000"                   >C20/25</option>     <!--Strength of concrete in KN/m^2 devided by 1.5 material safety factor according to Euro Code-->
+                                    <option value="25000"           selected>C25/30</option>
+                                    <option value="30000"                   >C30/37</option>
+                                    <option value="35000"                   >C35/45</option>
+                                    <option value="40000"                   >C40/50</option>
+                                    <option value="45000"                   >C45/55</option>
+                                    <option value="50000"                   >C50/60</option>                    
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Steel grade</td>
+                            <td colspan="2">
+                                <select id="stype">
+                                    <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+                                    <option value="260869.5652"            >S300</option>
+                                    <option value="434782.609"    selected >S500 </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bar size</td>
+                            <td colspan="2"><select id="dtype">                    
+                                    <option value="50.3"            >&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                                    <option value="78.5"            >&#8709;10 </option>              
+                                    <option value="113"             >&#8709;12 </option>
+                                    <option value="154"             >&#8709;14 </option>                      
+                                    <option value="201"             >&#8709;16 </option>
+                                    <option value="314"    selected >&#8709;20</option>
+                                    <option value="491"             >&#8709;25 </option>
+                                    <option value="804"             >&#8709;32 </option>
+                                    <option value="1260"            >&#8709;40 </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
             </td>
             
             <td valign="top">
                 <table border="2" cellpadding="5" >
                     <tr>
-                        <th colspan="2">Allowable bearing capacity factor</th>
+                        <th colspan="3">Allowable bearing capacity and soil properties</th>
                     </tr>
                     <tr>
-                        <td>Internal shear angle</td>
-                        <td><input type="text" id="intShearAngle" value="15" size="6"></td>
+                        <td>Internal shear angle (&Phi;)</td>
+                        <td><input type="text" id="shearAngle" value="20" size="6"></td>
+                        <td>&#176;</td>
                     </tr>
+                    <tr>                           
+                        <td>Cohesion (C)</td>                            
+                        <td><input type="text" id="cohesC" value="30.0" size="6"></td>                            
+                        <td>kN/m<sup>2</sup></td>
+                        </tr>
+                        <tr>                            
+                            <td>Unit weight of soil</td>                                
+                            <td><input type="text" id="uniWeightSoil" value="18.0" size="6"></td>                                
+                            <td>kN/m<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <td width = "80">Depth of the foundation from the ground level</td>                                     
+                                <td><input type="text" id="heightD" value="1.5" size="6"></td>                               
+                                <td>m</td>                                    
+                            </tr>
                     <tr>
-                        <td>N<sub>c</sub></td>
-                        <td><input type="text" id="coheFactor" value="11.0" size="6"></td>
+                        <td>Bearing capacity safety factor</td>   
+                        <td colspan="2"><input type="text" id="bearingSafetyFactor" value="2.5" size="6"></td>
                     </tr>
-                    <tr>
-                        <td>N<sub>q</sub></td>
-                        <td><input type="text" id="overburdenFactor" value="4.0" size="6"></td>
-                    </tr>
-                    <tr>
-                        <td>N<sub>gamma</sub></td>
-                        <td><input type="text" id="uniweightFactor" value="1.4" size="6"></td>
-                    </tr>
-
                 </table>
             </td>
-
             <td valign="top">
-                    <table border="2" cellpadding="5">
+                    <table border="1" cellpadding="3">
                         <tr>
-                            <th colspan="3">Foundation and soil property</th>
+                            <td valign="top" width="200">
+                    <table border="2" cellpadding="5" width="200">
+                        <tr>
+                            <td><input type="checkbox" id="waterTableCheck"  onclick="water_table()"></td>
+                            <th colspan="2">Ground water effect</th>                            
                         </tr>
                         <tr>
-                            <td>Bearing capacity safety factor</td>
-                            <td colspan="2">
-                                <select id="sfTypeBearing">
-                                    <option value="2.0">SF 2.0</option>     <!--Safety factor for the bearing capacity-->
-                                    <option value="2.5" selected>SF2.5</option>
-                                    <option value="3.0">SF3.0</option>
+                            <td>
+                                <select id="waterTable">
+                                        <option value="1"    selected>a</option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                                        <option value="2"            >b</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>cohesion C</td>
-                            <td><input type="text" id="cohesC" value="30.0" size="6"></td>
-                            <td>kN/m<sup>2</sup></td>
-                        </tr>
-                        <tr>
-                            <td>Unit weight of the soil</td>
-                            <td><input type="text" id="uniWeightSoil" value="18.0" size="6"></td>
-                            <td>kN/m<sup>3</sup></td>
+                            <td><input type="text" id="waterTableInput" size="6"></td>
+                            <td>m</td>
                         </tr>
                     </table>
+                    <font color="blue"><font color="red">Tick the checkbox</font> if the ground water table is at a depth less than the width of the foundation from the base of the foundation. Insert <font color="red">a or b</font> values if the GWL is above or below the base of the foundation, respectively.</font>
+                    <td valign="top"><img src="pad_foundation.jpg" alt="Pad footing" width="350" height="238"></td>
+                    
+                    </td>
+                        </tr>
+                        </table>
                 </td>
-                <td valign="top"><img src="pad_foundation.jpg" alt="Pad footing" width="250" height="200"></td>
-            
         </tr>
     </table>
-    </p>
+<!-----------------------Out put result------------------------------------------------------------>
+<table width= "76.5%">
+    <tr>
+        <td><button onclick="flexure_design()">Design for flexure</button></td>
+        <td><button onclick="shear_design ()">Design for shear</button></td>
+    </tr>
+</table>
+<p></p>
+  
+    Output results - This will design a pad foundation for flexure and shear in the tables below from the design input data in the table above. 
 
-  <p>
-        <table>
-            <tr>
-                  
-                <td>
-                   
+        <table width= "100%">            
+            <tr>                  
+                <td>                   
                     <table border="2" cellpadding="5">                            
                         <tr>
-                            <th colspan="16">Flexure analysis</th>
+                            <th colspan="5">Flexure analysis</th>
                         </tr>
                         <tr>
                             <th></th>
-                            <th colspan="2">ULS bearing pressure</th>
-                            <th colspan="2">Bending moment M<sub>ED</sub></th>
-                            <th colspan="2">Effective depth (d)</th>
-                            <th>K</th>
-                            <th colspan="2">Lever arm Z</th>
-                            <th colspan="2">Steel area required</th>
-                            <th colspan="2">Bar spacing</th>     
-                            <th colspan="2">Steel area provided (A<sub>s</sub>)</th>                       
+                            <th colspan="2" width= "180">Along the shorter span</th>
+                            <th colspan="2" width= "180">Along the longer span</th>
                         </tr>
-                        <tr>
-                            <th>Along y direction</th>
-                            <td width= "85"><p id="bearingPressure1"></p></td>                
-                            <td>kN/m<sup>2</sup></td>                             
-                            <td width= "85"><p id="momentcritical_2"></p></td>                
-                            <td>kNm</td>                             
-                            <td width= "85"><p id="effDepth_2"></p></td>
-                            <td>m</td>                            
-                            <td width= "85"><p id="k2"></p></td>                            
-                            <td width= "85"> <p id="z2"></p></td>
-                            <td >m</td>                   
-                            <td width= "85"> <p id="areaSteel_2"></p></td>
-                            <td>mm<sup>2</sup></td>                                
-                            <td width= "85"> <p id="spacingBottomSteelY"></p></td>
-                            <td>mm</td>                 
-                            <td width= "85"> <p id="areaSteelPro_2"></p></td>
-                            <td>mm<sup>2</sup></td>            
-                        </tr>
-                        <tr>
-                            <th>Along x direction</th>
-                            <td><p id="bearingPressure2"></p></td>                
+                        <tr>  
+                            <td>ULS bearing pressure</td>
+                            <td class="output"><p id="bearingPressure2"></p></td>
                             <td>kN/m<sup>2</sup></td>
-                            <td><p id="momentcritical_1"></p></td>                
+                            <td width= "85" class="output"><p id="bearingPressure1"></p></td>
+                            <td>kN/m<sup>2</sup></td>
+                        </tr>
+                        <tr>     
+                            <td>Bending moment M<sub>ED</sub></td>
+                            <td width= "85" class="output"><p id="momentcritical_2"></p></td>                
                             <td>kNm</td>
-                            <td><p id="effDepth_1"></p></td>
+                            <td class="output"><p id="momentcritical_1"></p></td>              
+                            <td>kNm</td>
+                        </tr>
+                        <tr>
+                            <td>Effective depth (d)</td>
+                            <td width= "85" class="output"><p id="effDepth_2"></p></td>
                             <td>m</td>
-                            <td><p id="k1"></p></td>
-                            <td> <p id="z1"></p></td>
-                            <td>m</td>
-                            <td> <p id="areaSteel_1"></p></td>
+                            <td class="output"><p id="effDepth_1"></p></td>                                
+                            <td>m</td>                            
+                        </tr>
+                        <tr>
+                            <td>K value</td>
+                            <td colspan="2" width= "85" class="output" ><p id="k2"></p></td> 
+                            <td class="output" colspan="2"><p id="k1"></p></td>
+                        </tr>
+                        <tr>
+                            <td>Steel area required</td>
+                            <td width= "85"  class="output"> <p id="areaSteel_2"></p></td>
                             <td>mm<sup>2</sup></td>
-                            <td> <p id="spacingBottomSteelX"></p></td>
+                            <td class="output"> <p id="areaSteel_1"></p></td>
+                            <td>mm<sup>2</sup></td>
+                        </tr>
+                        <tr>
+                            <td>Bar spacing</td>
+                            <td width= "85"  class="output"> <p id="spacingBottomSteelY"></p></td>
                             <td>mm</td>
-                            <td> <p id="areaSteeProl_1"></p></td>
+                            <td class="output"> <p id="spacingBottomSteelX"></p></td>                                    
+                            <td>mm</td>
+                        </tr>
+                        <tr>
+                            <td>Steel area provided (A<sub>s</sub>)</td>
+                            <td width= "85" class="output"> <p id="areaSteelPro_2"></p></td>
                             <td>mm<sup>2</sup></td>
-                        </tr>             
+                            <td class="output"> <p id="areaSteeProl_1"></p></td>         
+                            <td>mm<sup>2</sup></td>                      
+                        </tr>                        
                     </table>                    
                     </td>
-                    
-                  
+                    <td valign ="top"> 
+                        <table border="2" cellpadding="5" >                                    
+                            <tr>                                        
+                                <th colspan="3">Shear analysis</th>                                        
+                                <th>Remark</th>                                    
+                            </tr>
+                            <tr>      
+                                <td>Shear stress at the face of the column (v<sub>ED,max</sub>)</td>                    
+                                <td  class="output" width= "85"><p id = "maximumShearAtColumnFace"></p></td>                    
+                                <td>MPa</td>
+                                <td><p id="PunchingShearMax"></p></td>                                
+                            <tr>      
+                                <td>Concrete maximum shear strength (v<sub>Rd,max</sub>)</td>                    
+                                <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>                    
+                                <td>MPa</td>
+                                <td><p id="HintPunchingShearMax"></p></td>
+                                    <tr>
+                                        <td rowspan="2">Beam shear stress at distance d from the column</td>
+                                        <td width= "85" class="output"> <p id="beamShear_perMeter"></p></td>
+                                        <td>kN/m</td>
+                                        <td><p id="beamShear"></p></td>                               
+                                    </tr>            
+                                    <tr>
+                                        <td width= "85" class="output"> <p id="beamShear_pressure"></p></td>
+                                        <td>Mpa</td>
+                                        <td><p id="HintBeamShear"></p></td>
+                                    </tr>
+                                    <tr>
+                                            <td rowspan="2" width = "95">Punching shear stress at controlled perimeter u<sub>1</sub> (v<sub>ED</sub>)</td>
+                                            <td class="output"> <p id="punchingShear_perMeter"></p></td>
+                                            <td>kN/m</td>
+                                            <td width= "380"><p id="PunchingShear"></p></td>
+                                    </tr>
+                                    
+                                    <tr>                    
+                                        <td class="output"> <p id="punchingShear_pressure"></p></td>                    
+                                        <td>MPa</td>                        
+                                        <td><p id="HintPunchingShear"></p></td>                    
+                                    </tr> 
+                                               
+                                    <tr>                
+                                        <td>Steel ratio</td>
+                                        <td class="output"> <p id="steelRatio"></p></td>
+                                        <td>%</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                            <td>Concrete shear resistance (v<sub>RD,c</sub>)</td>
+                                            <td class="output"> <p id="concreteShearResis"></p></td>
+                                            <td>MPa</td>
+                                        </tr>
+                                    
+                                    
+                                    </table>
+                    </td>                   
                 </tr>
         </table>
-    </p>
-
-    <p><button onclick="flexure_design()">Design for flexure</button></p>
-    <p>
-        <table>
-            <tr>
-                <td>
-        <table border="2" cellpadding="5" >
-            <tr>
-                <th colspan="3">Shear analysis</th>
-            </tr>
-            <tr>
-                <td rowspan="2">Beam shear check</td>
-                <td width= "85"> <p id="beamShear_perMeter"></p></td>
-                <td>kN/m</td>                               
-            </tr>
-            
-            <tr>
-                <td width= "85"> <p id="beamShear_pressure"></p></td>
-                <td>Mpa</td>
-            </tr>
-            <tr>
-                    <td>Punching shear check</td>
-                    <td> <p id="punchingShear_pressure"></p></td>
-                    <td>MPa</td>
-                    </tr>
-            <tr>
-                <td>Steel ratio</td>
-                <td> <p id="steelRatio"></p></td>
-                <td>%</td>
-            </tr>
-            <tr>
-                    <td>Concrete shear resistance V<sub>RD</sub></td>
-                    <td> <p id="concreteShearResis"></p></td>
-                    <td>MPa</td>
-                </tr>
-            </table>
-                </td>
-                <td>
-                    <table>                        
-                            <tr>
-                                <td><p id="beamShear"></p></td>
-                            </tr>  
-                            <tr>
-                                <td><p id="PunchingShear"></p></td>
-                            </tr>                                         
-                    </table>
-                </td>
-                </tr>          
+    <p></p>
         
-    </table>
-    </p>
-    
     <div style="background-color: whitesmoke">
            
-            <p><button onclick="shear_design ()">Design for beam shear</button></p>
+            
 
             <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScZbHt6ySNwb58k8ETvG3DNHvQTKeh9vxvAGLi06mgC-t0rxA/viewform?usp=sf_link">Feedback</a><br /></p>
 
