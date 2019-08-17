@@ -322,9 +322,9 @@ function flexure_design() {
 
     var sp_2 = Math.max(sp_mm_2, Math.sqrt(4* bar_asmm/ Math.PI), 20);                                 //Check minimum spacing in mm
 
-    var As_mm_pr_1 = (((short_span * 1000) / sp_mm_1 )+ 1 ) * bar_asmm;  //Area of steel provided
+    var As_mm_pr_1 = ((Math.floor((short_span * 1000) / sp_mm_1 ))+ 1 ) * bar_asmm;  //Area of steel provided
     
-    var As_mm_pr_2 = (((long_span * 1000) / sp_mm_2 )+ 1 ) * bar_asmm;    
+    var As_mm_pr_2 = ((Math.floor((long_span * 1000) / sp_mm_2 ))+ 1 ) * bar_asmm;    
 
     console.log(d1)
     document.getElementById("effDepth_1").innerHTML = precision(d1);
@@ -421,7 +421,7 @@ function shear_design () {
 
             if ( V_ED_MPa <= V_RD) return { shear_section1: "Section size is adequate for beam shear!".fontcolor("green"), hint1 : "Safe against beam shear".fontcolor("green")};
     
-            return {shear_section1: "Section size is inadequate for beam shear!".fontcolor("red"), hint1 :"Hint, make the width and length proportionate.".fontcolor("red")};        
+            return {shear_section1: "Section size is inadequate for beam shear!".fontcolor("red"), hint1 :"Hint, make the width and length proportionate or redesign.".fontcolor("red")};        
     
         }
         var {shear_section1, hint1} = beamShear_check();
