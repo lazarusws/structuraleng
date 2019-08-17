@@ -177,9 +177,9 @@ function base_area() {
 
     var {qallow_pad_footing} = bearing_capacity();
 
-    var {B , DL , LL } = input();
+    var {B , DL , LL} = input();
 
-    var l = (DL + LL * 1.3) / (qallow_pad_footing * B);                                           //length of the pad foundation in  m
+    var l = Math.ceil((DL + LL ) / (qallow_pad_footing * B));                                           //length of the pad foundation in  m
 
     console.log(l);
     document.getElementById("length").innerHTML = precision(l);
@@ -229,7 +229,7 @@ function desig_Load_and_moment(){
 
         alert("Column section is not adequate to resist the concentric load. Increase the section capacity by either increasing the cross section area of the column or the concrete grade.");
 
-        location.reload();
+        //location.reload();
 
     }else {};
 
@@ -273,11 +273,13 @@ function desig_Load_and_moment(){
 //-------------------------------------------------------------------------------------------------------------------------------------------
 function flexure_design() {      
 
-    var { D, B, c, DL, LL, fyd, H, safetyDeadload, safetyLiveload, colx_m, coly_m, cover, angleShear, safetyBearing, gwl_depth, bar_asmm, fck, gamma}= input();
+    var { D, B, c, DL, LL, fyd, H, safetyDeadload, safetyLiveload, colx_m, coly_m, cover, angleShear, safetyBearing, bar_asmm, fck, gamma}= input();
 
     var {short_span, d1 ,d2 , long_span} = critical_section();
 
     var {designLoad, M_ed1, M_ed2, ultimateBearing1, ultimateBearing2, K1, K2} =  desig_Load_and_moment(); 
+
+    var { qallow_pad_footing } = bearing_capacity();
     
     if ( D > 0.0){}             else{alert( "Invalid footing depth input !")};
 	if ( cover > 0.0){}         else{alert( "Invalid concrete cover thickness input !")};
@@ -322,9 +324,13 @@ function flexure_design() {
 
     var sp_2 = Math.max(sp_mm_2, Math.sqrt(4* bar_asmm/ Math.PI), 20);                                 //Check minimum spacing in mm
 
-    var As_mm_pr_1 = ((Math.floor((short_span * 1000) / sp_mm_1 ))+ 1 ) * bar_asmm;  //Area of steel provided
+    var As_mm_pr_1 = (((short_span * 1000) / sp_mm_1 )+ 1 ) * bar_asmm;  //Area of steel provided
     
-    var As_mm_pr_2 = ((Math.floor((long_span * 1000) / sp_mm_2 ))+ 1 ) * bar_asmm;    
+    var As_mm_pr_2 = (((long_span * 1000) / sp_mm_2 )+ 1 ) * bar_asmm;    
+
+
+    console.log(qallow_pad_footing);
+    document.getElementById("allowableBearingCapacity").innerHTML = precision(qallow_pad_footing);
 
     console.log(d1)
     document.getElementById("effDepth_1").innerHTML = precision(d1);
@@ -338,8 +344,8 @@ function flexure_design() {
     console.log(M_ed2);
     document.getElementById("momentcritical_2").innerHTML = precision(M_ed2);
     
-    console.log(ultimateBearing1);
-    document.getElementById("bearingPressure1").innerHTML = precision(ultimateBearing1);
+    //console.log(ultimateBearing1);
+    //document.getElementById("bearingPressure1").innerHTML = precision(ultimateBearing1);
 
     console.log(ultimateBearing2);
     document.getElementById("bearingPressure2").innerHTML = precision(ultimateBearing2);
@@ -512,7 +518,7 @@ function shear_design () {
 
         alert("Punching shear failure! Increase the depth of the foundation or the concrete grade.");
 
-        //location.reload();
+        location.reload();
 
         var shear_section_max = "Punching shear failure at the face of the column".fontcolor("red");
 
