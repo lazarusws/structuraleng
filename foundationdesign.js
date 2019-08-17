@@ -488,7 +488,7 @@ function shear_design () {
 
             if ( V_ED_punching_MPa <= V_RD) return { shear_section2: "Section size is adequate for punching shear!".fontcolor("green"), hint2 :"Safe against punching shear".fontcolor("green")};
 
-            return {shear_section2: "Section size is inadequate for punching shear!".fontcolor("red"), hint2 :"Increase the depth of the pad or the concrete grade".fontcolor("red")};
+            return {shear_section2: "Section size is inadequate for punching shear!".fontcolor("red"), hint2 :"Increase the depth of the footing or the concrete grade".fontcolor("red")};
 
         }        
         var {shear_section2, hint2} = punchingShear_check();
@@ -516,7 +516,7 @@ function shear_design () {
 
         var shear_section_max = "Punching shear failure at the face of the column".fontcolor("red");
 
-        var hint_max = "Increase the depth of the pad or the concrete grade".fontcolor("red")
+        var hint_max = "Increase the depth of the footing or the concrete grade".fontcolor("red")
 
     }
     document.getElementById("PunchingShear"    ).innerHTML = shear_section2;
