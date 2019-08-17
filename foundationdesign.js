@@ -115,7 +115,7 @@ function water_table(){
         
     if (checkBox.checked == true){
 
-        if ( gwl_depth >= 0.0){}     else{alert( "Invalid ground water level input (a/b) !")};
+        if ( gwl_depth >= 0.0){}     else{alert( "Invalid ground water level input (a or b) !")};
 
         if (GWL == 1){
 
