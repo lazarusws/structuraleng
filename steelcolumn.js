@@ -90,6 +90,13 @@ function designSection(){
 
     var As_cm = designLoad * 10000 / fyd;                   //Required steel area in mmSq 
 
+    //Input check 
+
+    if ( E > 0.0){}   else{alert( "Invalid elastic modulus input !")};
+	if ( designLoad > 0.0){}   else{alert( "Invalid design load input !")};
+	if ( Lex > 0.0){}else{alert( "Invalid column height in the x axis input !")};
+	if ( Ley > 0.0){}else{alert( "Invalid column height in the y axis input !")};
+	
     do {
         
         function steelSection() {  
@@ -194,48 +201,38 @@ function designSection(){
         
                 }else if (t <= 63){
             
-                    var fy = fyd - 10;  
-        
-                }else if (t <= 80){
-            
-                    var fy = fyd - 10;  
-        
-                }else if (t <= 100){
-            
-                    var fy = fyd - 10;  
+                    var fy = fyd - 20;  
         
                 }else {
+            
+                    var fy = fyd - 30;  
         
-                    var fy = fyd - 10;
                 }
 
             }else if (fs == 355000){
+            
+                if (t <= 16){
         
-            if (t <= 16){
+                    var fy = fyd;  
         
-                var fy = fyd;  
+           
+                }else if (t <= 40){
         
-            }else if (t <= 40){
+                
+                    var fy = fyd - 10;  
         
-                var fy = fyd - 10;  
+            
+                }else if (t <= 63){
         
-            }else if (t <= 63){
+                
+                    var fy = fyd - 20;  
         
-                var fy = fyd - 10;  
+            
+                }else{
         
-            }else if (t <= 80){
-        
-                var fy = fyd - 10;  
-        
-            }else if (t <= 100){
-        
-                var fy = fyd - 10;  
-        
-            }else {
-        
-                var fy = fyd - 20;
-            };
-        
+                var fy = fyd - 30; 
+                } 
+
             }else if (fs == 420000){
         
                 var fy = fyd;
@@ -368,9 +365,7 @@ function designSection(){
                 var y_y = 0.76;
             }
         }
-console.log(x_x,y_y)
-console.log(D/B)
-console.log(tf)
+
         function lamda() {
 
             if (lam_x_bar <= lam_y_bar) return {lam_bar: lam_y_bar , alpha : y_y};
@@ -393,6 +388,9 @@ console.log(design_section_area)
         if (As_cm >= 808){
 
             location.reload();
+
+            alert("The design load exceeded the section capacity of the steel section.")
+
         }else {}
         
     }while (designLoad >= Nbrd)

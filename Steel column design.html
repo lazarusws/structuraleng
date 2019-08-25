@@ -17,7 +17,7 @@
       <td >
         <table border="2" align = "right">
       <tr>
-          <th class= "tb">EUROCODE 2</th>
+          <th class= "tb">EUROCODE 3</th>
       </tr>
         </table>
       </td>
@@ -30,13 +30,7 @@
           <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
         </tr>
       </table>
-      Input - Insert the axial load, material property, safety factor and lenght of the steel column.  
-      <table align = "right">
-        <tr>
-          <td><img src="unbraced length.jpg" alt="Steel section" width="150" height="350"></td>
-
-        </tr>
-      </table>
+      Input - Insert the axial load, material property, safety factor, effective length coefficient (by selecting the connection type)  and lenght of the steel column.
   <table>
     <tr>
       <td>
@@ -78,10 +72,9 @@
                     <td colspan="3"> Connections                    
                       <select id="connectionType">
                           <option value="1.0"        selected>Pinned at both ends</option>     <!--Safety factor for the load-->
-                          <option value="0.7"                >Fixed at one end; pinned at the other</option>
+                          <option value="0.7"                >Fixed at one end; pinned at the other end</option>
                           <option value="0.5"                >Fixed at both ends</option>
                           <option value="2.0"                >Fixed at one end; free at the other end (cantilever)</option>
-                          
                          </select>
                     </td>
                   </tr>
