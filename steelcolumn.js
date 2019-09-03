@@ -280,7 +280,9 @@ function designSection(){
         }
         //class flange section----------------------------------------------------------------------
 
-        var cf_tf = (D - 2 * tf - 2 * r ) / (tf);
+        //var cf_tf = (D - 2 * tf - 2 * r ) / (tf);
+
+        var cf_tf = (D - tf - 2 * r ) / (2 * tf);
 
         if (cf_tf< 9  * epes){
  

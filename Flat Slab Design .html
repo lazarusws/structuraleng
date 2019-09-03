@@ -1,30 +1,26 @@
-<html class = "flatSlabDesign">
+<html lang="en-US" class = "flatSlabDesign">
 <head>
 <title>Flat Slab Design </title>
 <script src="general.js"></script>
 <script src="flatslab.js"></script>
 <link rel="stylesheet" type="text/css" href="flatSlabStyles.css">
-
 </head>
-
 <body>
-
-    <div style="background-color: whitesmoke">
+  <div style="background-color: whitesmoke">
     <center><h1>Reinforced Concrete Flat Slab Design</h1></center>
     <table width = "100%">
-        <tr>
-          <td>
-      <a href="Flat slab description.pdf">Description</a> 
-      </td>
-      <td >
-        <table border="2" align = "right">
       <tr>
-          <th class= "tb">EUROCODE 2</th>
-      </tr>
+        <td>
+          <a href="Flat slab description.pdf">Description</a> 
+        </td>
+        <table border="2" align = "right">
+          <tr>
+            <th class= "tb">EUROCODE 2</th>
+          </tr>
         </table>
       </td>
-      </tr>
-      </table>
+    </tr> 
+  </table>
 </div>
 <table width="100%">
     <tr>
@@ -32,7 +28,7 @@
       <td align="right"><button onclick="pagePrint()">Print</button> <input  type="button" onclick="reset_page()" value="Reset page" ></td>
     </tr>
   </table>
-  Input- Insert the dimensions of the slab span and section , loads and material properties of the concrete and the reinforcement steel.   
+  Input- Insert the dimensions of the slab span and section, loads with their respective safety factors and material properties of the concrete and the reinforcement steel.   
    <table width= 100%>
 <tr>
   <td valign = "top">
@@ -68,19 +64,12 @@
           <td>Adjacent span in y axis</td>
           <td><input type="text" id="adjSpanY" value="6.0" size="6"></td>
           <td>m</td>            
-          </tr>
-          
-          
+          </tr>       
           
 
-        <!--
           <tr>                  
-          <td rowspan="3" colspan="3"><font color="blue">Adjacent span should be greater than 0.85l<sub>y</sub> 
-          </font></td> 
-          </tr>-->
-          
-          
-          
+          <td colspan="3"><font color="blue">Adjacent span should be greater than 0.85l<sub>y</sub></font></td> 
+          </tr>
           </table>
   </td>
   <td valign= "top">
@@ -90,7 +79,7 @@
           <th colspan="3">Section</th> 
       </tr>
       <tr>
-          <td>Slab thickness</td>
+          <td>Slab depth (h)</td>
           <td><input type="text" id="slabth" value="0.3" size="6"></td>
           <td>m</td>
       </tr>
@@ -145,12 +134,6 @@
           <td><input type="text" id="liveLoad" value="4.0" size="6"></td>
           <td>kN/m<sup>2</sup></td>                
           </tr>
-          <!--
-          <tr>
-              <td colspan="3"><font color="blue">Dead load should be greater than or equal to live load.</font></td>
-          -<td>Design load (q)</td>
-          <td><p id="dsl"></p></td>
-          <td>KN/m</td>-->
           </tr>
           <tr>
               <th colspan="3">Material </th>
@@ -186,34 +169,34 @@
          <td>Flexural and shear rebar size</td>
          <td colspan="2"><select id="barDiaType">
          
-            <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-            <option value="78.5"            >D10 </option>              
-            <option value="113"             >D12 </option>    
-            <option value="154"             >D14 </option>          
-            <option value="201"             >D16 </option>
-            <option value="314"    selected >D20</option>
-            <option value="491"             >D25 </option>
-            <option value="804"             >D32 </option>
-            <option value="1260"            >D40 </option>
+            <option value="50.3"            >&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+            <option value="78.5"            >&#8709;10 </option>              
+            <option value="113"             >&#8709;12 </option>    
+            <option value="154"             >&#8709;14 </option>          
+            <option value="201"             >&#8709;16 </option>
+            <option value="314"    selected >&#8709;20</option>
+            <option value="491"             >&#8709;25 </option>
+            <option value="804"             >&#8709;32 </option>
+            <option value="1260"            >&#8709;40 </option>
               </select>
               <select id="stirrupbarDiaType">              
-                  <option value="50.3"    selected>D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-                  <option value="78.5"            >D10 </option>              
-                  <option value="113"             >D12 </option>   
-                  <option value="154"             >D14 </option>           
-                  <option value="201"             >D16 </option>
-                  <option value="314"             >D20</option>
-                  <option value="491"             >D25 </option>
-                  <option value="804"             >D32 </option>
-                  <option value="1260"            >D40 </option>
+                  <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                  <option value="78.5"            >&#8709;10 </option>              
+                  <option value="113"             >&#8709;12 </option>   
+                  <option value="154"             >&#8709;14 </option>           
+                  <option value="201"             >&#8709;16 </option>
+                  <option value="314"             >&#8709;20</option>
+                  <option value="491"             >&#8709;25 </option>
+                  <option value="804"             >&#8709;32 </option>
+                  <option value="1260"            >&#8709;40 </option>
                </select>
             </td>
           </tr>
           
 </table>
   </td>
-  <td valign= "top"><img src="strips.png" alt="Slap span strips" width = "62%" height = "68%"></td>
-  <!--<td valign= "top"><img src="flatslabpic.PNG" alt="Flat slab" width="300" height="250" align="right"></td>-->
+  <td valign= "top"><img src="strips.png" alt="Slap span strips" width = "80%" height = "72%"></td>
+ 
 </tr>
    </table>
 
@@ -232,7 +215,7 @@
 </tr>
 
 </table>
-Output results - This will design the reinforced concrete flat slab for flexure and shear in the tables below from the design input data in the table above. 
+Output results - This will design a reinforced concrete flat slab for flexure and shear in the tables below from the design input data in the table above. 
 
 
     <table style="width:100%">
@@ -361,13 +344,18 @@ Output results - This will design the reinforced concrete flat slab for flexure 
               <tr>      
                 <th colspan="3">Shear design values</th>      
               </tr>
+              <tr>
+                <td>Reaction force at the column (V<sub>ED</sub>)</td>
+                <td  class="output" width= "85"><p id = "columnReaction"></p></td>
+                <td>kN</td>
+              </tr>
               <tr>      
                 <td>Design shear stress at the face of the column (v<sub>ED</sub>)</td>                    
                 <td  class="output" width= "85"><p id = "designShearStressAtColumnFace"></p></td>                    
                 <td>MPa</td>
               </tr>   
               <tr>      
-                <td>Concrete shear strength (v<sub>Rd,max</sub>)</td>                    
+                <td>Concrete maximum shear strength (v<sub>Rd,max</sub>)</td>                    
                 <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>                    
                 <td>MPa</td>
               </tr>
@@ -377,7 +365,7 @@ Output results - This will design the reinforced concrete flat slab for flexure 
                 <td>MPa</td>
               </tr>
               <tr>      
-                <td>Concrete punching shear strength (v<sub>Rd,c</sub>)</td>                    
+                <td>Concrete shear resistance (v<sub>Rd,c</sub>)</td>                    
                 <td  class="output" width= "85"><p id = "concreteShearResis"></p></td>                    
                 <td>MPa</td>
               </tr>
@@ -419,7 +407,7 @@ Output results - This will design the reinforced concrete flat slab for flexure 
 
    
 
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLScnc63Zt_qulst-xuHHW9l8EbYgdQbajORkTq_wUYc-WU6wXA/viewform?usp=sf_link">Feedback</a><br /></p>
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLScnc63Zt_qulst-xuHHW9l8EbYgdQbajORkTq_wUYc-WU6wXA/viewform?usp=sf_link">Feedback</a></p>
 
 </div>  
 </body>

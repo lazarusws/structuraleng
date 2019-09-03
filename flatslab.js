@@ -51,7 +51,9 @@ function blank_output() {
 	document.getElementById( "cs2"         ).value = 0.4;
 	document.getElementById( "sfTypeDeadload").value = 1.35;
 	document.getElementById( "sfTypeLiveload").value = 1.5;
-	document.getElementById( "coverThic"    ).value = 0.015; 
+	document.getElementById( "coverThic"    ).value = 0.015;
+	document.getElementById( "digits"       ).value = 6.0;
+	document.getElementById("myCheck"       ).checked= false; 
 		
 	var selectorSteelGrade = document.getElementById("steelType");   
 	selectorSteelGrade.selectedIndex = 2;
@@ -71,7 +73,7 @@ function blank_output() {
 	var selectorcolumnPosit = document.getElementById("columnPosition");
 	selectorcolumnPosit.selectedIndex = 2;
   
-	document.getElementById("myCheck"                      ).checked= false;
+	
 	blank_output();
  
 	document.getElementById( "digits"    ).value = 6.0;
@@ -284,22 +286,22 @@ function flexure_design(){
 
 	var {Msaggcol, Msaggmid, Mhoggcol, Mhoggmid} = loading_and_moment();	
 
-	if ( D >= 0.0){}   else{alert( "Invalid slab thickness input !")};
-	if ( c >= 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
-	if ( sfdl >= 0.0){}else{alert( "Invalid dead load safety factor input !")};
-	if ( sfll >= 0.0){}else{alert( "Invalid live load safety factor input !")};
+	if ( D > 0.0){}   else{alert( "Invalid slab thickness input !")};
+	if ( c > 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
+	if ( sfdl > 0.0){}else{alert( "Invalid dead load safety factor input !")};
+	if ( sfll > 0.0){}else{alert( "Invalid live load safety factor input !")};
 	if ( DL >= 0.0){}  else{alert( "Invalid dead load input !")};
 	if ( LL >= 0.0){}  else{alert( "Invalid live load input!")};
-	if ( lx >= 0.0){}  else{alert( "Invalid span dimension input (lx) !")};
-	if ( ly >= 0.0){}  else{alert( "Invalid span dimension input (ly) !")};
+	if ( lx > 0.0){}  else{alert( "Invalid span dimension input (lx) !")};
+	if ( ly > 0.0){}  else{alert( "Invalid span dimension input (ly) !")};
 	if ( l_adj_x >= 0.0){}  else{alert( "Invalid span dimension input (adjacent span in x axis) !")};
 	if ( l_adj_y >= 0.0){}  else{alert( "Invalid span dimension input (adjacent span in y axis) !")};
-	if ( colx >= 0.0){}     else{alert( "Invalid column dimension input (x axis) !")};
-	if ( coly >= 0.0){}     else{alert( "Invalid column dimension input (y axis) !")};	
+	if ( colx > 0.0){}     else{alert( "Invalid column dimension input (x axis) !")};
+	if ( coly > 0.0){}     else{alert( "Invalid column dimension input (y axis) !")};	
 
 	var fctm  = 0.3 * Math.cbrt(fck * fck / 1000000);
 
-	var As_mm_minimum = (0.26 * fctm * B * d1 * 1000000) / (fyd * 1.15 /1000);
+	var As_mm_minimum = Math.max((0.26 * fctm * B * d1 * 1000000) / (fyd * 1.15 /1000), 0.0013 * B * d1 * 1000000 );
 
 	//function_analysis_sagging
 
@@ -444,29 +446,29 @@ function shear_design(){
 
 	var {V_ED_kN} = reaction_force();		
 
-	var v_ED_MPa = betta * V_ED_kN / (u1 * d * 1000); //design shear stress	at controlled perimeter
+	var v_ED_MPa = betta * V_ED_kN / (u1 * d * 1000);             //design shear stress	at controlled perimeter
 	
 	var v_ED_MPa_columnFace = betta * V_ED_kN / (u0 * d * 1000 ); //design shear stress	at face of column
 
 	function v_Rd_maxFunction(){
 
-        if(fck == 20000 ) return {v_RD_max : 3.31};
+        if(fck == 20000 ) return {v_RD_max : 3.68};
 
-        if(fck == 25000 ) return {v_RD_max : 4.05};
+        if(fck == 25000 ) return {v_RD_max : 4.50};
 
-        if(fck == 28000 ) return {v_RD_max : 4.48};
+        if(fck == 28000 ) return {v_RD_max : 4.97};
 
-        if(fck == 30000 ) return {v_RD_max : 4.75};
+        if(fck == 30000 ) return {v_RD_max : 5.28};
 
-        if(fck == 32000 ) return {v_RD_max : 5.02};
+        if(fck == 32000 ) return {v_RD_max : 5.58};
 
-        if(fck == 35000 ) return {v_RD_max : 5.42};
+        if(fck == 35000 ) return {v_RD_max : 6.02};
 
-        if(fck == 40000 ) return {v_RD_max : 6.05};
+        if(fck == 40000 ) return {v_RD_max : 6.72};
 
-        if(fck == 45000 ) return {v_RD_max : 6.64};
+        if(fck == 45000 ) return {v_RD_max : 7.38};
 
-        if(fck == 50000 ) return {v_RD_max : 7.20};
+        if(fck == 50000 ) return {v_RD_max : 8.00};
 
        return{v_RD_max: NaN};
 
@@ -541,6 +543,9 @@ function shear_design(){
         location.reload();
 
 	}
+
+	console.log(V_ED_kN);
+	document.getElementById("columnReaction").innerHTML = precision(V_ED_kN);
 
 	console.log(v_ED_MPa_columnFace);
 	document.getElementById("designShearStressAtColumnFace").innerHTML = precision(v_ED_MPa_columnFace);

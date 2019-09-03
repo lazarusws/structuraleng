@@ -1,272 +1,266 @@
-<html class="beamDesign">
+<html lang="en-US" class="beamDesign">
 <head>
 <title>RC Beam Design </title>
 <script src="general.js"></script>
 <script src="beamdesign.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesBeamDesign.css">
-
 </head>
 
-<body>
-    <div class= "header_footer">
+<body>    
+  <div class= "header_footer">    
     <center><h1>Reinforced Concrete Beam Design</h1></center>
-<table width = "100%">
-  <tr>
-    <td>
-<a href="RC Beam design description.pdf">Description</a> 
-</td>
-<td >
-  <table border="2" align = "right">
-<tr>
-    <th class= "tb">EUROCODE 2</th>
-</tr>
-  </table>
-</td>
-</tr>
-</table>
-</div>
-<table width="100%">
-  <tr>
-    <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
-    <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
-  </tr>
-</table>
-Input- Insert the dimensions of the beam section , loads and material properties of the concrete and the reinforcement steel.   
-<table width="100%">  
-  <tr>
-    <td valign ="top">
-      <table border="2" cellpadding="5">
-  <tr>
-    <th colspan="3">Section</th>
-    <th colspan="3">Load </th>
-    <th colspan="3">Material </th>
-</tr>
-<tr>
-  <td>Width (b)</td>
-  <td><input type="text" id="breadth" value="0.3" size="10"></td>
-  <td>m</td>
-  <td>Dead load  <input type="text" id="sfTypeDeadload" value="1.35" size="5"></td>
-  <td><input type="text" id="deadLoad" value="10.0" size="10"></td>
-  <td>kN/m</td>
-  <td>Concrete grade</td>
-  <td><select id="concreteType">
-
-      <option value="20000"                   >C20/25</option>     
-      <option value="25000"           selected>C25/30</option>
-      <option value="28000"                   >C28/35</option>
-      <option value="30000"                   >C30/37</option>
-      <option value="32000"                   >C32/40</option>
-      <option value="35000"                   >C35/45</option>
-      <option value="40000"                   >C40/50</option>
-      <option value="45000"                   >C45/55</option>
-      <option value="50000"                   >C50/60</option>
-    </select></td>
-  </tr>
-  <tr>
-      <td>Depth (h)</td>
-      <td><input type="text" id="depth" value="0.45" size="10"></td>
-      <td>m</td>
-      <td>Live load  <input type="text" id="sfTypeLiveload" value="1.5" size="5"></td>
-      <td><input type="text" id="liveLoad" value="8.0" size="10"></td>
-      <td>kN/m</td>
-      <td>Flexural and shear rebar grade</td>
-      <td><select id="steelType">
-          <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
-          <option value="260869.5652"            >S300</option>
-          <option value="434782.609"    selected >S500 </option>
-       </select>
-       <select id="stirrupType">
-        <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
-        <option value="260869.5652"            >S300</option>
-        <option value="434782.609"             >S500 </option>
-     </select>
-      </td>
-      </tr>
+    <table width = "100%">
       <tr>
+        <td>
+          <a href="RC Beam design description.pdf">Description</a>
+        </td>
+        <td >
+          <table border="2" align = "right">
+            <tr>
+              <th class= "tb">EUROCODE 2</th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <table width="100%">
+    <tr>
+      <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
+      <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
+    </tr>
+  </table>
+
+  Input- Insert the dimension of the beam cross-section and span length, loads with their respective safety factors and material properties of the concrete and the reinforcement steel.   
+
+  <table width="100%">
+    <tr>
+      <td valign ="top">
+        <table border="2" cellpadding="5">
+          <tr>
+            <th colspan="3">Section</th>
+            <th colspan="3">Load </th>
+            <th colspan="3">Material </th>
+          </tr>
+          <tr>
+            <td>Width (b)</td>
+            <td><input type="text" id="breadth" value="0.3" size="10"></td>
+            <td>m</td>
+            <td>Dead load  <input type="text" id="sfTypeDeadload" value="1.35" size="5"></td>
+            <td><input type="text" id="deadLoad" value="10.0" size="10"></td>
+            <td>kN/m</td>
+            <td>Concrete grade</td>
+            <td><select id="concreteType">
+              <option value="20000"                   >C20/25</option>     
+              <option value="25000"           selected>C25/30</option>
+              <option value="28000"                   >C28/35</option>
+              <option value="30000"                   >C30/37</option>
+              <option value="32000"                   >C32/40</option>
+              <option value="35000"                   >C35/45</option>
+              <option value="40000"                   >C40/50</option>
+              <option value="45000"                   >C45/55</option>
+              <option value="50000"                   >C50/60</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Depth (h)</td>
+            <td><input type="text" id="depth" value="0.45" size="10"></td>
+            <td>m</td>
+            <td>Live load  <input type="text" id="sfTypeLiveload" value="1.5" size="5"></td>
+            <td><input type="text" id="liveLoad" value="8.0" size="10"></td>
+            <td>kN/m</td>
+            <td>Flexural and shear rebar grade</td>
+            <td><select id="steelType">
+              <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+              <option value="260869.5652"            >S300</option>
+              <option value="434782.609"    selected >S500 </option>
+            </select>
+            <select id="stirrupType">
+              <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+              <option value="260869.5652"            >S300</option>
+              <option value="434782.609"             >S500 </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
           <td>Length (l)</td>
           <td><input type="text" id="length" value="6.0" size="10"></td>
-          <td>m</td>         
-              
-          <td>Moment redistribution</td>              
-          <td colspan="2"><select id="momentdist">                  
-            <option value="1.0"          selected>0 % </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->                  
+          <td>m</td>
+          <td>Moment redistribution</td>
+          <td colspan="2"><select id="momentdist">
+            <option value="1.0"          selected>0 % </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
             <option value="0.95"                  >5% </option>
             <option value="0.9"                  >10% </option>
             <option value="0.85"                  >15% </option>
             <option value="0.8"                   >20% </option>
             <option value="0.85"                  >25% </option>
             <option value="0.7"                   >30% </option>
-                            
-            </select></td>    
-            <td>Flexural and shear rebar size</td>          
-            <td><select id="barDiaType">              
-              <option value="50.3"            >D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-              <option value="78.5"            >D10 </option>              
-              <option value="113"             >D12 </option>    
-              <option value="154"             >D14 </option>          
-              <option value="201"             >D16 </option>
-              <option value="314"    selected >D20</option>
-              <option value="491"             >D25 </option>
-              <option value="804"             >D32 </option>
-              <option value="1260"            >D40 </option>
-           </select>
-           <select id="stirrupbarDiaType">              
-              <option value="50.3"    selected>D8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-              <option value="78.5"            >D10 </option>              
-              <option value="113"             >D12 </option>   
-              <option value="154"             >D14 </option>           
-              <option value="201"             >D16 </option>
-              <option value="314"             >D20</option>
-              <option value="491"             >D25 </option>
-              <option value="804"             >D32 </option>
-              <option value="1260"            >D40 </option>
-           </select>
-          </td>
-      </tr>      
+          </select></td>
+          <td>Flexural and shear rebar size</td>
+          <td><select id="barDiaType">
+            <option value="50.3"            >&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+            <option value="78.5"            >&#8709;10 </option>
+            <option value="113"             >&#8709;12 </option>
+            <option value="154"             >&#8709;14 </option>
+            <option value="201"             >&#8709;16 </option>
+            <option value="314"    selected >&#8709;20</option>
+            <option value="491"             >&#8709;25 </option>
+            <option value="804"             >&#8709;32 </option>
+            <option value="1260"            >&#8709;40 </option>
+          </select>
+          <select id="stirrupbarDiaType">
+            <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+            <option value="78.5"            >&#8709;10 </option>
+            <option value="113"             >&#8709;12 </option>
+            <option value="154"             >&#8709;14 </option>
+            <option value="201"             >&#8709;16 </option>
+            <option value="314"             >&#8709;20</option>
+            <option value="491"             >&#8709;25 </option>
+            <option value="804"             >&#8709;32 </option>
+            <option value="1260"            >&#8709;40 </option>
+          </select>
+        </td>
+      </tr>
       <tr>
         <td>Concrete cover</td>
         <td><input type="text" id="coverThic" value="0.025" size="10"></td>
         <td>m</td>
         <td colspan="3"></td>
         <td>Number of stirrup leg</td>
-        <td><select id="stirrupLeg">                  
-            <option value="2"          selected>2 leg stirrup</option>      <!--Steel yield Strength divided by material safety factor 1.15 -->                  
-            <option value="4"                  >4 leg stirrup</option>
-            <option value="6"                  >6 leg stirrup</option>
-                            
-            </select></td>
+        <td><select id="stirrupLeg">
+          <option value="2"          selected>2 leg stirrup</option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+          <option value="4"                  >4 leg stirrup</option>
+          <option value="6"                  >6 leg stirrup</option>
+        </select></td>
       </tr>
-      
     </table>
-    </td>
-    <td  valign="top"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
-    </tr>
-    </table>
+  </td>
+  <td  valign="top"><img src="Rcbeam.jpg" alt="Rc beam section" width=60% height=60%></td>
+</tr>
+</table>
 <table width = 93%>
   <tr>
-    <td valign ="top"><p><button onclick="flexure_design()">Design for flexure</button></p></td>
-      
-    <td valign ="top"><p><button onclick="shear_design()">Design for shear</button></p></td></td>
+    <td valign ="top"><button onclick="flexure_design()">Design for flexure</button></td>
+    <td valign ="top"><button onclick="shear_design()">Design for shear</button></td>
   </tr>
-</table>      
-      <p>
-          Output results - This will design the reinforced concrete beam for flexure and shear in the tables below from the design input data in the table above. 
-        <table width="90%">
+</table>
+<p>
+  Output results - This will design a reinforced concrete beam for flexure and shear in the tables below from the design input data in the table above. 
+  <table width="90%">
+    <tr>
+      <td valign="top">
+        <table border="2" cellpadding="5" class="d">
           <tr>
-            <td valign="top">
-                <table border="2" cellpadding="5" class="d">            
-                    <tr>
-                      <th colspan="3" >Flexure design values</th>
-                    </tr>
-                    <tr>
-                        <td>Beam design</td>
-                        <td class="output" width= "100" colspan="2"><p id="designStatus"></p></td>
-                        
-                      </tr>
-                    <tr>
-                      <td>Design load</td>
-                      <td class="output" width= "100"><p id="designLoad"></p></td>
-                      <td>kN/m</td>
-                    </tr>
-                    <tr>
-                      <td>Design moment</td>
-                      <td class="output" width= "100"><p id="designMoment"></p></td>
-                      <td>kN-m</td>
-                    </tr>                           
-                    <tr>                  
-                      <td>Effective depth (d)</td>                  
-                      <td class="output" width= "100"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->                
-                      <td>m</td>
-                    </tr>     
-                    <tr>                  
-                      <td>Effective depth (d<sub>2</sub>)</td>                  
-                      <td class="output" width= "100"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->                
-                      <td>m</td>
-                    </tr>                
-                    <tr>                  
-                      <td>K value</td>                  
-                      <td colspan="2" class="output" width= "100"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->                
-                    </tr>                
-                    <tr>                    
-                      <td>K' value</td>                    
-                      <td colspan="2" class="output" width= "100"> <p id="underReinforced"></p></td>               
-                    </tr>                 
-                    <tr>                  
-                      <td>Tension steel area (A<sub>s1</sub>)</td>                     
-                      <td class="output" width= "100"> <p id="as1"></p></td>                    
-                      <td>mm<sup>2</sup></td>
-                    </tr>                                  
-                    <tr>                   
-                      <td>Compression steel area (A<sub>s2</sub>)</td>                   
-                      <td class="output" width= "100"> <p id="as2"></p></td>                    
-                      <td>mm<sup>2</sup></td>                
-                    </tr>            
-                    <tr>                 
-                      <td>No of reinf. bar in tension </td>                  
-                      <td colspan="2" class="output" width= "100"> <p id="tensionBar"></p></td>                
-                    </tr>              
-                    <tr>                    
-                      <td>No of reinf. bar in compression </td>                  
-                      <td colspan="2" class="output" width= "100"> <p id="compressionBar"></p></td>           
-                    </tr>               
-                  </table>
+            <th colspan="3" >Flexure design values</th>
+          </tr>
+          <tr>
+            <td>Beam design</td>
+            <td class="output" width= "100" colspan="2"><p id="designStatus"></p></td>
+          </tr>
+          <tr>
+            <td>Design load</td>
+            <td class="output" width= "100"><p id="designLoad"></p></td>
+            <td>kN/m</td>
+          </tr>
+          <tr>
+            <td>Design moment</td>
+            <td class="output" width= "100"><p id="designMoment"></p></td>
+            <td>kN-m</td>
+          </tr>
+          <tr>
+            <td>Effective depth (d)</td>
+            <td class="output" width= "100"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->
+            <td>m</td>
+          </tr>
+          <tr>
+            <td>Effective depth (d<sub>2</sub>)</td>
+            <td class="output" width= "100"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->
+            <td>m</td>
+          </tr>
+          <tr>
+            <td>K value</td>
+            <td colspan="2" class="output" width= "100"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->
+          </tr>
+          <tr>
+            <td>K' value</td>
+            <td colspan="2" class="output" width= "100"> <p id="underReinforced"></p></td>
+          </tr>
+          <tr>
+            <td>Tension steel area (A<sub>s1</sub>)</td>
+            <td class="output" width= "100"> <p id="as1"></p></td>
+            <td>mm<sup>2</sup></td>
+          </tr>
+          <tr>
+            <td>Compression steel area (A<sub>s2</sub>)</td>
+            <td class="output" width= "100"> <p id="as2"></p></td>
+            <td>mm<sup>2</sup></td>
+          </tr>
+          <tr>
+            <td>No of reinf. bar in tension </td>
+            <td colspan="2" class="output" width= "100"> <p id="tensionBar"></p></td>
+          </tr>
+          <tr>
+            <td>No of reinf. bar in compression </td>
+            <td colspan="2" class="output" width= "100"> <p id="compressionBar"></p></td>
+          </tr>
+        </table>
+      </td>
+      <td valign="top">
+        <img id="beamSectionIMG" src="concreteSection.PNG"  width="160" height="200">
+      </td>
+      <td valign="top">
+        <table border="2" cellpadding="5">
+          <tr>
+            <th colspan="3">Shear design values</th>
+          </tr>
+          <tr>
+            <td>Design shear stress (V<sub>ED</sub>)</td>
+            <td  class="output" width= "85"><p id = "shearStress"></p></td>
+            <td>MPa</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Concrete strut capacity (v<sub>Rd</sub>)</td>
+            <td class="output" width= "85"><p id= "strutCot2_5"></p></td>
+            <td>MPa</td>
+          </tr>
+          <tr>
+            <td class="output" width= "85"><p id= "strutCot1_0"></p></td>
+            <td>MPa</td>
+          </tr>
+          <tr>
+            <td>Minimum angle of strut (&theta;)</td>
+            <td class="output" width= "85"><p id= "teta"></p></td>
+            <td>&#176;</td>
+          </tr>
+          <tr>
+            <td>Area per spacing (As/s)</td>
+            <td class="output" width= "85"><p id= "apers"></p></td>
+            <td>mm</td>
+          </tr>
+          <tr>
+            <td>Shear reinforcement (A<sub>sw</sub>)</td>
+            <td class="output" width= "85"><p id = "stirrupArea"></p></td>
+            <td>mm<sup>2</sup></td>
+          </tr>
+          <tr>
+            <td>Spacing for shear reinforcement c/c</td>
+            <td class="output" width= "85"><p id = "stirrupSpacing"></p></td>
+            <td>mm</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td>
+              <img id="concreteShearSection" src="concrete shear section.png"  width="500" height="150">
             </td>
-            <td valign="top">
-              <img id="beamSectionIMG" src="concreteSection.PNG"  width="160" height="200">
-          </td>
-            <td valign="top">
-              <table border="2" cellpadding="5">
-                  <tr>
-                    <th colspan="3">Shear design values</th>
-                  </tr>
-                  <tr>
-                    <td>Design shear stress (V<sub>ED</sub>)</td>
-                    <td  class="output" width= "85"><p id = "shearStress"></p></td>
-                    <td>MPa</td>
-                  </tr>
-                  <tr>
-                    <td rowspan="2">Concrete strut capacity (v<sub>Rd</sub>)</td>
-                    <td class="output" width= "85"><p id= "strutCot2_5"></p></td>
-                    <td>MPa</td>
-                  </tr>
-                    <tr>
-                      <td class="output" width= "85"><p id= "strutCot1_0"></p></td>
-                      <td>MPa</td>
-                    </tr>              
-                    <tr>
-                        <td>Minimum angle of strut (&theta;)</td>
-                        <td class="output" width= "85"><p id= "teta"></p></td>
-                        <td>&#176;</td>
-                      </tr>
-                      <tr>
-                          <td>Area per spacing (As/s)</td>
-                          <td class="output" width= "85"><p id= "apers"></p></td>
-                          <td>mm</td>
-                        </tr>
-                  <tr>
-                      <td>Shear reinforcement (A<sub>sw</sub>)</td>
-                      <td class="output" width= "85"><p id = "stirrupArea"></p></td>
-                      <td>mm<sup>2</sup></td>
-                    </tr>
-                    <tr>
-                        <td>Spacing for shear reinforcement c/c</td>
-                        <td class="output" width= "85"><p id = "stirrupSpacing"></p></td>
-                        <td>mm</td>
-                      </tr>             
-                </table>
-                <table>
-                  <tr>
-                    <td>
-                        <img id="concreteShearSection" src="concrete shear section.png"  width="500" height="150">
-                    </td>
-                  </tr>
-                </table>
-          </td>
-              </tr>
-              </table>
-              </p>   
-              <div style="background-color: whitesmoke">        
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a><br/>      
-        </div>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</p>
+<div style="background-color: whitesmoke">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a>
+</div>
 </body>
 </html>

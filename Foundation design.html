@@ -1,4 +1,4 @@
-﻿<html class="padFoundationDesign">
+﻿<html lang="en-US" class="padFoundationDesign">
 <head>
     <title>Pad Foundation Design</title>
     <script src="general.js"></script>
@@ -11,67 +11,66 @@
         <center><h1>Pad Foundation Design</h1></center>
         <table width = "100%">
             <tr>
-              <td>
-          <a href="pad footing description.pdf">Description</a> 
-          </td>
-          <td >
-            <table border="2" align = "right">
-          <tr>
-              <th class= "tb">EUROCODE 2&7</th>
-          </tr>
-            </table>
-          </td>
-          </tr>
-          </table>
-        </div>
-        <table width="100%">
-          <tr>
+                <td>
+                    <a href="pad footing description.pdf">Description</a>
+                </td>
+                <td>
+                    <table border="2" align = "right">
+                        <tr>
+                            <th class= "tb">EUROCODE 2&7</th>
+                        </tr>
+                    </table>
+                </td> 
+            </tr>
+        </table> 
+    </div>
+    <table width="100%">
+        <tr>
             <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
             <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
-          </tr>
-        </table>            
+        </tr>
+    </table>
         Input- Insert the dimensions of the foundation and the column cross-section, the loads with their respective safety factors, the material properties and the groundwater level-only if it's applicable.   
-
-    <table style="width:100%">
-        <tr>
-            <td valign="top">  
+        <table style="width:100%">
+            <tr>
+                <td valign="top">  
                     <table border="2" cellpadding="5">
-                            <tr>
-                                <th colspan="3">Section</th>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">Column size (x,y)</td>
-                                <td><input type="text" id="cs1" value="0.4" size="6"></td>
-                                <td>m</td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" id="cs2" value="0.4" size="6"></td>
-                                <td>m</td>
-                            </tr>                            
-                            <tr>
-                                <td>Depth (h)</td>
-                                <td><input type="text" id="depth" value="0.5" size="6"></td>
-                                <td>m</td>
-                            </tr>
-                            <tr>
-                                <td>Width (B)</td>
-                                <td><input type="text" id="breadth" value="2.0" size="6"></td>
-                                <td>m</td>
-                            </tr>
-                            <tr>                                  
-                                <td>Concrete cover</td>                                    
-                                <td><input type="text" id="coverThic" value="0.050" size="6"></td>                                    
-                                <td>m</td>                                    
-                            </tr>
-                            <tr>
-                                <td><font color="red">Length (l)</font></td>
-                                <td class="output"><p id="length" size="6"></p></td>
-                                <td>m</td>
-                            </tr>
-                        </table>
-                    </td>
-            <td valign="top">                
-                <table border="2" cellpadding="5">
+                        <tr>
+                            <th colspan="3">Section</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">Column size (x,y)</td>
+                            <td><input type="text" id="cs1" value="0.4" size="6"></td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="cs2" value="0.4" size="6"></td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td>Depth (h)</td>
+                            <td><input type="text" id="depth" value="0.5" size="6"></td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td>Width (B) (x axis)</td>
+                            <td><input type="text" id="breadth" value="2.0" size="6"></td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td>Concrete cover</td>
+                            <td><input type="text" id="coverThic" value="0.050" size="6"></td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td><font color="red">Length (l) (y axis)</font></td>
+                            <td class="output"><p id="length" size="6"></p></td>
+                            <td>m</td>
+                        </tr>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table border="2" cellpadding="5">
                         <tr>
                             <th colspan="3">Load and material </th>
                         </tr>
@@ -107,7 +106,7 @@
                                     <option value="260869.5652"            >S300</option>
                                     <option value="434782.609"    selected >S500 </option>
                                 </select>
-                            </td>
+                           </td>
                         </tr>
                         <tr>
                             <td>Bar size</td>
@@ -170,7 +169,7 @@
                         <tr>
                             <td>
                                 <select id="waterTable">
-                                        <option value="1"    selected>a</option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                                        <option value="1"    selected>a</option>        <!-- Water table above or below the base of foundation-->
                                         <option value="2"            >b</option>
                                 </select>
                             </td>

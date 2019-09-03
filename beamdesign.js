@@ -17,11 +17,8 @@ function blank_output() {
    document.getElementById( "stirrupSpacing" ).innerHTML         = "";
    document.getElementById( "stirrupArea" ).innerHTML            = "";
    document.getElementById( "apers" ).innerHTML                  = "";  
-   
-   
    return true;
 }
-
 function reset_page() {
    document.getElementById( "deadLoad"    ).value = 4.0;
    document.getElementById( "liveLoad"    ).value = 2.0;
@@ -35,7 +32,6 @@ function reset_page() {
    document.getElementById("beamSectionIMG").src="concreteSection.PNG";
    document.getElementById("concreteShearSection").src="concrete shear section.png";
 
-       
    var selectorSteelGrade = document.getElementById("steelType");   
    selectorSteelGrade.selectedIndex = 2;
 
@@ -58,13 +54,10 @@ function reset_page() {
    selectorStirrupLeg.selectedIndex = 0;
  
    blank_output();
-
    return true;
 }
-
 function input() {
-
-    //Value input
+    //Value input-------------------------------------------------------------------------------
     var DL = parseFloat( document.getElementById( "deadLoad"  ).value );
     var LL = parseFloat( document.getElementById( "liveLoad" ).value );
     var l  = parseFloat( document.getElementById( "length" ).value );
@@ -98,7 +91,6 @@ function input() {
 
     var d1 = D - c - (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 - (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000;         //effective depth = beam depth -  concrete cover - bar dia/2
 
-
 	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber, fywd, c, d1};
 }
 function designloadAndMoment() {
@@ -117,7 +109,6 @@ function designloadAndMoment() {
 
     return {DesignLoad, DesignMoment};
 }
-
 function brittle_failure_check() {
 
     var {mom_dis, b, fck, d1} = input();
@@ -165,14 +156,15 @@ function flexure_design() {
 
     var {k, k_prime} = brittle_failure_check();
 
-    if ( D >= 0.0){}   else{alert( "Invalid beam depth input !")};
-	if ( c >= 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
-	if ( safetyDeadLoad >= 0.0){}else{alert( "Invalid dead load safety factor input !")};
-	if ( safetyLiveLoad >= 0.0){}else{alert( "Invalid live load safety factor input !")};
+    //Wrong input checker----------------------------------------------------------------------------------------
+    if ( D > 0.0){}   else{alert( "Invalid beam depth input !")};
+	if ( c > 0.0){}   else{alert( "Invalid concrete cover thickness input !")};
+	if ( safetyDeadLoad > 0.0){}else{alert( "Invalid dead load safety factor input !")};
+	if ( safetyLiveLoad > 0.0){}else{alert( "Invalid live load safety factor input !")};
 	if ( DL >= 0.0){}  else{alert( "Invalid dead load input !")};
 	if ( LL >= 0.0){}  else{alert( "Invalid live load input!")};
-	if ( l >= 0.0){}  else{alert( "Invalid beam span length input !")};
-	if ( b >= 0.0){}  else{alert( "Invalid beam width input !")};    
+	if ( l > 0.0){}  else{alert( "Invalid beam span length input !")};
+	if ( b > 0.0){}  else{alert( "Invalid beam width input !")};    
     
     if (k <= k_prime) {
 
@@ -300,8 +292,8 @@ function shear_design(){
 
     }   else if(v_ED_MPa < V_RD_cot1_0){
 
-        var teta = (0.5 *180/ Math.PI) * (Math.asin( v_ED_MPa/ (0.20 * (fck/1000) * (1 - (fck/250000)))));  // 250 is multiplied by 1000 to make the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
-
+        var teta = (0.5 *180/ Math.PI) * Math.asin( ( v_ED_MPa)/((0.20 * fck / 1000)*(1 - fck/250000)));       // 250 is multiplied by 1000 to make the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
+        
         var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fywd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
 
         var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
@@ -336,7 +328,10 @@ function shear_design(){
     console.log(Asw_per_s);
     document.getElementById("apers").innerHTML = precision(Asw_per_s);
 }
-
+//Page print function--------------------------------------------------------------------
 function pagePrint() {
   window.print();
 }
+
+
+

@@ -179,7 +179,7 @@ function base_area() {
 
     var {B , DL , LL} = input();
 
-    var l = Math.ceil((DL + LL ) / (qallow_pad_footing * B));                                           //length of the pad foundation in  m
+    var l = (DL + LL ) / (qallow_pad_footing * B);                                           //length of the pad foundation in  m
 
     console.log(l);
     document.getElementById("length").innerHTML = precision(l);
@@ -409,9 +409,9 @@ function shear_design () {
 
     //Beam shear check----------------------------------------------------
 
-    var V_ED_kNperM1 = ultimateBearing1 * short_span * ( design_span1 - d1);        // Out put is in kN/m
+    var V_ED_kNperM1 = ultimateBearing1 *  ( design_span1 - d1);        // Out put is in kN/m
 
-    var V_ED_kNperM2 = ultimateBearing2 * ( design_span2 - d2);
+    var V_ED_kNperM2 = ultimateBearing2 *  ( design_span2 - d2);
 
     var V_ED_kNperM = Math.max(V_ED_kNperM1,V_ED_kNperM2);
 
