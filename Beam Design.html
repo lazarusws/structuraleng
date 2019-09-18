@@ -109,7 +109,7 @@
             <option value="1260"            >&#8709;40 </option>
           </select>
           <select id="stirrupbarDiaType">
-            <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+            <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the stirrup bar for the specific diameter in mm^2-->
             <option value="78.5"            >&#8709;10 </option>
             <option value="113"             >&#8709;12 </option>
             <option value="154"             >&#8709;14 </option>
@@ -128,7 +128,7 @@
         <td colspan="3"></td>
         <td>Number of stirrup leg</td>
         <td><select id="stirrupLeg">
-          <option value="2"          selected>2 leg stirrup</option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+          <option value="2"          selected>2 leg stirrup</option>      <!--shear stirrup leg shape and arrangement -->
           <option value="4"                  >4 leg stirrup</option>
           <option value="6"                  >6 leg stirrup</option>
         </select></td>
@@ -169,17 +169,17 @@
           </tr>
           <tr>
             <td>Effective depth (d)</td>
-            <td class="output" width= "100"> <p id="effectiveDepth"></p></td>        <!--If K<= K' -->
+            <td class="output" width= "100"> <p id="effectiveDepth"></p></td>        <!--The distance between from the lower reinforcement bar and the top of the beam  -->
             <td>m</td>
           </tr>
           <tr>
             <td>Effective depth (d<sub>2</sub>)</td>
-            <td class="output" width= "100"> <p id="effectiveDepthCompression"></p></td>        <!--If K<= K' -->
+            <td class="output" width= "100"> <p id="effectiveDepthCompression"></p></td>        <!--The distance between the upper reinforcement bar to the top of the beam -->
             <td>m</td>
           </tr>
           <tr>
             <td>K value</td>
-            <td colspan="2" class="output" width= "100"> <p id="reinfCoffi"></p></td>       <!--If K<= K' -->
+            <td colspan="2" class="output" width= "100"> <p id="reinfCoffi"></p></td>
           </tr>
           <tr>
             <td>K' value</td>
@@ -260,7 +260,7 @@
   </table>
 </p>
 <div style="background-color: whitesmoke">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScmigl6SHjmZOa-pMBcaFkFTwFsmcs2mSlqwM1l-9G2cG5LYg/viewform?usp=sf_link">Feedback</a>     <!--The feedback link for the google survey form-->
 </div>
 </body>
 </html>
