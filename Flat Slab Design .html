@@ -29,158 +29,137 @@
     </tr>
   </table>
   Input- Insert the dimensions of the slab span and section, loads with their respective safety factors and material properties of the concrete and the reinforcement steel.   
-   <table width= 100%>
-<tr>
-  <td valign = "top">
-      <table border="2" cellpadding="5">
-        <tr>
-             <th colspan="3">Slab span</th>
-                      
-          <tr> 
-             <th>Span direction</th>
-             <th colspan="2">Span length</th>                  
-          </tr>          
+  <table width= 100%>
+    <tr>
+      <td valign = "top">
+        <table border="2" cellpadding="5">
           <tr>
-          <td width= "160">X direction (l<sub>x</sub>)</td>
-          <td><input type="text" id="l1" value="6.0" size="6"></td>
-          <td>m</td>        
-          
-          </tr>
-         
-          
-          <tr>
-          <td>Y direction (l<sub>y</sub>)</td>
-          <td><input type="text" id="l2" value="6.0" size="6"></td>
-          <td>m</td>
-             
-          
-          </tr>
-          <tr>
-            <td>Adjacent span in x axis</td>
-            <td><input type="text" id="adjSpanX" value="6.0" size="6"></td>
-            <td>m</td>            
+            <th colspan="3">Slab span</th>
+            <tr> 
+              <th>Span direction</th>
+              <th colspan="2">Span length</th>
             </tr>
-          <tr>
-          <td>Adjacent span in y axis</td>
-          <td><input type="text" id="adjSpanY" value="6.0" size="6"></td>
-          <td>m</td>            
-          </tr>       
-          
-
-          <tr>                  
-          <td colspan="3"><font color="blue">Adjacent span should be greater than 0.85l<sub>y</sub></font></td> 
-          </tr>
+            <tr>
+              <td width= "160">X direction (l<sub>x</sub>)</td>
+              <td><input type="text" id="l1" value="6.0" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>Y direction (l<sub>y</sub>)</td>
+              <td><input type="text" id="l2" value="6.0" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>Adjacent span in x axis</td>
+              <td><input type="text" id="adjSpanX" value="6.0" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>Adjacent span in y axis</td>
+              <td><input type="text" id="adjSpanY" value="6.0" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td colspan="3"><font color="blue">Adjacent span should be greater than 0.85l<sub>y</sub></font></td>
+            </tr>
           </table>
-  </td>
-  <td valign= "top">
-  <table border="2" cellpadding="5">
-
-      <tr>
-          <th colspan="3">Section</th> 
-      </tr>
-      <tr>
-          <td>Slab depth (h)</td>
-          <td><input type="text" id="slabth" value="0.3" size="6"></td>
-          <td>m</td>
-      </tr>
-      <tr>
-          <td rowspan="2">Column dimensions (x,y)</td>
-          <td><input type="text" id="cs1" value="0.4" size="6"></td>
-          <td>m</td>
-      </tr>
-      <tr>
-      <td><input type="text" id="cs2" value="0.4" size="6"></td>
-      <td>m</td>
-    </tr>
-    <tr>
-    <td>Concrete cover</td>
-    <td><input type="text" id="coverThic" value="0.015" size="10"></td>
-    <td>m</td>
-    </tr>
-    <tr>
-        <th colspan="3">Punching shear design</th>
-        </tr>
-        <tr>
-        <td>Column position </td>
-        
-          <td colspan="2">
-            <select id="columnPosition">
-              <option value = "1.5"               >Corner column</option>
-              <option value = "1.4"               >Edge column </option>
-              <option value = "1.15"      selected>Internal column</option>
-            </select>
-          </td>
-        </tr>
-  </table>
-  <td valign= "top">
-      <table border="2" cellpadding="5">
-
-          <tr>
-           <th colspan="3">Load</th>           
-           </tr>
-
-           <tr>
-                      
-          <td>Dead load <input type="text" id="sfTypeDeadload" value="1.35" size="5"></td>
-          
-          <td><input type="text" id="deadLoad" value="8.0" size="6"></td>
-          <td>kN/m<sup>2</sup></td>                        
-          
-           </tr> 
-           
-          <tr>                         
-          <td width= "160">Live load <input type="text" id="sfTypeLiveload" value="1.5" size="5"></td>
-          
-          <td><input type="text" id="liveLoad" value="4.0" size="6"></td>
-          <td>kN/m<sup>2</sup></td>                
-          </tr>
-          </tr>
-          <tr>
-              <th colspan="3">Material </th>
-          </tr>
-          <tr>
-              <td>Concrete grade</td>
-              <td colspan="2"><select id="concreteType">
-    
-               <option value="20000"                   >C20/25</option>     <!--Strength of concrete in KN/m^2 devided by 1.5 material safety factor according to Euro Code-->
-               <option value="25000"           selected>C25/30</option>
-               <option value="30000"                   >C30/37</option>
-               <option value="35000"                   >C35/45</option>
-               <option value="40000"                   >C40/50</option>
-               <option value="45000"                   >C45/55</option>
-               <option value="50000"                   >C50/60</option>
-    
-               </select></td>
-          </tr>
-          <tr>
-              <td>Flexural and shear rebar grade</td>
-              <td colspan="2"><select id="steelType">
-                      <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
-                      <option value="260869.5652"            >S300</option>
-                      <option value="434782.609"    selected >S500 </option>
-                   </select>
-                   <select id="stirrupType">
-                      <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
-                      <option value="260869.5652"            >S300</option>
-                      <option value="434782.609"             >S500 </option>
-                   </select></td>
-          </tr>
-         <tr>
-         <td>Flexural and shear rebar size</td>
-         <td colspan="2"><select id="barDiaType">
-         
-            <option value="50.3"            >&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
-            <option value="78.5"            >&#8709;10 </option>              
-            <option value="113"             >&#8709;12 </option>    
-            <option value="154"             >&#8709;14 </option>          
-            <option value="201"             >&#8709;16 </option>
-            <option value="314"    selected >&#8709;20</option>
-            <option value="491"             >&#8709;25 </option>
-            <option value="804"             >&#8709;32 </option>
-            <option value="1260"            >&#8709;40 </option>
-              </select>
-              <select id="stirrupbarDiaType">              
-                  <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+        </td>
+        <td valign= "top">
+          <table border="2" cellpadding="5">
+            <tr>
+              <th colspan="3">Section</th>
+            </tr>
+            <tr>
+              <td>Slab depth (h)</td>
+              <td><input type="text" id="slabth" value="0.3" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Column dimensions (x,y)</td>
+              <td><input type="text" id="cs1" value="0.4" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td><input type="text" id="cs2" value="0.4" size="6"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>Concrete cover</td>
+              <td><input type="text" id="coverThic" value="0.015" size="10"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <th colspan="3">Punching shear design</th>
+            </tr>
+            <tr>
+              <td>Column position </td>
+              <td colspan="2">
+                <select id="columnPosition">
+                  <option value = "1.5"               >Corner column</option>
+                  <option value = "1.4"               >Edge column </option>
+                  <option value = "1.15"      selected>Internal column</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+          <td valign= "top">
+            <table border="2" cellpadding="5">
+              <tr>
+                <th colspan="3">Load</th>
+              </tr>
+              <tr>
+                <td>Dead load <input type="text" id="sfTypeDeadload" value="1.35" size="5"></td>
+                <td><input type="text" id="deadLoad" value="8.0" size="6"></td>
+                <td>kN/m<sup>2</sup></td>
+              </tr>
+              <tr>
+                <td width= "160">Live load <input type="text" id="sfTypeLiveload" value="1.5" size="5"></td>
+                <td><input type="text" id="liveLoad" value="4.0" size="6"></td>
+                <td>kN/m<sup>2</sup></td>
+              </tr>
+              <tr>
+                <th colspan="3">Material </th>
+              </tr>
+              <tr>
+                <td>Concrete grade</td>
+                <td colspan="2"><select id="concreteType">
+                  <option value="20000"                   >C20/25</option>     <!--Strength of concrete in KN/m^2 -->
+                  <option value="25000"           selected>C25/30</option>
+                  <option value="30000"                   >C30/37</option>
+                  <option value="35000"                   >C35/45</option>
+                  <option value="40000"                   >C40/50</option>
+                  <option value="45000"                   >C45/55</option>
+                  <option value="50000"                   >C50/60</option>
+                </select></td>
+              </tr>
+              <tr>
+                <td>Flexural and shear rebar grade</td>
+                <td colspan="2"><select id="steelType">
+                  <option value="221739.1304"            >S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+                  <option value="260869.5652"            >S300</option>
+                  <option value="434782.609"    selected >S500 </option>
+                </select>
+                <select id="stirrupType">
+                  <option value="221739.1304"    selected>S255 </option>      <!--Steel yield Strength divided by material safety factor 1.15 -->
+                  <option value="260869.5652"            >S300</option>
+                  <option value="434782.609"             >S500 </option>
+                </select></td>
+              </tr>
+              <tr>
+                <td>Flexural and shear rebar size</td>
+                <td colspan="2"><select id="barDiaType">
+                  <option value="50.3"            >&#8709;8 </option>        <!-- Area of the steel bar for the specific diameter in mm^2-->
+                  <option value="78.5"            >&#8709;10 </option>
+                  <option value="113"             >&#8709;12 </option>
+                  <option value="154"             >&#8709;14 </option>
+                  <option value="201"             >&#8709;16 </option>
+                  <option value="314"    selected >&#8709;20</option>
+                  <option value="491"             >&#8709;25 </option>
+                  <option value="804"             >&#8709;32 </option>
+                  <option value="1260"            >&#8709;40 </option>
+                </select>
+                <select id="stirrupbarDiaType">              
+                  <option value="50.3"    selected>&#8709;8 </option>        <!-- Area of the stirrup bar for the specific diameter in mm^2-->
                   <option value="78.5"            >&#8709;10 </option>              
                   <option value="113"             >&#8709;12 </option>   
                   <option value="154"             >&#8709;14 </option>           
@@ -190,225 +169,201 @@
                   <option value="804"             >&#8709;32 </option>
                   <option value="1260"            >&#8709;40 </option>
                </select>
-            </td>
-          </tr>
-          
-</table>
-  </td>
-  <td valign= "top"><img src="strips.png" alt="Slap span strips" width = "80%" height = "72%"></td>
- 
-</tr>
-   </table>
-
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td valign= "top"><img src="strips.png" alt="Slap span strips" width = "80%" height = "72%"></td>
+      </tr>
+    </table>
     <table width ="89%">
-<tr>
-  <td col width="80">
-      <p></p><button onclick="flexure_design()" disabled="disabled" id="text" >Design for flexure</button>
-      
-  </td>
-<td width = "90%">     
-      
-    <input type="checkbox" id="myCheck"  onclick="checkboxfunction()">
-    <font color="red">I am aware of the slab design is based on the concise Eurocode 2, Concise Table 15.3.  
- According to Eurocode, the ratio of the adjacent span and design span is greater than 0.85 and the live load must be less than or equal to the dead load in order to use the coffient method design from the Concise Table 15.3.
-</td>
-</tr>
+      <tr>
+        <td col width="80">
+          <p></p><button onclick="flexure_design()" disabled="disabled" id="text" >Design for flexure</button>
+        </td>
+        <td width = "90%">
+          <input type="checkbox" id="myCheck"  onclick="checkboxfunction()">
+          <font color="red">I am aware of the slab design is based on the concise Eurocode 2, Concise Table 15.3.  
 
-</table>
-Output results - This will design a reinforced concrete flat slab for flexure and shear in the tables below from the design input data in the table above. 
-
-
-    <table style="width:100%">
+            According to Eurocode, the ratio of the adjacent span and design span is greater than 0.85 and the live load must be less than or equal to the dead load in order to use the coffient method design from the Concise Table 15.3.
+          </td>
+        </tr>
+      </table>
+      Output results - This will design a reinforced concrete flat slab for flexure and shear in the tables below from the design input data in the table above. 
+      <table style="width:100%">
         <tr>
-          <td valign = "top">
-              <table border="2" cellpadding="3" style="width:95%">
-                <tr>
-                  <th colspan="6">Design spans</th>                
-                </tr>
-                <tr>
+          <td valign = "top">  
+            <table border="2" cellpadding="3" style="width:95%">
+              <tr>
+                <th colspan="6">Design spans</th>
+              </tr>
+              <tr>
                 <td>Column strip width</td>
                 <td class="output"><p id="clstrip"></p></td>
                 <td>m</td>     
                 <td>Middle strip</td>          
-                <td class="output"><p id="mdlstrip"></p></td>          
+                <td class="output"><p id="mdlstrip"></p></td>
                 <td>m</td>  
-                </tr>   
-                  <tr>
-                    <th colspan="6"> Design moments</th>
-                  </tr>
-                  <tr>
-                     <td rowspan="2">Sagging moment</td>
-                     <td rowspan="2" width= "65" class="output"><p id="sagmom"></p></td>
-                     <td rowspan="2">kN-m</td>
-                     <td>Column strip </td>
-                     <td width= "65" class="output"><p id="sagmomcol"></p></td>
-                     <td>kNm/m</td>
-                  </tr>                               
-                 <tr>
-                  <td>Middle strip </td>
-                  <td class="output"><p id="sagmommid"></p></td>
-                  <td>kNm/m</td>
-                 </tr>                              
-              <tr>
-                 <td rowspan="2">Hogging moment</td>
-                 <td rowspan="2" class="output"><p id="hogmom"></p></td>
-                 <td rowspan="2">kN-m</td>
-                 <td>Column strip </td>
-                     <td class="output"><p id="hogmomcol"></p></td>
-                     <td>kNm/m</td>
               </tr>
               <tr>
-                 <td>Middle strip </td>
-                 <td class="output"><p id="hogmommid" size ="10"></p></td>
-                 <td>kNm/m</td>
-              </tr>                       
-          </table>
+                <th colspan="6"> Design moments</th>
+              </tr>
+              <tr>
+                <td rowspan="2">Sagging moment</td>
+                <td rowspan="2" width= "65" class="output"><p id="sagmom"></p></td>
+                <td rowspan="2">kN-m</td>
+                <td>Column strip </td>
+                <td width= "65" class="output"><p id="sagmomcol"></p></td>
+                <td>kNm/m</td>
+              </tr>
+              <tr>
+                <td>Middle strip </td>
+                <td class="output"><p id="sagmommid"></p></td>
+                <td>kNm/m</td>
+              </tr>
+              <tr>
+                <td rowspan="2">Hogging moment</td>
+                <td rowspan="2" class="output"><p id="hogmom"></p></td>
+                <td rowspan="2">kN-m</td>
+                <td>Column strip </td>
+                <td class="output"><p id="hogmomcol"></p></td>
+                <td>kNm/m</td>
+              </tr>
+              <tr>
+                <td>Middle strip </td>
+                <td class="output"><p id="hogmommid" size ="10"></p></td>
+                <td>kNm/m</td>
+              </tr>
+            </table>
           </td>
-
-
-<td>
-<table border="2" cellpadding="5"> 
-         
-    <tr>
-    <th colspan="9" >Analysis</th>
-    </tr>
-    <tr><td rowspan="2">Design values</td>
-      <th colspan="4" width= "125">Sagging moment</th>
-      <th colspan="4" width= "125">Hogging moment</th>
-      </tr>
-    
-       <tr> 
-         <td colspan="2">Column strip</td>
-         <td colspan="2">Middle strip</td>
-
-         <td colspan="2">Column Strip</td>
-         <td colspan="2">Middle strip</td>
-       </tr>
-       <tr>
-       <td>K value</td>
-       <td colspan="2" width= "85" class="output"> <p id="ksagclm"></p></td>
-       <td colspan="2" class="output"> <p id="ksagmid"></p></td>
-       <td colspan="2" class="output"> <p id="khogclm"></p></td>
-       <td colspan="2" class="output"> <p id="khogmid"></p></td>
-      </tr>
-       
-    
-       <tr> 
-       <td>Required steel area (A<sub>s</sub>)</td>
-       <td width= "85" class="output"> <p id="assagclm"></p></td>
-       <td>mm<sup>2</sup>/m</td>
-       <td width= "85" class="output"> <p id="assagmid"></p></td>
-       <td>mm<sup>2</sup>/m</td>
-       <td width= "85" class="output"> <p id="ashogclm"></p></td>
-       <td>mm<sup>2</sup>/m</td>
-       <td width= "85" class="output"> <p id="ashogmid"></p></td>
-       <td>mm<sup>2</sup>/m</td>
-     </tr>
-<tr> 
-       <td>Bar spacing</td>
-       <td class="output"> <p id="spacebotclm"></p></td>
-       <td>mm</td>
-       <td class="output"> <p id="spacebotmid"></p></td>
-       <td>mm</td>
-       <td class="output"> <p id="spacetopclm"></p></td>
-       <td>mm</td>
-       <td class="output"> <p id="spacetopmid"></p></td>
-       <td>mm</td>
-       
-     </tr>    
-     <tr> 
-        <td>Provided steel area (A<sub>s</sub>)</td>
-        <td width= "85" class="output"> <p id="assagclmProvided"></p></td>
-        <td>mm<sup>2</sup>/m</td>
-        <td width= "85" class="output"> <p id="assagmidProvided"></p></td>
-        <td>mm<sup>2</sup>/m</td>
-        <td width= "85" class="output"> <p id="ashogclmProvided"></p></td>
-        <td>mm<sup>2</sup>/m</td>
-        <td width= "85" class="output"> <p id="ashogmidProvided"></p></td>
-        <td>mm<sup>2</sup>/m</td>
-      </tr> 
-      </table>
-    </td>
-
-  
-</tr>
-</table>
-<p>
-  <button onclick="shear_design()">Design for shear</button>
-</p>
-<p>
-  <table  width = "92%">
-    <tr>
-      <td valign= "top">
-          <table border="2" cellpadding="5">
-              <tr>      
-                <th colspan="3">Shear design values</th>      
+          <td>
+            <table border="2" cellpadding="5">
+              <tr>
+                <th colspan="9" >Analysis</th>
+              </tr>
+              <tr><td rowspan="2">Design values</td>
+                <th colspan="4" width= "125">Sagging moment</th>
+                <th colspan="4" width= "125">Hogging moment</th>
+              </tr>
+              <tr> 
+                <td colspan="2">Column strip</td>
+                <td colspan="2">Middle strip</td>
+                <td colspan="2">Column Strip</td>
+                <td colspan="2">Middle strip</td>
               </tr>
               <tr>
-                <td>Reaction force at the column (V<sub>ED</sub>)</td>
-                <td  class="output" width= "85"><p id = "columnReaction"></p></td>
-                <td>kN</td>
+                <td>K value</td>
+                <td colspan="2" width= "85" class="output"> <p id="ksagclm"></p></td>
+                <td colspan="2" class="output"> <p id="ksagmid"></p></td>
+                <td colspan="2" class="output"> <p id="khogclm"></p></td>
+                <td colspan="2" class="output"> <p id="khogmid"></p></td>
               </tr>
-              <tr>      
-                <td>Design shear stress at the face of the column (v<sub>ED</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "designShearStressAtColumnFace"></p></td>                    
-                <td>MPa</td>
-              </tr>   
-              <tr>      
-                <td>Concrete maximum shear strength (v<sub>Rd,max</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>                    
-                <td>MPa</td>
+              <tr>
+                <td>Required steel area (A<sub>s</sub>)</td>
+                <td width= "85" class="output"> <p id="assagclm"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="assagmid"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="ashogclm"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="ashogmid"></p></td>
+                <td>mm<sup>2</sup>/m</td>
               </tr>
-              <tr>      
-                <td>Design shear stress at the control perimeter u<sub>1</sub> (v<sub>ED</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "designShearStress"></p></td>                    
-                <td>MPa</td>
+              <tr> 
+                <td>Bar spacing</td>
+                <td class="output"> <p id="spacebotclm"></p></td>
+                <td>mm</td>
+                <td class="output"> <p id="spacebotmid"></p></td>
+                <td>mm</td>
+                <td class="output"> <p id="spacetopclm"></p></td>
+                <td>mm</td>
+                <td class="output"> <p id="spacetopmid"></p></td>
+                <td>mm</td>
               </tr>
-              <tr>      
-                <td>Concrete shear resistance (v<sub>Rd,c</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "concreteShearResis"></p></td>                    
-                <td>MPa</td>
-              </tr>
-              <tr>      
-                <td>Punching shear reinf. per perimeter (A<sub>sw</sub>)</td>                    
-                <td  class="output" width= "100"><p id = "punchReinfArea"></p></td>                    
-                <td>mm<sup>2</sup></td>
-              </tr>
-              <tr>      
-                  <td>No of punching shear reinf. provided (n)</td>                    
-                  <td  class="output" width= "100" colspan="2"><p id = "noStirrup"></p></td>                    
-                
+              <tr>
+                <td>Provided steel area (A<sub>s</sub>)</td>
+                <td width= "85" class="output"> <p id="assagclmProvided"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="assagmidProvided"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="ashogclmProvided"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+                <td width= "85" class="output"> <p id="ashogmidProvided"></p></td>
+                <td>mm<sup>2</sup>/m</td>
+              </tr> 
+            </table>
+          </td>
+        </tr>
+      </table>
+      <p>
+        <button onclick="shear_design()">Design for shear</button>
+      </p>
+      <p>
+        <table  width = "92%">
+          <tr>
+            <td valign= "top">
+              <table border="2" cellpadding="5">
+                <tr>
+                  <th colspan="3">Shear design values</th>
                 </tr>
-              <tr>      
-                <td>Punching shear resistance with shear reinf. (v<sub>Rd,cs</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "shearReinfResisWithConcrete"></p></td>                    
-                <td>MPa</td>
-              </tr>
-              <tr>      
-                <td>Outer perimeter where shear reinf. not required (u<sub>out,ef</sub>)</td>                    
-                <td  class="output" width= "85"><p id = "perimeterShearReinforcement"></p></td>                    
-                <td>m</td>
-              </tr>
-              <tr>      
-                  <td>Radius from the column face to the outer perimeter (r)</td>                    
-                  <td  class="output" width= "85"><p id = "radius"></p></td>                    
+                <tr>
+                  <td>Reaction force at the column (V<sub>ED</sub>)</td>
+                  <td  class="output" width= "85"><p id = "columnReaction"></p></td>
+                  <td>kN</td>
+                </tr>
+                <tr>
+                  <td>Design shear stress at the face of the column (v<sub>ED</sub>)</td>
+                  <td  class="output" width= "85"><p id = "designShearStressAtColumnFace"></p></td>
+                  <td>MPa</td>
+                </tr>
+                <tr>
+                  <td>Concrete maximum shear strength (v<sub>Rd,max</sub>)</td>
+                  <td  class="output" width= "85"><p id = "concMaxShearResis"></p></td>
+                  <td>MPa</td>
+                </tr>
+                <tr>
+                  <td>Design shear stress at the control perimeter u<sub>1</sub> (v<sub>ED</sub>)</td>
+                  <td  class="output" width= "85"><p id = "designShearStress"></p></td>
+                  <td>MPa</td>
+                </tr>
+                <tr>
+                  <td>Concrete shear resistance (v<sub>Rd,c</sub>)</td>
+                  <td  class="output" width= "85"><p id = "concreteShearResis"></p></td>
+                  <td>MPa</td>
+                </tr>
+                <tr>
+                  <td>Punching shear reinf. per perimeter (A<sub>sw</sub>)</td>
+                  <td  class="output" width= "100"><p id = "punchReinfArea"></p></td>
+                  <td>mm<sup>2</sup></td>
+                </tr>
+                <tr>
+                  <td>No of punching shear reinf. provided (n)</td>
+                  <td  class="output" width= "100" colspan="2"><p id = "noStirrup"></p></td>
+                </tr>
+                <tr>
+                  <td>Punching shear resistance with shear reinf. (v<sub>Rd,cs</sub>)</td>
+                  <td  class="output" width= "85"><p id = "shearReinfResisWithConcrete"></p></td>
+                  <td>MPa</td>
+                </tr>
+                <tr>
+                  <td>Outer perimeter where shear reinf. not required (u<sub>out,ef</sub>)</td>
+                  <td  class="output" width= "85"><p id = "perimeterShearReinforcement"></p></td>
                   <td>m</td>
                 </tr>
-            </table>
-      </td>
-      <td valign= "top"><img src="punchingShearLayout.PNG" alt="Punching shear layout"></td>
-      <td valign= "top"><img src="punchingShearLayoutSection.PNG" alt="Punching shear section"></td>
-    </tr>
-
-  </table>
-  
-</p>
-    <div style="background-color: whitesmoke">
-
-   
-
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLScnc63Zt_qulst-xuHHW9l8EbYgdQbajORkTq_wUYc-WU6wXA/viewform?usp=sf_link">Feedback</a></p>
-
-</div>  
-</body>
-</html>
+                <tr>
+                  <td>Radius from the column face to the outer perimeter (r)</td>
+                  <td  class="output" width= "85"><p id = "radius"></p></td>
+                  <td>m</td>
+                </tr>
+              </table>
+            </td>
+            <td valign= "top"><img src="punchingShearLayout.PNG" alt="Punching shear layout"></td>
+            <td valign= "top"><img src="punchingShearLayoutSection.PNG" alt="Punching shear section"></td>
+          </tr>
+        </table>
+      </p>
+      <div style="background-color: whitesmoke">
+        <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScnc63Zt_qulst-xuHHW9l8EbYgdQbajORkTq_wUYc-WU6wXA/viewform?usp=sf_link">Feedback</a></p>
+      </div>
+    </body>
+    </html>

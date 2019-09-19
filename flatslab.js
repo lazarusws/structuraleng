@@ -95,7 +95,7 @@ function input(){
 	var coly = parseFloat( document.getElementById( "cs2" ).value );                 //column size in y direction
 	var D = parseFloat( document.getElementById( "slabth" ).value );
 	var c  = parseFloat( document.getElementById( "coverThic" ).value );
-	var B = 1                                                                         //width of the slab stip for analysis   
+	var B = 1                                                                         //width of the slab stip for analysis
 
 	//selector input
 	var selectorConcreteGrade= document.getElementById("concreteType");
@@ -159,7 +159,7 @@ function critical_section (){
 
 	var u0 = 2 * (colx + coly);                                    // column perimetre 
 
-	var u1 = 2 * (colx + coly) + 2 * 3.14159 * 2 * d;         //basic control perimetre in meter for punching shear analysis
+	var u1 = 2 * (colx + coly) + 2 * 3.14159 * 2 * d;             //basic control perimetre in meter for punching shear analysis
 
 	return 	{d1,d2, d, u1, u0};
 }
@@ -179,7 +179,7 @@ function loading_and_moment(){
     
 	var Mh = dload * 0.106 * Math.min(lx,ly) *  Math.pow(effspan, 2)
 
-	var Msaggcol = 0.5 * Ms/clstrp;              // 50 % Sagging moment is divided in to column and middle strip w
+	var Msaggcol = 0.5 * Ms/clstrp;              // 50 % Sagging moment is divided in to column and middle strip
 
 	var Msaggmid = 0.5 * Ms/middlestrp;
 
@@ -216,9 +216,9 @@ function under_reinforcement_check() {
 
 	var {Msaggcol, Msaggmid, Mhoggcol, Mhoggmid} = loading_and_moment();
 
-	var k_prime = 0.6 * 0.85 - 0.18 * 0.85 * 0.85 - 0.21;               // ductility bis insured by 15% moment distribution of moments 
+	var k_prime = 0.6 * 0.85 - 0.18 * 0.85 * 0.85 - 0.21;               // ductility is insured by 15% moment distribution of moments 
 
-	var ksagc = (Msaggcol/( B * fck * Math.pow(d1,2)));                  //Change D in to effective depth 
+	var ksagc = (Msaggcol/( B * fck * Math.pow(d1,2)));
 
 	if (ksagc >= k_prime) {       
 
@@ -246,7 +246,7 @@ function under_reinforcement_check() {
 	
 	}
 
-	var khogc = Mhoggcol/( B * fck * Math.pow(d1,2));                  //Change D in to effective depth 
+	var khogc = Mhoggcol/( B * fck * Math.pow(d1,2));
 
 	if (khogc >= k_prime ) {       
 
@@ -305,17 +305,17 @@ function flexure_design(){
 
 	//function_analysis_sagging
 
-	var zsagc = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * ksagc))), 0.95 * d1);                  //Change D in to effective depth
+	var zsagc = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * ksagc))), 0.95 * d1);
 
 	var zsagm = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * ksagm))), 0.95 * d1);
 
-	var Assc_mm = Math.max(Msaggcol * 1000000/(zsagc * fyd), As_mm_minimum);           //Area in square mm 	
+	var Assc_mm = Math.max(Msaggcol * 1000000/(zsagc * fyd), As_mm_minimum);                       //Area in square mm 	
 
 	var Assm_mm = Math.max(Msaggmid * 1000000/(zsagm * fyd),As_mm_minimum);
 
-	var spmm_sagc = Math.min((B * 1000 ) / ((Assc_mm / bar_asmm)-1), 2 * D * 1000, 250) ;       // spacing in mm the least from 2h, 250
+	var spmm_sagc = Math.min((B * 1000 ) / ((Assc_mm / bar_asmm)-1), 2 * D * 1000, 250) ;          // spacing in mm the least from 2h, 250
 
-	var sp_mm_sagc = Math.max(spmm_sagc, Math.sqrt(4* bar_asmm/ Math.PI), 20);                    //Checking minimum spacing - limiting to dieameter size or aggregate + dia
+	var sp_mm_sagc = Math.max(spmm_sagc, Math.sqrt(4* bar_asmm/ Math.PI), 20);                    //Checking minimum spacing; limiting to dieameter size or aggregate + dia
 
 	var spmm_sagm = Math.min(( B * 1000 ) / ((Assm_mm / bar_asmm)-1), 3 * D * 1000, 400) ;        // spacing in mm the least from 3h, 400
 
@@ -328,11 +328,11 @@ function flexure_design(){
     //function_analysis_hogging
 
 	
-	var zhogc = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * khogc))),0.95 * d1) ;                  //Change D in to effective depth
+	var zhogc = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * khogc))),0.95 * d1) ;
 
 	var zhogm = Math.min(((d1/2) * (1 + Math.sqrt(1-3.53 * khogm))),0.95 * d1);
 
-	var Ashc_mm = Math.max(Mhoggcol * 1000000/(zhogc * fyd), As_mm_minimum);           //Area in square mm 
+	var Ashc_mm = Math.max(Mhoggcol * 1000000/(zhogc * fyd), As_mm_minimum);
 
 	var Ashm_mm = Math.max(Mhoggmid * 1000000/(zhogm * fyd), As_mm_minimum);
 
@@ -480,7 +480,7 @@ function shear_design(){
 
 		//shear capacity without shear reinforcement (v_Rd_c);
 
-		var steel_Ratio1 = ((Ashc_mm_pr / 1000000)/ (clstrp * d1));    // steel ratio in percent
+		var steel_Ratio1 = ((Ashc_mm_pr / 1000000)/ (clstrp * d1));                  // steel ratio in percent
 
 		var steel_Ratio2 = ((Ashc_mm_pr / 1000000)/ (clstrp * d2)); 
 

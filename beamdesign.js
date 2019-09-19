@@ -170,9 +170,9 @@ function flexure_design() {
 
         var z = Math.min((d1/2) * (1 + Math.sqrt(1 - 3.53 * k)), 0.95 * d1);   
 
-        var As1 = DesignMoment * 1000000/(z * fyd);              //Area in square mm      
+        var As1 = DesignMoment * 1000000/(z * fyd);                                                //Area in square mm      
 
-        var n1= Math.ceil(Math.max(As1 / bar_as_mm, 2));                    //No of bar in tension zone
+        var n1= Math.ceil(Math.max(As1 / bar_as_mm, 2));                                           //No of bar in tension zone
         
         var As2 = "Not required";
 
@@ -193,7 +193,7 @@ function flexure_design() {
         
         var x = (mom_dis - 0.4) * d1;
 
-        var fsc = Math.min(700 * 1000 * (x - d2) / x, fyd);        //Multiplied by 1000 to make the unit of fsc same with fyd
+        var fsc = Math.min(700 * 1000 * (x - d2) / x, fyd);                                        //Multiplied by 1000 to make the unit of fsc same with fyd
 
         var M_prime =  b * d1 * d1 * fck * (k - k_prime ); 
 
@@ -244,7 +244,7 @@ function shear_design(){
 
     var {l , b, d1, stirrup_bar_as_mm, LegNumber , fck, fywd} = input();
 
-    var V_ED_kN = DesignLoad * l / 2;  //Shear force acts on the beam d length from the face the support(column)
+    var V_ED_kN = DesignLoad * l / 2;                                                   //Shear force acts on the beam d length from the face the support(column)
 
     var v_ED_MPa = V_ED_kN / (1000 * b * 0.9 * d1 );
 
@@ -294,7 +294,7 @@ function shear_design(){
 
         var teta = (0.5 *180/ Math.PI) * Math.asin( ( v_ED_MPa)/((0.20 * fck / 1000)*(1 - fck/250000)));       // 250 is multiplied by 1000 to make the unit same with fck input which is in MPA   2/ Divided by pi and multiplied by 180 to give an angle value in degree
         
-        var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fywd / (1000 * Math.tan(teta * Math.PI / 180))));  // (1 / Math.tan(teta))
+        var Asw_per_s = (v_ED_MPa * b) * 1000 / ((fywd / (1000 * Math.tan(teta * Math.PI / 180))));            // (1 / Math.tan(teta))
 
         var stirrup_spacing = Math.min((stirrup_bar_as_mm * LegNumber )/ Asw_per_s, 0.75 * d1 * 1000);
 
