@@ -3,202 +3,196 @@
   <title>Steel Column Design </title>
   <script src="general.js"></script>
   <script src="steelcolumn.js"></script>
-
   <link rel="stylesheet" type="text/css" href="stylesSteelColumnDesign.css">
 </head>
 <body>
   <div style="background-color: whitesmoke">
     <center><h1>Steel Column Design</h1></center>
     <table width = "100%">
-        <tr>
-          <td>
-      <a href="Steel column description.pdf">Description</a> 
-      </td>
-      <td >
-        <table border="2" align = "right">
       <tr>
-          <th class= "tb">EUROCODE 3</th>
+        <td>
+          <a href="Steel column description.pdf">Description</a>
+        </td>
+        <td>
+          <table border="2" align = "right">
+            <tr>
+              <th class= "tb">EUROCODE 3</th>
+            </tr>
+          </table>
+        </td>
       </tr>
-        </table>
-      </td>
-      </tr>
-      </table>
-      </div>
-      <table width="100%">
-        <tr>
-          <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
-          <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
-        </tr>
-      </table>
-      Input - Insert the axial load, material property, safety factor, effective length coefficient (by selecting the connection type)  and lenght of the steel column.
+    </table>
+  </div>
+  <table width="100%">
+    <tr>
+      <td><p>Precision: <input type="number" id="digits" value="6" min="1" max="10"></p></td>
+      <td align="right"><button onclick="pagePrint()">Print</button><input  type="button" onclick="reset_page()" value="Reset page" ></td>
+    </tr>
+  </table>
+  Input - Insert the axial load, material property, safety factor, effective length coefficient (by selecting the connection type)  and lenght of the steel column.
   <table>
     <tr>
       <td>
-        <table border="2" cellpadding="5"> 
+        <table border="2" cellpadding="5">
           <tr>
             <th colspan="3">Load and material property</th>
             <th colspan="3">Dimension</th>
           </tr>
-
-      <tr>
-          <td>Steel grade</td>
-          <td colspan="2"><select id="steelType">                  <!--Steel yield Strength  -->
-            <option value="235000"            >S235</option>     
-            <option value="275000"            >S275</option>
-            <option value="355000"    selected>S355</option>
-            <option value="420000"            >S420</option>
-            <option value="460000"            >S460</option>
-          </select></td>
-          <td>Unbraced height, x axis (Lx)</td>
-          <td><input type="text" id="lx" value="2.5" size="10"></td>
-          <td>m</td>
-        </tr>
-  <tr>
-    <td>Partial safety factor (&gamma;<sub>M</sub>)</td>
-    <td colspan="2">
-      <select id="materialSfType">
-                      <option value="1.0"         selected>1.0</option>     <!--Safety factor for the load-->
-                      <option value="1.25"                >1.25</option>
-                      <option value="1.35"                >1.35</option>
-                    </select></td>
-                    <td>Unbraced height, y axis (Ly)</td>
-                    <td><input type="text" id="ly" value="2.5" size="10"></td>
-                    <td>m</td>
-                  </tr>
-                  <tr>
-                    <td>Elastic modulus (E)</td>
-                    <td><input type="text" id="elasMod" value="210" size="10"></td>            <!--Elastic modulus is in giga pascal but the load input is in kN, to make this compatible it is divided by 1000 -->
-                    <td>GPa</td>
-                    <td colspan="3"> Connections                    
-                      <select id="connectionType">
-                          <option value="1.0"        selected>Pinned at both ends</option>     <!--Safety factor for the load-->
-                          <option value="0.7"                >Fixed at one end; pinned at the other end</option>
-                          <option value="0.5"                >Fixed at both ends</option>
-                          <option value="2.0"                >Fixed at one end; free at the other end (cantilever)</option>
-                         </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Design load (N<sub>ED</sub>)</td>
-                    <td><input type="text" id="dLoad" value="400.00" size="10"></td>
-                    <td>kN</td>
-                    <td colspan="3"></td>
-                  </tr>
-                </table>
+          <tr>
+            <td>Steel grade</td>
+            <td colspan="2"><select id="steelType">                  <!--Steel yield Strength  -->
+              <option value="235000"            >S235</option>
+              <option value="275000"            >S275</option>
+              <option value="355000"    selected>S355</option>
+              <option value="420000"            >S420</option>
+              <option value="460000"            >S460</option>
+            </select></td>
+            <td>Unbraced height, x axis (Lx)</td>
+            <td><input type="text" id="lx" value="2.5" size="10"></td>
+            <td>m</td>
+          </tr>
+          <tr>
+            <td>Partial safety factor (&gamma;<sub>M</sub>)</td>
+            <td colspan="2">
+              <select id="materialSfType">
+                <option value="1.0"         selected>1.0</option>     <!--Safety factor for the load-->
+                <option value="1.25"                >1.25</option>
+                <option value="1.35"                >1.35</option>
+              </select></td>
+              <td>Unbraced height, y axis (Ly)</td>
+              <td><input type="text" id="ly" value="2.5" size="10"></td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>Elastic modulus (E)</td>
+              <td><input type="text" id="elasMod" value="210" size="10"></td>
+              <td>GPa</td>
+              <td colspan="3"> Connections
+                <select id="connectionType">
+                  <option value="1.0"        selected>Pinned at both ends</option>                             <!--Effective length factor for alternative end connections-->
+                  <option value="0.7"                >Fixed at one end; pinned at the other end</option>
+                  <option value="0.5"                >Fixed at both ends</option>
+                  <option value="2.0"                >Fixed at one end; free at the other end (cantilever)</option>
+                </select>
               </td>
-              <td valign="top"><img src="steel section axis.PNG" alt="Steel section" width="170" height="170"></td>
-                    </tr>
-                    </table>
-                    
-                                   
-                    <p><button onclick="designSection()">Design section</button></p>
-                    Output - This will analyse the steel column and selects steel section to design it in the table below from the input values in the table above.                       <table>
-                        <tr>
-                          <td>
-                              <table border="2" cellpadding="5">
-                    
-                                  <tr>
-                                    <th colspan="3">Dimension</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Serial size</td>
-                                        <td colspan="2" class="output"><p id="serialSize"></p></td>
-                                    </tr>
-                                    <tr>
-                                    <td>Section area (A<sub>s</sub>)</td>
-                                    <td class="output"><p id="steelsec"></p></td>
-                                    <td>cm<sup>2</sup></td>
-                                    </tr>
-                                    <tr>
-                                    <td>Depth (D)</td>
-                                    <td class="output"><p id="depth"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Flange width (B)</td>
-                                    <td class="output"><p id="flangeWidth"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Flange thic. (t<sub>f</sub>)</td>
-                                    <td class="output"><p id="thicFlange"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Web height (d)</td>
-                                    <td class="output"><p id="heightWeb"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Web thic. (t<sub>w</sub>)</td>
-                                    <td class="output"><p id="thicWeb"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Radius (r)</td>
-                                    <td class="output"><p id="rad"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Radius of gyration x-x</td>
-                                    <td class="output"><p id="radGyr_x"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    <tr>
-                                    <td>Radius of gyration y-y</td>
-                                    <td class="output"><p id="radGyr_y"></p></td>
-                                    <td>mm</td>
-                                    </tr>
-                                    </table>
-                          <td valign="top"><img src="steelsection.png" alt="Steel section" width="200" height="200"></td>
-                          <td valign="top">
-                      <table border="2" cellpadding="5">
-                        <tr>
-                            <th colspan="4">Analysis</th>
-                          </tr>
-                          <tr>
-                            <td rowspan="2">Section class</td>
-                            <td>Flange</td>
-                            <td colspan="2" class="output"><p id="clsFlange"></p></td>
-                            <tr>
-                              <td>Web</td>
-                              <td colspan="2" class="output"><p id="clsWeb"></p></td>
-                            </tr>
-                            
-                          </tr>
-                          <tr>
-                            <td rowspan="3">Slenderness ratio</td>
-                            <td>Lamda x</td>
-                            <td colspan="2" class="output"><p id="slendCoffiX"></p></td>
-                          </tr>
-                          <tr>
-                            <td>Lamda y</td>
-                            <td colspan="2" class="output"><p id="slendCoffiY"></p></td>
-                          </tr>
-                          <tr>
-                            <td>Phi</td>
-                            <td colspan="2" class="output"><p id="phi"></p></td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">Reduction factor X<sub>min</sub></td>
-                            <td colspan="2" class="output"><p id="redFactor"></p></td>
-                          </tr>
-                          <tr>
-                          <td rowspan="2">Compression resistance (N<sub>c,Rd</sub>)</td>
-                          <td>Plastic resistance</td>
-                          <td class="output"><p id="plasresist"></p></td>
-                            <td>kN</td>
-                          
-                          </tr>
-                          <tr>
-                              <td>Buckling resistance </td>
-                              <td class="output"><p id="buckresist"></p></td>
-                                <td>kN</td>
-                              </tr>
-                        </table>  
-                        </td>
-                        </tr>
-                        </table>    
-                    <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSde0bCYtR6VvRqPxVfFQopgrSy5dpr92JmrSDg79cCn24SvMQ/viewform?usp=sf_link">Feedback</a></p>
- </body>
-</html>
+            </tr>
+            <tr>
+              <td>Design load (N<sub>ED</sub>)</td>
+              <td><input type="text" id="dLoad" value="400.00" size="10"></td>
+              <td>kN</td>
+              <td colspan="3"></td>
+            </tr>
+          </table>
+        </td>
+        <td valign="top"><img src="steel section axis.PNG" alt="Steel section" width="170" height="170"></td>
+      </tr>
+    </table>
+    <p><button onclick="designSection()">Design section</button></p>
+    Output - This will analyse the steel column and selects steel section to design it in the table below from the input values in the table above.
+    <table>
+      <tr>
+        <td>
+          <table border="2" cellpadding="5">
+            <tr>
+              <th colspan="3">Dimension</th>
+            </tr>
+            <tr>
+              <td>Serial size</td>
+              <td colspan="2" class="output"><p id="serialSize"></p></td>
+            </tr>
+            <tr>
+              <td>Section area (A<sub>s</sub>)</td>
+              <td class="output"><p id="steelsec"></p></td>
+              <td>cm<sup>2</sup></td>
+            </tr>
+            <tr>
+              <td>Depth (D)</td>
+              <td class="output"><p id="depth"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Flange width (B)</td>
+              <td class="output"><p id="flangeWidth"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Flange thic. (t<sub>f</sub>)</td>
+              <td class="output"><p id="thicFlange"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Web height (d)</td>
+              <td class="output"><p id="heightWeb"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Web thic. (t<sub>w</sub>)</td>
+              <td class="output"><p id="thicWeb"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Radius (r)</td>
+              <td class="output"><p id="rad"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Radius of gyration x-x</td>
+              <td class="output"><p id="radGyr_x"></p></td>
+              <td>mm</td>
+            </tr>
+            <tr>
+              <td>Radius of gyration y-y</td>
+              <td class="output"><p id="radGyr_y"></p></td>
+              <td>mm</td>
+            </tr>
+          </table>
+          <td valign="top"><img src="steelsection.png" alt="Steel section" width="200" height="200"></td>
+          <td valign="top">
+            <table border="2" cellpadding="5">
+              <tr>
+                <th colspan="4">Analysis</th>
+              </tr>
+              <tr>
+                <td rowspan="2">Section class</td>
+                <td>Flange</td>
+                <td colspan="2" class="output"><p id="clsFlange"></p></td>
+                <tr>
+                  <td>Web</td>
+                  <td colspan="2" class="output"><p id="clsWeb"></p></td>
+                </tr>
+              </tr>
+              <tr>
+                <td rowspan="3">Slenderness ratio</td>
+                <td>Lamda x</td>
+                <td colspan="2" class="output"><p id="slendCoffiX"></p></td>
+              </tr>
+              <tr>
+                <td>Lamda y</td>
+                <td colspan="2" class="output"><p id="slendCoffiY"></p></td>
+              </tr>
+              <tr>
+                <td>Phi</td>
+                <td colspan="2" class="output"><p id="phi"></p></td>
+              </tr>
+              <tr>
+                <td colspan="2">Reduction factor X<sub>min</sub></td>
+                <td colspan="2" class="output"><p id="redFactor"></p></td>
+              </tr>
+              <tr>
+                <td rowspan="2">Compression resistance (N<sub>c,Rd</sub>)</td>
+                <td>Plastic resistance</td>
+                <td class="output"><p id="plasresist"></p></td>
+                <td>kN</td>
+              </tr>
+              <tr>
+                <td>Buckling resistance </td>
+                <td class="output"><p id="buckresist"></p></td>
+                <td>kN</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSde0bCYtR6VvRqPxVfFQopgrSy5dpr92JmrSDg79cCn24SvMQ/viewform?usp=sf_link">Feedback</a></p>
+    </body>
+    </html>
