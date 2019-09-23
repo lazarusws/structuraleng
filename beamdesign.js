@@ -19,6 +19,7 @@ function blank_output() {
    document.getElementById( "apers" ).innerHTML                  = "";  
    return true;
 }
+
 function reset_page() {
    document.getElementById( "deadLoad"    ).value = 4.0;
    document.getElementById( "liveLoad"    ).value = 2.0;
@@ -52,10 +53,11 @@ function reset_page() {
 
    var selectorStirrupLeg = document.getElementById("stirrupLeg");
    selectorStirrupLeg.selectedIndex = 0;
- 
+
    blank_output();
    return true;
 }
+
 function input() {
     //Value input-------------------------------------------------------------------------------
     var DL = parseFloat( document.getElementById( "deadLoad"  ).value );
@@ -93,29 +95,29 @@ function input() {
 
 	return {DL, LL, l, D, b, bar_as_mm, fyd, fck, mom_dis, safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, LegNumber, fywd, c, d1};
 }
+
 function designloadAndMoment() {
 
     var {DL,LL, safetyLiveLoad, safetyDeadLoad, l} = input()
 
     var DesignLoad =  safetyDeadLoad * DL + safetyLiveLoad* LL;
-    
+
     var DesignMoment = (DesignLoad * l * l) / 8;
-    
+
     console.log(DesignLoad);
     document.getElementById("designLoad").innerHTML = precision( DesignLoad );
-    
+
     console.log(DesignMoment);
     document.getElementById("designMoment").innerHTML = precision( DesignMoment );
 
     return {DesignLoad, DesignMoment};
 }
+
 function brittle_failure_check() {
 
     var {mom_dis, b, fck, d1} = input();
-    
-    var {DesignMoment} = designloadAndMoment();
 
- 
+    var {DesignMoment} = designloadAndMoment();
 
     var k_prime = 0.6 * mom_dis - 0.18 * mom_dis * mom_dis - 0.21;
 
@@ -127,19 +129,20 @@ function brittle_failure_check() {
 
         alert("Inadequate section! Redesign section - Increase the section capacity by either increasing the depth or the concrete grade.");
 
-        location.reload();        
-       
+        location.reload();
+
     } else if (k >= 0.16995) {
 
         if (mom_dis > 0.85) {
 
         alert("WARNING! It is recommended to design a doubly reinforced concrete beam (limit moment redistribution to 15% minimum for Class A and 20% to 30% for Class B & C) to ensure ductile failure for the design moment.")
-        
+
         }else {}
+
     }
-    
+
     else { k = DesignMoment/ (b * fck * d1 * d1) }
-    
+
     console.log(k);
     document.getElementById("reinfCoffi").innerHTML = precision(k);
 
@@ -148,6 +151,7 @@ function brittle_failure_check() {
 
     return{k, k_prime};
 }
+
 function flexure_design() {
 
     var {l,b,fck, k_prime, fyd, bar_as_mm, mom_dis, DL, LL, D,safetyDeadLoad, safetyLiveLoad, stirrup_bar_as_mm, c, d1} = input();
@@ -165,7 +169,7 @@ function flexure_design() {
 	if ( LL >= 0.0){}  else{alert( "Invalid live load input!")};
 	if ( l > 0.0){}  else{alert( "Invalid beam span length input !")};
 	if ( b > 0.0){}  else{alert( "Invalid beam width input !")};    
-    
+
     if (k <= k_prime) {
 
         var z = Math.min((d1/2) * (1 + Math.sqrt(1 - 3.53 * k)), 0.95 * d1);   
@@ -184,13 +188,12 @@ function flexure_design() {
 
         document.getElementById("beamSectionIMG").src="singleReinforcement.png";
 
-        
     } else{
 
         var d2 = precision(c + (Math.sqrt((4 * stirrup_bar_as_mm)/ 3.14))/1000 + (Math.sqrt((4 * bar_as_mm)/ 3.14))/2000);
 
         var z = (d1/2) * (1 + Math.sqrt(1 - 3.53 * k_prime));
-        
+
         var x = (mom_dis - 0.4) * d1;
 
         var fsc = Math.min(700 * 1000 * (x - d2) / x, fyd);                                        //Multiplied by 1000 to make the unit of fsc same with fyd
@@ -209,12 +212,12 @@ function flexure_design() {
 
         document.getElementById("beamSectionIMG").src="doubleReinforcement.png";
 
-    } 
+    }
 
     console.log(d1);
     document.getElementById("effectiveDepth").innerHTML = precision(d1);
 
-    console.log(d2);        
+    console.log(d2);
     document.getElementById("effectiveDepthCompression").innerHTML = d2;
 
 
@@ -226,17 +229,16 @@ function flexure_design() {
 
     console.log(As2);
     document.getElementById("as2").innerHTML = As2;
-    
+
     console.log(n1);
     document.getElementById("tensionBar").innerHTML = Math.ceil(n1);
 
     console.log(n2);
     document.getElementById("compressionBar").innerHTML = n2;
-    
 
-       return{z,d1};
+    return{z,d1};
 
-} 
+}
 
 function shear_design(){
 
@@ -249,7 +251,7 @@ function shear_design(){
     var v_ED_MPa = V_ED_kN / (1000 * b * 0.9 * d1 );
 
     console.log(v_ED_MPa);
-    
+
     document.getElementById("shearStress").innerHTML = precision(v_ED_MPa);
 
     function strut_capacity(){
@@ -287,7 +289,7 @@ function shear_design(){
         var Asw_mm = stirrup_bar_as_mm * LegNumber;
 
         var teta =  21.8;
-        
+
         document.getElementById("concreteShearSection").src="ShearSectionMiniStirrup.png";
 
     }   else if(v_ED_MPa < V_RD_cot1_0){
@@ -309,6 +311,7 @@ function shear_design(){
         location.reload();
 
     }
+
     console.log(teta);
     document.getElementById("teta").innerHTML = precision(teta);
 
@@ -323,14 +326,15 @@ function shear_design(){
 
     console.log(Asw_mm);
     document.getElementById("stirrupArea").innerHTML = Math.floor(Asw_mm);
-//trial out puts to check the formulas
-    
+
     console.log(Asw_per_s);
     document.getElementById("apers").innerHTML = precision(Asw_per_s);
 }
 //Page print function--------------------------------------------------------------------
 function pagePrint() {
-  window.print();
+
+    window.print();
+
 }
 
 
