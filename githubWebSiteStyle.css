@@ -27,3 +27,11 @@ th
    font-style: normal;
    font-weight: bold;
 }
+
+.padFoundationDesign
+{
+   position: relative;
+   min-width: 1500px;   
+   min-height: 720px;
+   
+}
